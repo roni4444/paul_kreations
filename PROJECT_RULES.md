@@ -13,7 +13,7 @@ These rules are mandatory. Do not deviate.
 - React (latest)
 - TypeScript (strict)
 - Tailwind CSS
-- shadcn/ui
+- shadcn/ui (component library - Radix, preset - Rhea)
 
 ## Backend
 
