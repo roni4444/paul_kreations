@@ -79,7 +79,10 @@ export default function RootLayout({
         "font-sans",
       )}
     >
-      <body className="min-h-full flex flex-col bg-[#f9f9ff] text-[#111c2d]">
+      <body
+        suppressHydrationWarning
+        className="min-h-full flex flex-col bg-[#f9f9ff] text-[#111c2d]"
+      >
         {children}
       </body>
     </html>
