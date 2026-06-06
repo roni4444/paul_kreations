@@ -1,4 +1,5 @@
 import { ArrowRight, Download, Package, Star } from "lucide-react";
+import { apps } from "@/lib/data";
 
 // Mono label — JetBrains Mono from layout.tsx font variable
 const MONO = "font-[family-name:var(--font-jetbrains-mono)] tracking-[0.05em]";
@@ -113,15 +114,22 @@ export function Hero() {
           {[
             {
               icon: <Package size={13} />,
-              value: "3",
+              value: apps.length,
               label: "Products on Play Store",
             },
             {
               icon: <Download size={13} />,
-              value: "3.5K+",
+              value: "500+",
               label: "Total Downloads",
             },
-            { icon: <Star size={13} />, value: "4.5", label: "Average Rating" },
+            {
+              icon: <Star size={13} />,
+              value: (
+                (apps[0].rating + apps[1].rating + apps[2].rating) /
+                3
+              ).toPrecision(3),
+              label: "Average" + " Rating",
+            },
           ].map((stat) => (
             <div
               key={stat.label}

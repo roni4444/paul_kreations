@@ -1,11 +1,21 @@
-import { services } from "@/lib/data";
-import { Globe, Layers, Lightbulb, LucideIcon, Smartphone } from "lucide-react";
+import {services} from "@/lib/data";
+import {
+  Gamepad2,
+  Globe,
+  LucideIcon,
+  ScrollText,
+  Share2,
+  Smartphone,
+  TrendingUp,
+} from "lucide-react";
 
 const ICON_MAP: Record<string, LucideIcon> = {
   Smartphone,
   Globe,
-  Layers,
-  Lightbulb,
+  Gamepad2,
+  TrendingUp,
+  Share2,
+  ScrollText,
 };
 
 // Mono label style — JetBrains Mono
@@ -39,7 +49,7 @@ export function Services() {
         {/* ── Service Cards — flat, 1px border, no shadow ─ */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {services.map((service, index) => {
-            const Icon = ICON_MAP[service.icon] ?? Lightbulb;
+            const Icon = ICON_MAP[service.icon] ?? ScrollText;
 
             return (
               <article

@@ -15,8 +15,8 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <Apps />
         <Services />
+        <Apps />
         <Team />
         <Roadmap />
       </main>

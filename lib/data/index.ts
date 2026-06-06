@@ -142,7 +142,7 @@ export const apps: AppItem[] = [
     ],
     privacyPolicy: {
       lastUpdated: "2025-06-01",
-      contactEmail: "contact@paulkreations.com",
+      contactEmail: "debapriyopaul.dp@gmail.com",
       permissions: [
         "INTERNET — Required to load recipes, sync data, and deliver app updates.",
         "ACCESS_NETWORK_STATE — Used to check connectivity before making network requests.",
@@ -177,7 +177,7 @@ export const apps: AppItem[] = [
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=agri.startup.natural_farming",
     downloads: "500+",
-    rating: 4.2,
+    rating: 4.5,
     colorFrom: "#474746",
     colorTo: "#636262",
     techStack: [
@@ -192,7 +192,7 @@ export const apps: AppItem[] = [
     ],
     privacyPolicy: {
       lastUpdated: "2025-06-01",
-      contactEmail: "contact@paulkreations.com",
+      contactEmail: "debapriyopaul.dp@gmail.com",
       permissions: [
         "INTERNET — Required to load educational content and check for updates.",
         "ACCESS_NETWORK_STATE — Used to verify connectivity before fetching content.",
@@ -249,7 +249,7 @@ export const apps: AppItem[] = [
     ],
     privacyPolicy: {
       lastUpdated: "2025-06-01",
-      contactEmail: "contact@paulkreations.com",
+      contactEmail: "debapriyopaul.dp@gmail.com",
       permissions: [],
       thirdPartyServices: [
         {
@@ -272,39 +272,71 @@ export const apps: AppItem[] = [
 export const services: Service[] = [
   {
     id: "mobile",
-    title: "Android Development",
+    title: "Android App Development",
     description:
-      "Native Android applications engineered for performance, reliability, and excellent user experience — built for the Play Store.",
+      "End-to-end Android and Flutter application development — from architecture and UI design to Play Store submission, optimisation, and post-launch support.",
     icon: "Smartphone",
     highlights: [
-      "Native Android",
+      "Flutter & Kotlin",
       "Play Store Publishing",
-      "Performance Optimization",
+      "Performance & UX",
     ],
   },
   {
     id: "web",
     title: "Web Development",
     description:
-      "Modern, full-stack web applications using the latest technologies. From marketing sites to complex web platforms.",
+      "Modern, full-stack web applications built with Next.js and TypeScript — from landing pages to complex platforms, deployed and scaled on Vercel.",
     icon: "Globe",
     highlights: ["Next.js & React", "TypeScript", "Vercel & Cloud Deploy"],
   },
   {
-    id: "design",
-    title: "UI/UX Design",
+    id: "game",
+    title: "Game Development",
     description:
-      "User-centric interfaces that balance visual refinement with intuitive flows, backed by thoughtful design systems.",
-    icon: "Layers",
-    highlights: ["User Research", "Figma Prototyping", "Design Systems"],
+      "Mobile-first game development combining tight mechanics, engaging design, and optimised performance — built for Android and ready for the Play Store.",
+    icon: "Gamepad2",
+    highlights: [
+      "Android Games",
+      "Game Design & Mechanics",
+      "Play Store Publishing",
+    ],
   },
   {
-    id: "consulting",
-    title: "Tech Consulting",
+    id: "marketing",
+    title: "Digital Marketing",
     description:
-      "Strategic guidance on technology choices, architecture decisions, and helping teams ship better software faster.",
-    icon: "Lightbulb",
-    highlights: ["Architecture Review", "Tech Stack Guidance", "Code Audits"],
+      "Data-driven marketing strategies that grow visibility, attract the right audience, and convert traffic into measurable results across channels.",
+    icon: "TrendingUp",
+    highlights: [
+      "SEO & ASO Strategy",
+      "Growth Analytics",
+      "Campaign Management",
+    ],
+  },
+  {
+    id: "social",
+    title: "Social Media Content",
+    description:
+      "Scroll-stopping content crafted for each platform — consistent brand voice, sharp visual storytelling, and audience engagement that compounds over time.",
+    icon: "Share2",
+    highlights: [
+      "Content Strategy",
+      "Visual & Copy Creation",
+      "Platform Management",
+    ],
+  },
+  {
+    id: "cv",
+    title: "CV Optimisation",
+    description:
+      "Professional CV and résumé refinement tailored for tech roles — structured to clear ATS filters and make an immediate impression with hiring managers.",
+    icon: "ScrollText",
+    highlights: [
+      "ATS Optimisation",
+      "Tech Role Targeting",
+      "LinkedIn Alignment",
+    ],
   },
 ];
 
@@ -312,14 +344,19 @@ export const services: Service[] = [
 
 export const teamMembers: TeamMember[] = [
   {
-    id: "paul1",
+    id: "member1",
     name: "Debapriyo Paul",
     role: "Founder & Lead Developer",
-    bio: "Passionate builder of digital products. Combines engineering precision with design sensibility to create software people love to use.",
+    bio:
+      "Passionate builder of digital products. Combines engineering" +
+      " precision with design sensibility to create software people love" +
+      " to use.",
     initials: "D",
     avatarColor: "#c41e3a",
     skills: [
       "Flutter",
+      "Supabase",
+      "Firebase",
       "Android",
       "Next.js",
       "TypeScript",
@@ -329,10 +366,30 @@ export const teamMembers: TeamMember[] = [
     contributions: [
       { project: apps[0].name, role: "Lead Developer & Designer" },
       { project: apps[1].name, role: "Lead Developer" },
-      { project: apps[2].name, role: "Developer & Game Designer" },
+      { project: apps[2].name, role: "Developer & Level Designer" },
     ],
     github: "https://github.com/roni4444",
     linkedin: "https://www.linkedin.com/in/debapriyo-paul-198369105/",
+  },
+  {
+    id: "member2",
+    name: "Debarati Paul",
+    role: "Lead Digital Marketer",
+    bio: "A Canva Designer and Content Creator with a strong background in hospitality across the UAE.",
+    initials: "D",
+    avatarColor: "#c41e3a",
+    skills: [
+      "Digital Marketing",
+      "Canva",
+      "Meta Buniess Suite",
+      "Social" + " Media Platforms",
+    ],
+    contributions: [
+      { project: apps[0].name, role: "Lead Digital Marketer" },
+      { project: apps[1].name, role: "Lead Digital Marketer" },
+      { project: apps[2].name, role: "Digital Marketer & Game assets creator" },
+    ],
+    linkedin: "https://www.linkedin.com/in/debarati-paul-designer/",
   },
 ];
 
@@ -340,22 +397,21 @@ export const teamMembers: TeamMember[] = [
 
 export const roadmap: RoadmapItem[] = [
   {
+    id: "unity",
+    title: "Project Ironway",
+    description: "Expanding to the AAA games for PC using Unity",
+    status: "in-progress",
+    icon: "Gamepad2",
+    eta: "2027",
+  },
+  {
     id: "ecommerce",
     title: "E-Commerce Storefront",
     description:
       "A fully integrated storefront to sell digital and physical products, directly embedded in the platform.",
     status: "planned",
     icon: "ShoppingBag",
-    eta: "2025",
-  },
-  {
-    id: "ios",
-    title: "iOS App Portfolio",
-    description:
-      "Expanding to the Apple ecosystem with native iOS versions of existing and upcoming applications.",
-    status: "planned",
-    icon: "Smartphone",
-    eta: "2025",
+    eta: "2028",
   },
   {
     id: "saas",
@@ -364,6 +420,6 @@ export const roadmap: RoadmapItem[] = [
       "Standalone web-based tools and services available via subscription, tailored for developers and creators.",
     status: "planned",
     icon: "Server",
-    eta: "2026",
+    eta: "2028",
   },
 ];
