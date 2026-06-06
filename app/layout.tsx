@@ -25,7 +25,7 @@ const jetbrainsMono = JetBrains_Mono({
 // ─── Base URL ─────────────────────────────────────────────────────────────────
 // Required for Next.js to resolve relative OG image paths to absolute URLs.
 // Without this, social platforms receive a relative path and show no preview.
-const BASE_URL = "https://paulkreations.com"; // ← update to your domain
+const BASE_URL = "https://paul-kreations.vercel.app"; // ← update to your domain
 
 // ─── Metadata ─────────────────────────────────────────────────────────────────
 export const metadata: Metadata = {

@@ -5,7 +5,7 @@
 import type { MetadataRoute } from "next";
 import { apps } from "@/lib/data";
 
-const BASE_URL = "https://paulkreations.com"; // ← update to your domain
+const BASE_URL = "https://paul-kreations.vercel.app"; // ← update to your domain
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const privacyPolicyRoutes = apps.map((app) => ({
