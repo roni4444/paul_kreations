@@ -1,7 +1,7 @@
-import type {Metadata, Viewport} from "next";
-import {Geist, Geist_Mono, Inter} from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import {cn} from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -13,6 +13,13 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+// NEW_DESIGN.md — JetBrains Mono for all labels, metadata, and status indicators
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -38,8 +45,6 @@ export const metadata: Metadata = {
     title: "Paul Kreations — Building Thoughtful Digital Products",
     description:
       "Android apps, web experiences, and games — built with precision, purpose, and genuine craft.",
-    // Add your OG image path when available:
-    // images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
@@ -54,7 +59,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#3c52c0",
+  themeColor: "#c41e3a",
 };
 
 export default function RootLayout({
@@ -69,11 +74,12 @@ export default function RootLayout({
         "h-full antialiased scroll-smooth",
         geistSans.variable,
         geistMono.variable,
+        jetbrainsMono.variable,
         inter.variable,
         "font-sans",
       )}
     >
-      <body className="min-h-full flex flex-col bg-[#f9f9fb] text-[#1a1c1d]">
+      <body className="min-h-full flex flex-col bg-[#f9f9ff] text-[#111c2d]">
         {children}
       </body>
     </html>

@@ -1,11 +1,5 @@
 import { roadmap } from "@/lib/data";
-import {
-  Lock,
-  LucideIcon,
-  Server,
-  ShoppingBag,
-  Smartphone,
-} from "lucide-react";
+import { LucideIcon, Server, ShoppingBag, Smartphone } from "lucide-react";
 
 const ICON_MAP: Record<string, LucideIcon> = {
   ShoppingBag,
@@ -13,71 +7,68 @@ const ICON_MAP: Record<string, LucideIcon> = {
   Server,
 };
 
+// Mono label style — JetBrains Mono
+const MONO = "font-[family-name:var(--font-jetbrains-mono)] tracking-[0.05em]";
+
+// Status badge styles — JetBrains Mono per spec
 const STATUS_LABEL: Record<string, string> = {
-  planned: "Planned",
-  "in-progress": "In Progress",
-  soon: "Coming Soon",
+  planned: "PLANNED",
+  "in-progress": "IN PROGRESS",
+  soon: "COMING SOON",
 };
 
 const STATUS_STYLE: Record<string, string> = {
-  planned: "bg-[#f3f3f5] text-[#757684] border border-[#e2e2e4]",
-  "in-progress": "bg-[#dee0ff] text-[#3c52c0] border border-[#bac3ff]",
-  soon: "bg-[#ffdcc1] text-[#6c3a00] border border-[#ffb778]",
+  planned: "bg-[#f9f9ff] text-[#8f6f6f] border border-[#e3bebd]",
+  "in-progress": "bg-[#ffdad9] text-[#c41e3a] border border-[#c41e3a]/40",
+  soon: "bg-[#c41e3a] text-white border border-[#9e0027]",
 };
 
 export function Roadmap() {
   return (
-    <section id="roadmap" className="py-24 bg-[#f9f9fb] overflow-hidden">
-      <div className="max-w-[1280px] mx-auto px-6">
-        {/* ── Section Header ──────────────────── */}
+    <section id="roadmap" className="py-24 bg-[#f9f9ff]">
+      <div className="max-w-[1280px] mx-auto px-10">
+        {/* ── Section Header ───────────────────── */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
           <div className="max-w-lg">
-            <span className="inline-block text-xs font-semibold uppercase tracking-[0.1em] text-[#3c52c0] mb-4">
+            <span
+              className={`${MONO} inline-block text-[11px] text-[#c41e3a] uppercase mb-4`}
+            >
               The Future
             </span>
-            <h2 className="text-[2rem] font-bold tracking-[-0.025em] text-[#1a1c1d] leading-tight mb-3">
+            <h2 className="text-[2rem] font-bold tracking-[-0.025em] text-[#111c2d] leading-tight mb-3">
               What&apos;s Next
             </h2>
-            <p className="text-[#444653] leading-relaxed">
+            <p className="font-[family-name:var(--font-sans)] text-[#5f5e5e] leading-relaxed">
               Paul Kreations is just getting started. Here&apos;s a preview of
               what we&apos;re planning to build — more products, more platforms,
               more possibilities.
             </p>
           </div>
-          <div className="flex-shrink-0 hidden md:flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-[#e2e2e4] shadow-[0_1px_3px_rgba(0,0,0,0.05)]">
-            <div className="size-1.5 rounded-full bg-[#3c52c0] animate-pulse" />
-            <span className="text-xs font-medium text-[#444653]">
+
+          {/* Status indicator — JetBrains Mono */}
+          <div className="flex-shrink-0 hidden md:flex items-center gap-2 px-4 py-2 border border-[#e3bebd] bg-white">
+            <div className="size-1.5 bg-[#c41e3a] animate-pulse" />
+            <span className={`${MONO} text-[11px] text-[#5f5e5e]`}>
               Actively building
             </span>
           </div>
         </div>
 
-        {/* ── Roadmap Cards ───────────────────── */}
+        {/* ── Roadmap Cards — flat per spec ─────── */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {roadmap.map((item, index) => {
             const Icon = ICON_MAP[item.icon] ?? Server;
             return (
               <div
                 key={item.id}
-                className="relative group flex flex-col gap-4 p-6 bg-white rounded-xl border border-[#e2e2e4] shadow-[0_1px_3px_rgba(0,0,0,0.04)] overflow-hidden"
+                className="flex flex-col gap-4 p-6 bg-white border border-[#e3bebd]"
                 style={{ animationDelay: `${index * 80}ms` }}
               >
-                {/* Blur mask overlay for "planned" items */}
-                <div
-                  className="absolute inset-0 backdrop-blur-[2px] bg-white/50 rounded-xl z-10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  aria-hidden="true"
-                >
-                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-[#e2e2e4] shadow-sm text-xs font-medium text-[#444653]">
-                    <Lock size={11} />
-                    Unlocking soon
-                  </div>
-                </div>
-
-                {/* Icon */}
-                <div className="size-10 rounded-lg bg-[#f3f3f5] border border-[#e2e2e4] flex items-center justify-center">
+                {/* Icon — flat, no-shadow per spec */}
+                <div className="size-10 flex items-center justify-center bg-[#f9f9ff] border border-[#e3bebd]">
                   <Icon
                     size={18}
-                    className="text-[#757684]"
+                    className="text-[#8f6f6f]"
                     aria-hidden="true"
                   />
                 </div>
@@ -85,26 +76,28 @@ export function Roadmap() {
                 {/* Content */}
                 <div className="flex flex-col gap-2 flex-1">
                   <div className="flex items-start justify-between gap-3">
-                    <h3 className="font-semibold text-[#1a1c1d] tracking-[-0.01em] leading-tight">
+                    <h3 className="font-semibold text-[#111c2d] tracking-[-0.01em] leading-tight">
                       {item.title}
                     </h3>
                     {item.eta && (
-                      <span className="text-[10px] font-medium text-[#757684] bg-[#f3f3f5] px-2 py-0.5 rounded-md whitespace-nowrap flex-shrink-0">
+                      <span
+                        className={`${MONO} text-[10px] text-[#8f6f6f] bg-[#f9f9ff] border border-[#e3bebd] px-2 py-0.5 whitespace-nowrap flex-shrink-0`}
+                      >
                         ~{item.eta}
                       </span>
                     )}
                   </div>
-                  <p className="text-sm text-[#444653] leading-relaxed flex-1">
+                  <p className="font-[family-name:var(--font-sans)] text-sm text-[#5f5e5e] leading-relaxed flex-1">
                     {item.description}
                   </p>
                 </div>
 
-                {/* Status badge */}
-                <div className="pt-4 border-t border-[#f3f3f5]">
+                {/* Status badge — JetBrains Mono per spec */}
+                <div className="pt-4 border-t border-[#e3bebd]">
                   <span
-                    className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-[10px] font-semibold uppercase tracking-wide ${STATUS_STYLE[item.status]}`}
+                    className={`${MONO} inline-flex items-center gap-1.5 px-2 py-1 text-[10px] font-semibold ${STATUS_STYLE[item.status]}`}
                   >
-                    <span className="size-1.5 rounded-full bg-current opacity-70" />
+                    <span className="size-1.5 bg-current opacity-80" />
                     {STATUS_LABEL[item.status]}
                   </span>
                 </div>
@@ -113,21 +106,21 @@ export function Roadmap() {
           })}
         </div>
 
-        {/* ── Open note ───────────────────────── */}
-        <div className="mt-12 p-6 rounded-xl bg-gradient-to-r from-[#dee0ff] to-[#e2dfff] border border-[#bac3ff]">
+        {/* ── CTA Banner ──────────────────────── */}
+        <div className="mt-12 p-6 bg-white border border-[#e3bebd] border-l-[3px] border-l-[#c41e3a]">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
             <div className="flex-1">
-              <p className="text-sm font-semibold text-[#1a1c1d] mb-1">
+              <p className="font-semibold text-[#111c2d] mb-1">
                 Have an idea or collaboration in mind?
               </p>
-              <p className="text-xs text-[#444653]">
+              <p className="font-[family-name:var(--font-sans)] text-sm text-[#5f5e5e]">
                 Paul Kreations is open to partnerships, feedback, and new
                 directions. Reach out and let&apos;s build something together.
               </p>
             </div>
             <a
-              href="mailto:debapriyopaul.dp@gmail.com"
-              className="flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-lg bg-[#3c52c0] hover:bg-[#223aa9] text-white text-sm font-medium transition-colors"
+              href="mailto:contact@paulkreations.com"
+              className="flex-shrink-0 inline-flex items-center h-9 px-4 rounded bg-[#c41e3a] hover:bg-[#9e0027] text-white text-sm font-semibold transition-colors"
             >
               Get in touch
             </a>

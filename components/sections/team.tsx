@@ -1,5 +1,7 @@
 import { teamMembers } from "@/lib/data";
-import { ChevronRight } from "lucide-react";
+
+// Mono label style — JetBrains Mono
+const MONO = "font-[family-name:var(--font-jetbrains-mono)] tracking-[0.05em]";
 
 // Brand icons removed from lucide-react v1+ — using inline SVGs instead
 function GitHubIcon({ size = 14 }: { size?: number }) {
@@ -35,37 +37,40 @@ function LinkedInIcon({ size = 14 }: { size?: number }) {
 export function Team() {
   return (
     <section id="team" className="py-24 bg-white">
-      <div className="max-w-[1280px] mx-auto px-6">
-        {/* ── Section Header ──────────────────── */}
+      <div className="max-w-[1280px] mx-auto px-10">
+        {/* ── Section Header ───────────────────── */}
         <div className="max-w-lg mb-16">
-          <span className="inline-block text-xs font-semibold uppercase tracking-[0.1em] text-[#3c52c0] mb-4">
+          <span
+            className={`${MONO} inline-block text-[11px] text-[#c41e3a] uppercase mb-4`}
+          >
             The People
           </span>
-          <h2 className="text-[2rem] font-bold tracking-[-0.025em] text-[#1a1c1d] leading-tight mb-3">
+          <h2 className="text-[2rem] font-bold tracking-[-0.025em] text-[#111c2d] leading-tight mb-3">
             Team
           </h2>
-          <p className="text-[#444653] leading-relaxed">
+          <p className="font-[family-name:var(--font-sans)] text-[#5f5e5e] leading-relaxed">
             Every product is shaped by real people with real skills. Meet the
-            team behind Paul Kreations — and see who built what.
+            team behind Paul Kreations — and see exactly who built what.
           </p>
         </div>
 
-        {/* ── Team Grid ───────────────────────── */}
+        {/* ── Team Grid — flat cards ────────────── */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
           {teamMembers.map((member) => (
             <article
               key={member.id}
-              className="flex flex-col gap-5 p-6 bg-[#f9f9fb] rounded-xl border border-[#e2e2e4] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(0,0,0,0.07)] hover:-translate-y-px"
+              className="flex flex-col gap-5 p-6 bg-[#f9f9ff] border border-[#e3bebd] hover:border-[#c41e3a] hover:shadow-[0px_4px_20px_rgba(196,30,58,0.08)] transition-all duration-200"
             >
-              {/* ── Header ──────────────────────── */}
+              {/* ── Header ─────────────────────── */}
               <div className="flex items-start gap-4">
-                {/* Avatar */}
+                {/* Avatar — crimson gradient */}
                 <div
-                  className="size-12 rounded-xl flex items-center justify-center text-white font-bold text-lg flex-shrink-0 shadow-sm"
+                  className="size-12 flex items-center justify-center text-white font-bold text-lg flex-shrink-0"
                   style={{
-                    background: `linear-gradient(135deg, ${member.avatarColor} 0%, ${member.avatarColor}cc 100%)`,
-                    // Replace with Image if a real photo is available:
+                    background: `linear-gradient(135deg, ${member.avatarColor} 0%, #9e0027 100%)`,
+                    // To use a real photo instead, replace this with:
                     // background: 'none'
+                    // And render: <Image src="/team/paul.jpg" alt={member.name} width={48} height={48} className="object-cover" />
                   }}
                   aria-hidden="true"
                 >
@@ -73,10 +78,11 @@ export function Team() {
                 </div>
 
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-bold text-[#1a1c1d] tracking-[-0.01em] leading-tight">
+                  <h3 className="font-bold text-[#111c2d] tracking-[-0.01em] leading-tight">
                     {member.name}
                   </h3>
-                  <p className="text-xs font-medium text-[#576cdb] mt-0.5">
+                  {/* Role — JetBrains Mono label */}
+                  <p className={`${MONO} text-[11px] text-[#c41e3a] mt-0.5`}>
                     {member.role}
                   </p>
                 </div>
@@ -88,7 +94,7 @@ export function Team() {
                       href={member.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="size-7 flex items-center justify-center rounded-md text-[#757684] hover:text-[#1a1c1d] hover:bg-[#edeef0] transition-colors"
+                      className="size-7 flex items-center justify-center text-[#8f6f6f] hover:text-[#111c2d] hover:bg-[#ffdad9] transition-colors"
                       aria-label={`${member.name} on GitHub`}
                     >
                       <GitHubIcon size={14} />
@@ -99,7 +105,7 @@ export function Team() {
                       href={member.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="size-7 flex items-center justify-center rounded-md text-[#757684] hover:text-[#1a1c1d] hover:bg-[#edeef0] transition-colors"
+                      className="size-7 flex items-center justify-center text-[#8f6f6f] hover:text-[#111c2d] hover:bg-[#ffdad9] transition-colors"
                       aria-label={`${member.name} on LinkedIn`}
                     >
                       <LinkedInIcon size={14} />
@@ -108,21 +114,23 @@ export function Team() {
                 </div>
               </div>
 
-              {/* ── Bio ─────────────────────────── */}
-              <p className="text-sm text-[#444653] leading-relaxed">
+              {/* ── Bio — Inter body ─────────────── */}
+              <p className="font-[family-name:var(--font-sans)] text-sm text-[#5f5e5e] leading-relaxed">
                 {member.bio}
               </p>
 
-              {/* ── Skills ──────────────────────── */}
+              {/* ── Skills — Rose Mist chips per spec */}
               <div>
-                <p className="text-[10px] uppercase tracking-[0.1em] font-semibold text-[#757684] mb-2">
+                <p
+                  className={`${MONO} text-[10px] text-[#8f6f6f] uppercase mb-2`}
+                >
                   Skills
                 </p>
                 <div className="flex flex-wrap gap-1.5">
                   {member.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="px-2 py-0.5 rounded-md text-[11px] font-medium text-[#444653] bg-white border border-[#e2e2e4]"
+                      className={`${MONO} px-2 py-0.5 text-[10px] font-medium text-[#c41e3a] bg-[#fff5f5] border border-[#c41e3a]/30`}
                     >
                       {skill}
                     </span>
@@ -130,24 +138,35 @@ export function Team() {
                 </div>
               </div>
 
-              {/* ── Contributions ───────────────── */}
-              <div className="pt-4 border-t border-[#e2e2e4]">
-                <p className="text-[10px] uppercase tracking-[0.1em] font-semibold text-[#757684] mb-3">
+              {/* ── Contributions — 2px crimson left-border per spec */}
+              <div className="pt-4 border-t border-[#e3bebd]">
+                <p
+                  className={`${MONO} text-[10px] text-[#8f6f6f] uppercase mb-3`}
+                >
                   Contributions
                 </p>
-                <ul className="flex flex-col gap-2">
-                  {member.contributions.map((c) => (
-                    <li key={c.project} className="flex items-center gap-2.5">
-                      <ChevronRight
-                        size={12}
-                        className="text-[#3c52c0] flex-shrink-0"
+                <ul className="flex flex-col gap-0">
+                  {member.contributions.map((c, i) => (
+                    <li
+                      key={c.project}
+                      className={`flex items-center gap-2.5 py-2 ${
+                        i < member.contributions.length - 1
+                          ? "border-b border-[#e3bebd]"
+                          : ""
+                      }`}
+                    >
+                      {/* 2px crimson highlight per spec */}
+                      <div
+                        className="w-[2px] h-4 bg-[#c41e3a] flex-shrink-0"
                         aria-hidden="true"
                       />
-                      <span className="text-xs text-[#1a1c1d] font-medium flex-shrink-0">
+                      <span className="text-xs text-[#111c2d] font-medium flex-shrink-0">
                         {c.project}
                       </span>
-                      <span className="text-[10px] text-[#757684] truncate">
-                        — {c.role}
+                      <span
+                        className={`${MONO} text-[10px] text-[#8f6f6f] truncate`}
+                      >
+                        {c.role}
                       </span>
                     </li>
                   ))}
@@ -156,17 +175,17 @@ export function Team() {
             </article>
           ))}
 
-          {/* ── "Join the Team" placeholder card ─ */}
-          <div className="flex flex-col items-center justify-center gap-3 p-6 rounded-xl border-2 border-dashed border-[#e2e2e4] text-center min-h-[260px] bg-transparent hover:border-[#c5c5d5] hover:bg-[#f9f9fb] transition-colors cursor-default">
-            <div className="size-10 rounded-xl border-2 border-dashed border-[#c5c5d5] flex items-center justify-center text-[#c5c5d5]">
+          {/* ── "Growing the Team" placeholder ─── */}
+          <div className="flex flex-col items-center justify-center gap-3 p-6 border-2 border-dashed border-[#e3bebd] text-center min-h-[260px] hover:border-[#c41e3a]/40 transition-colors cursor-default">
+            <div className="size-10 border-2 border-dashed border-[#e3bebd] flex items-center justify-center text-[#e3bebd]">
               <span className="text-xl font-bold leading-none">+</span>
             </div>
             <div>
-              <p className="text-sm font-semibold text-[#1a1c1d] mb-1">
+              <p className="text-sm font-semibold text-[#111c2d] mb-1">
                 Growing the Team
               </p>
-              <p className="text-xs text-[#757684] max-w-[160px]">
-                New contributors will appear here as the company expands.
+              <p className={`${MONO} text-[10px] text-[#8f6f6f] max-w-[160px]`}>
+                New contributors appear here as the company expands.
               </p>
             </div>
           </div>
