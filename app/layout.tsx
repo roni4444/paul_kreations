@@ -1,8 +1,9 @@
-import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Inter, JetBrains_Mono } from "next/font/google";
+import type {Metadata, Viewport} from "next";
+import {Geist, Geist_Mono, Inter, JetBrains_Mono} from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils";
-import { OrganizationJsonLd } from "@/components/seo/json-ld";
+import {cn} from "@/lib/utils";
+import {OrganizationJsonLd} from "@/components/seo/json-ld";
+import {Analytics} from "@vercel/analytics/next";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -150,6 +151,7 @@ export default function RootLayout({
         className="min-h-full flex flex-col bg-[#f9f9ff] text-[#111c2d]"
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );
