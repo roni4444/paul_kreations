@@ -182,13 +182,12 @@ export const apps: AppItem[] = [
     colorTo: "#636262",
     techStack: [
       { name: "Android", deviconPath: "android/android-original" },
-      { name: "Kotlin", deviconPath: "kotlin/kotlin-original" },
+      { name: "Flutter", deviconPath: "flutter/flutter-original" },
       { name: "Firebase", deviconPath: "firebase/firebase-plain" },
       {
         name: "Android Studio",
         deviconPath: "androidstudio/androidstudio-original",
       },
-      { name: "Figma", deviconPath: "figma/figma-original" },
       { name: "Git", deviconPath: "git/git-original" },
     ],
     privacyPolicy: {
@@ -233,13 +232,20 @@ export const apps: AppItem[] = [
     colorTo: "#b23c36",
     techStack: [
       { name: "Android", deviconPath: "android/android-original" },
-      { name: "Kotlin", deviconPath: "kotlin/kotlin-original" },
+      { name: "Flutter", deviconPath: "flutter/flutter-original" },
+      { name: "Sentry", deviconPath: "sentry/sentry-original" },
       {
         name: "Android Studio",
         deviconPath: "androidstudio/androidstudio-original",
       },
-      { name: "Figma", deviconPath: "figma/figma-original" },
+      { name: "Canva", deviconPath: "canva/canva-original" },
       { name: "Git", deviconPath: "git/git-original" },
+      // ── No devicon available — add icon files to public/tech-icons/ then uncomment ──
+      // { name: "OneSignal",   localIconPath: "/tech-icons/onesignal.png"   },
+      // { name: "RevenueCat",  localIconPath: "/tech-icons/revenuecat.png"  },
+      // { name: "Drift",       localIconPath: "/tech-icons/drift.png"       },
+      // { name: "Stream Chat", localIconPath: "/tech-icons/stream-chat.png" },
+      // { name: "Wiredash",    localIconPath: "/tech-icons/wiredash.png"    },
     ],
     privacyPolicy: {
       lastUpdated: "2025-06-01",
