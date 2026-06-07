@@ -106,7 +106,7 @@ export function Roadmap() {
           })}
         </div>
 
-        {/* ── CTA Banner ──────────────────────── */}
+        {/* ── CTA Banner ────────────────────────
         <div className="mt-12 p-6 bg-white border border-[#e3bebd] border-l-[3px] border-l-[#c41e3a]">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
             <div className="flex-1">
@@ -125,7 +125,7 @@ export function Roadmap() {
               Get in touch
             </a>
           </div>
-        </div>
+        </div>*/}
       </div>
     </section>
   );
