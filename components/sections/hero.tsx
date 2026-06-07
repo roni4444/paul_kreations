@@ -63,7 +63,7 @@ export function Hero() {
         <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-8 border border-[#e3bebd] bg-white animate-in fade-in-0 duration-700">
           <span className="size-1.5 rounded-full bg-[#c41e3a] animate-pulse" />
           <span className={`${MONO} text-[11px] text-[#5f5e5e]`}>
-            3 products live on Google Play
+            {apps.length} products live on Google Play
           </span>
         </div>
 
