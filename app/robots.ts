@@ -1,18 +1,10 @@
-// app/robots.ts
-// Next.js auto-generates /robots.txt from this file at build time.
-
+// app/robots.ts — auto-served at /robots.txt by Next.js
 import type { MetadataRoute } from "next";
+import { BASE_URL } from "@/lib/config";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [
-      {
-        userAgent: "*",
-        allow: "/",
-        // Privacy policy pages are useful to crawl (Play Store requires a live URL)
-        // so we allow everything.
-      },
-    ],
-    sitemap: "https://paulkreations.com/sitemap.xml",
+    rules: [{ userAgent: "*", allow: "/" }],
+    sitemap: `${BASE_URL}/sitemap.xml`,
   };
 }

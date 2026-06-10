@@ -1,14 +1,10 @@
-// app/sitemap.ts
-// Next.js auto-generates /sitemap.xml from this file at build time.
-// Update BASE_URL to your production domain before deploying.
-
+// app/sitemap.ts — auto-served at /sitemap.xml by Next.js
 import type { MetadataRoute } from "next";
 import { apps } from "@/lib/data";
-
-const BASE_URL = "https://paul-kreations.vercel.app"; // ← update to your domain
+import { BASE_URL } from "@/lib/config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const privacyPolicyRoutes = apps.map((app) => ({
+  const privacyRoutes = apps.map((app) => ({
     url: `${BASE_URL}/apps/${app.slug}/privacy`,
     lastModified: new Date(app.privacyPolicy.lastUpdated),
     changeFrequency: "yearly" as const,
@@ -22,6 +18,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 1.0,
     },
-    ...privacyPolicyRoutes,
+    {
+      url: `${BASE_URL}/tos`,
+      lastModified: new Date(),
+      changeFrequency: "yearly" as const,
+      priority: 0.2,
+    },
+    ...privacyRoutes,
   ];
 }

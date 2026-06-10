@@ -1,10 +1,10 @@
-import type {Metadata, Viewport} from "next";
-import {Geist, Geist_Mono, Inter, JetBrains_Mono} from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import {cn} from "@/lib/utils";
-import {OrganizationJsonLd} from "@/components/seo/json-ld";
-import {Analytics} from "@vercel/analytics/next";
-import {SpeedInsights} from "@vercel/speed-insights/next";
+import { cn } from "@/lib/utils";
+import { OrganizationJsonLd } from "@/components/seo/json-ld";
+import { Analytics } from "@vercel/analytics/next";
+import { BASE_URL } from "@/lib/config";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -27,8 +27,6 @@ const jetbrainsMono = JetBrains_Mono({
 // ─── Base URL ─────────────────────────────────────────────────────────────────
 // Required for Next.js to resolve relative OG image paths to absolute URLs.
 // Without this, social platforms receive a relative path and show no preview.
-const BASE_URL = "https://paul-kreations.vercel.app"; // ← update to your domain
-
 // ─── Metadata ─────────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
   // metadataBase makes all relative image paths absolute (required for OG images)
@@ -89,13 +87,13 @@ export const metadata: Metadata = {
   // favicon.ico   — 32×32 or 48×48 px  (classic favicon)
   // icon.png      — 192×192 px          (modern browsers)
   // apple-icon.png — 180×180 px         (iOS home screen)
-  // icons: {
-  //   icon: [
-  //     { url: "/favicon.ico", sizes: "any" },
-  //     { url: "/icon.png", type: "image/png", sizes: "192x192" },
-  //   ],
-  //   apple: [{ url: "/apple-icon.png", sizes: "180x180" }],
-  // },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "192x192" },
+    ],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180" }],
+  },
 
   // ── Canonical & robots ──────────────────────────────────────────────────────
   alternates: {
@@ -153,7 +151,6 @@ export default function RootLayout({
       >
         {children}
         <Analytics />
-        <SpeedInsights />
       </body>
     </html>
   );

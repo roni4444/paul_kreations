@@ -5,10 +5,11 @@
 //       /apps/surround-it/privacy
 
 import { apps } from "@/lib/data";
+import { BASE_URL } from "@/lib/config";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ShieldCheck, ExternalLink, ArrowLeft } from "lucide-react";
+import { ArrowLeft, ExternalLink, ShieldCheck } from "lucide-react";
 
 // ─── Static generation ────────────────────────────────────────────────────────
 export async function generateStaticParams() {
@@ -24,9 +25,29 @@ export async function generateMetadata({
   const { slug } = await params;
   const app = apps.find((a) => a.slug === slug);
   if (!app) return { title: "Not Found" };
+
+  const pageUrl = `${BASE_URL}/apps/${slug}/privacy`;
+  const title = `${app.name} — Privacy Policy`;
+  const desc = `Privacy policy for ${app.name} by Paul Kreations. Learn how we collect, use, and protect information when you use this ${app.type}.`;
+
   return {
-    title: `${app.name} — Privacy Policy`,
-    description: `Privacy policy for ${app.name} by Paul Kreations.`,
+    title,
+    description: desc,
+    // Fix 1 — page-specific canonical (not the homepage)
+    alternates: { canonical: pageUrl },
+    // Fix 2 — page-specific OG and Twitter cards
+    openGraph: {
+      title,
+      description: desc,
+      url: pageUrl,
+      type: "website",
+      siteName: "Paul Kreations",
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description: desc,
+    },
     robots: { index: true, follow: false },
   };
 }
@@ -66,7 +87,10 @@ export default async function PrivacyPolicyPage({
             aria-label="Back to Paul Kreations"
           >
             <ArrowLeft size={14} aria-hidden="true" />
-            <span className={`${MONO} text-[11px]`}>paulkreations.com</span>
+            {/* Fix 4 — shows the actual domain rather than a hardcoded placeholder */}
+            <span className={`${MONO} text-[11px]`}>
+              {BASE_URL.replace(/^https?:\/\//, "")}
+            </span>
           </Link>
           <div className="flex items-center gap-1.5 text-[#c41e3a]">
             <ShieldCheck size={15} aria-hidden="true" />

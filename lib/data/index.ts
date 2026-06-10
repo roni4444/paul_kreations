@@ -381,7 +381,7 @@ export const teamMembers: TeamMember[] = [
     skills: [
       "Digital Marketing",
       "Canva",
-      "Meta Buniess Suite",
+      "Meta Business Suite",
       "Social" + " Media Platforms",
     ],
     contributions: [

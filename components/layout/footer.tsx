@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 
 // Mono label style — JetBrains Mono
 const MONO = "font-[family-name:var(--font-jetbrains-mono)] tracking-[0.05em]";
@@ -17,13 +16,11 @@ const FOOTER_LINKS = [
 // ──────────────────────────────────────────────────────────────────────────────
 function LogoMark() {
   return (
-    <Image
-      src="/logo_extended.svg"
-      alt="Paul Kreations"
-      width={140}
-      height={32}
-      priority
-    />
+    <div className="size-8 rounded flex items-center justify-center bg-[#c41e3a]">
+      <span className="text-white font-bold text-[13px] tracking-tight select-none">
+        PK
+      </span>
+    </div>
   );
 }
 
@@ -45,9 +42,9 @@ export function Footer() {
             >
               <LogoMark />
               {/* Delete this span if your logo image already contains "Paul Kreations" */}
-              {/*<span className="font-semibold text-white tracking-[-0.01em] text-sm">*/}
-              {/*  Paul Kreations*/}
-              {/*</span>*/}
+              <span className="font-semibold text-white tracking-[-0.01em] text-sm">
+                Paul Kreations
+              </span>
             </Link>
             <p className="font-[family-name:var(--font-sans)] text-sm text-white/45 leading-relaxed">
               Building thoughtful digital products — Android apps, web
@@ -103,10 +100,10 @@ export function Footer() {
             <ul className="flex flex-col gap-2.5">
               <li>
                 <a
-                  href="mailto:debapriyopaul.dp@gmail.com"
+                  href="mailto:contact@paulkreations.com"
                   className="font-[family-name:var(--font-sans)] text-sm text-white/45 hover:text-white transition-colors"
                 >
-                  debapriyopaul.dp@gmail.com
+                  contact@paulkreations.com
                 </a>
               </li>
             </ul>
@@ -118,11 +115,17 @@ export function Footer() {
           <span className={`${MONO} text-[10px] text-white/25`}>
             © {year} Paul Kreations. All rights reserved.
           </span>
-          <span
-            className={`${MONO} text-[10px] text-white/25 flex items-center gap-1.5`}
-          >
-            Built with Next.js &amp; Tailwind CSS
-          </span>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/tos"
+              className={`${MONO} text-[10px] text-white/30 hover:text-white/60 transition-colors`}
+            >
+              Terms of Service
+            </Link>
+            <span className={`${MONO} text-[10px] text-white/25`}>
+              Built with Next.js &amp; Tailwind CSS
+            </span>
+          </div>
         </div>
       </div>
     </footer>
