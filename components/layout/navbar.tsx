@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Lock, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
@@ -144,6 +144,16 @@ export function Navbar() {
             </svg>
             Google Play
           </a>
+
+          {/* Admin entry point — goes to the app picker, not a public form */}
+          <Link
+            href="/admin"
+            aria-label="Admin"
+            title="Admin"
+            className="inline-flex items-center justify-center size-8 rounded text-[#5f5e5e] hover:text-[#c41e3a] hover:bg-[#ffdad9] transition-colors"
+          >
+            <Lock size={16} aria-hidden="true" />
+          </Link>
         </div>
 
         {/* ── Mobile Toggle ────────────────────── */}
@@ -161,7 +171,7 @@ export function Navbar() {
       <div
         className={cn(
           "md:hidden overflow-hidden transition-all duration-200 border-b border-[#e3bebd] bg-white/98 backdrop-blur-md",
-          mobileOpen ? "max-h-72 opacity-100" : "max-h-0 opacity-0",
+          mobileOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0",
         )}
         aria-hidden={!mobileOpen}
       >
@@ -187,6 +197,14 @@ export function Navbar() {
           >
             Google Play Store
           </a>
+          <Link
+            href="/admin"
+            onClick={() => setMobileOpen(false)}
+            className="flex items-center justify-center gap-2 mt-1 px-3 py-2.5 text-sm font-medium text-[#5f5e5e] hover:text-[#111c2d] hover:bg-[#ffdad9] rounded transition-colors"
+          >
+            <Lock size={14} aria-hidden="true" />
+            Admin
+          </Link>
         </nav>
       </div>
     </header>
