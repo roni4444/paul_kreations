@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { OrganizationJsonLd } from "@/components/seo/json-ld";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { BASE_URL } from "@/lib/config";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -151,6 +152,11 @@ export default function RootLayout({
       >
         {children}
         <Analytics />
+        {/* Fixes: "No data available. Make sure you are using the latest
+            @vercel/speed-insights package." — the package was already in
+            package.json but the <SpeedInsights /> component was never
+            mounted, so no Web Vitals were ever collected/sent. */}
+        <SpeedInsights />
       </body>
     </html>
   );

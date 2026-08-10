@@ -2,10 +2,27 @@ import { withSentryConfig } from "@sentry/nextjs";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  experimental: {
-    serverActions: {
-      bodySizeLimit: "20mb",
-    },
+  async redirects() {
+    return [
+      // ── wimm.paulkreations.com → paulkreations.com/wimm ─────────────────────
+      // Lets us share the short "wimm.paulkreations.com" link while keeping
+      // the app on the main domain for unified SEO / analytics / auth cookies.
+      // Requires "wimm.paulkreations.com" to be added as a domain on this
+      // Vercel project (see docs/DOMAIN_SETUP.md) — otherwise Vercel will
+      // never receive traffic for that host and this rule never runs.
+      {
+        source: "/",
+        has: [{ type: "host", value: "wimm.paulkreations.com" }],
+        destination: "https://paulkreations.com/wimm",
+        permanent: true, // 308 — matches the pattern already used for paulkreations.com → www
+      },
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "wimm.paulkreations.com" }],
+        destination: "https://paulkreations.com/wimm/:path*",
+        permanent: true,
+      },
+    ];
   },
   async headers() {
     return [
@@ -43,10 +60,13 @@ const nextConfig: NextConfig = {
           //   value: "max-age=31536000; includeSubDomains; preload",
           // },
           // Content Security Policy — uncomment and tighten when on custom domain
-          // This is a permissive starting point that won't break anything
+          // This is a permissive starting point that won't break anything.
+          // NOTE: if you enable this, add https://challenges.cloudflare.com to
+          // script-src and frame-src so the Turnstile widget on the waitlist
+          // form (components/shared/turnstile-widget.tsx) keeps working.
           // {
           //   key: "Content-Security-Policy",
-          //   value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com;",
+          //   value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com;",
           // },
         ],
       },

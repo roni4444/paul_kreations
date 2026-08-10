@@ -7,6 +7,12 @@ import type { ContactFormData } from "@/schemas/contact";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// mail.paulkreations.com is the Resend-verified sending domain (Cloudflare
+// DNS, Tokyo region — confirmed "Verified" in the Resend dashboard). Emails
+// must be sent from an address on this exact subdomain, not the bare root
+// domain, because that's what was verified.
+const FROM_ADDRESS = "Paul Kreations <contact@mail.paulkreations.com>";
+
 // ─── Subject line ─────────────────────────────────────────────────────────────
 // Different subject depending on who the user is contacting.
 // Makes Gmail filtering easy.
@@ -124,11 +130,7 @@ export async function sendContactEmail(
 ): Promise<{ success: true } | { success: false; error: string }> {
   try {
     const { error } = await resend.emails.send({
-      // onboarding@resend.dev can only deliver to the email address
-      // you registered your Resend account with.
-      // Replace with your own domain address once you have a custom domain:
-      // from: "contact@paulkreations.com"
-      from: "onboarding@resend.dev",
+      from: FROM_ADDRESS,
       to: process.env.CONTACT_EMAIL!,
       replyTo: data.email, // hitting Reply in Gmail goes straight to the sender
       subject: buildSubject(data),
