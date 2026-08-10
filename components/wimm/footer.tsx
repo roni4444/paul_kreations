@@ -74,6 +74,14 @@ export function WimmFooter() {
                 </Link>
               </li>
               <li>
+                <Link
+                  href="/wimm/delete-account"
+                  className="text-sm text-white/50 hover:text-white transition-colors"
+                >
+                  Delete My Account
+                </Link>
+              </li>
+              <li>
                 <a
                   href="#faq"
                   className="text-sm text-white/50 hover:text-white transition-colors"
