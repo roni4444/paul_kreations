@@ -2,6 +2,8 @@
 // Paul Kreations — Site Data
 // ─────────────────────────────────────────────────────────────────────────────
 
+import { WIMM_PLAY_STORE_URL } from "@/lib/data/wimm";
+
 export type TechStackItem = {
   /** Display label shown in tooltip */
   name: string;
@@ -60,12 +62,29 @@ export type AppItem = {
   type: "app" | "game";
   playStoreUrl: string;
   downloads: string;
-  rating: number;
+  /**
+   * Omit for a brand-new launch with no reviews yet — do not fabricate a
+   * rating. Same principle already applied to WIMM's JSON-LD (see
+   * components/seo/wimm-json-ld.tsx: "aggregateRating intentionally
+   * omitted"). The card and hero stats skip apps without one.
+   */
+  rating?: number;
   /** Gradient fallback shown when feature graphic / icon images are missing */
   colorFrom: string;
   colorTo: string;
   techStack: TechStackItem[];
-  privacyPolicy: PrivacyPolicyData;
+  /**
+   * Omit when the app has its own dedicated marketing/legal pages (set
+   * `landingUrl` instead) — apps.tsx, the generic /apps/[slug]/privacy
+   * template, and sitemap.ts all skip generating a generic privacy route
+   * when this is absent, so it doesn't collide with the app's real pages.
+   */
+  privacyPolicy?: PrivacyPolicyData;
+  /**
+   * Dedicated marketing page (e.g. "/wimm") — when set, the homepage card
+   * links here instead of the generic privacy route.
+   */
+  landingUrl?: string;
 };
 
 export type Service = {
@@ -264,6 +283,72 @@ export const apps: AppItem[] = [
       ],
       isChildrenApp: false,
     },
+  },
+  {
+    id: "app-4",
+    slug: "wimm",
+    name: "Where Is My Money?",
+    tagline: "Know exactly where every rupee goes.",
+    description:
+      "A complete personal finance operating system for India — banking, cards, investments, debt, tax, travel, vehicles, and family budgets, unified in one dashboard.",
+    category: "Finance",
+    type: "app",
+    playStoreUrl: WIMM_PLAY_STORE_URL,
+    downloads: "New",
+    // rating intentionally omitted — no reviews yet, see AppItem comment above
+    colorFrom: "#0F7A4E",
+    colorTo: "#1E6FA8",
+    techStack: [
+      { name: "Android", deviconPath: "android/android-original" },
+      { name: "Flutter", deviconPath: "flutter/flutter-original" },
+      {
+        name: "Android Studio",
+        deviconPath: "androidstudio/androidstudio-original",
+      },
+      { name: "Git", deviconPath: "git/git-original" },
+      // TODO: add the app's actual backend/services here (e.g. Supabase,
+      // RevenueCat) once confirmed — left minimal rather than guessed.
+    ],
+    // No privacyPolicy here on purpose — WIMM has its own dedicated legal
+    // pages at /wimm/privacy, /wimm/terms, /wimm/cookies (see
+    // components/wimm/legal-shell.tsx), so it's excluded from the generic
+    // /apps/[slug]/privacy template and from that route in sitemap.ts.
+    landingUrl: "/wimm",
+  },
+];
+
+// ─── SOCIAL LINKS ─────────────────────────────────────────────────────────────
+// Paul Kreations' own accounts — single source of truth, used by both the
+// main site footer (components/layout/footer.tsx) and the WIMM landing
+// page's follow-us component (components/wimm/follow-us.tsx).
+
+export type SocialLink = {
+  id: "instagram" | "youtube" | "x" | "linkedin" | "facebook";
+  label: string;
+  url: string;
+};
+
+export const socialLinks: SocialLink[] = [
+  {
+    id: "instagram",
+    label: "Instagram",
+    url: "https://www.instagram.com/paul_kreations?igsi=MWlkMWdjY2hoNWYycg==",
+  },
+  {
+    id: "youtube",
+    label: "YouTube",
+    url: "https://www.youtube.com/channel/UCUgSgjQeYYsiw7Rw5zXXYjA",
+  },
+  { id: "x", label: "X", url: "https://x.com/PaulKreations" },
+  {
+    id: "linkedin",
+    label: "LinkedIn",
+    url: "https://www.linkedin.com/company/paul-kreations",
+  },
+  {
+    id: "facebook",
+    label: "Facebook",
+    url: "https://www.facebook.com/share/1cqiwC2PjN/",
   },
 ];
 

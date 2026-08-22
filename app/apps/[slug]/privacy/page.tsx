@@ -12,8 +12,13 @@ import Link from "next/link";
 import { ArrowLeft, ExternalLink, ShieldCheck } from "lucide-react";
 
 // ─── Static generation ────────────────────────────────────────────────────────
+// Only apps with privacyPolicy data get this generic route — apps with their
+// own dedicated legal pages (landingUrl set, e.g. WIMM at /wimm/privacy) are
+// excluded on purpose so this template doesn't collide with their real page.
 export async function generateStaticParams() {
-  return apps.map((app) => ({ slug: app.slug }));
+  return apps
+    .filter((app) => app.privacyPolicy)
+    .map((app) => ({ slug: app.slug }));
 }
 
 // ─── Metadata ─────────────────────────────────────────────────────────────────
@@ -24,7 +29,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const app = apps.find((a) => a.slug === slug);
-  if (!app) return { title: "Not Found" };
+  if (!app || !app.privacyPolicy) return { title: "Not Found" };
 
   const pageUrl = `${BASE_URL}/apps/${slug}/privacy`;
   const title = `${app.name} — Privacy Policy`;
@@ -72,9 +77,9 @@ export default async function PrivacyPolicyPage({
 }) {
   const { slug } = await params;
   const app = apps.find((a) => a.slug === slug);
-  if (!app) notFound();
+  if (!app || !app.privacyPolicy) notFound();
 
-  const { privacyPolicy: pp } = app;
+  const pp = app.privacyPolicy;
 
   return (
     <div className="min-h-screen bg-white text-[#111c2d]">

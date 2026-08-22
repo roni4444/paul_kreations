@@ -53,6 +53,7 @@ const CATEGORY_MAP: Record<string, string> = {
   Strategy: "GameApplication",
   Productivity: "ProductivityApplication",
   Utilities: "UtilitiesApplication",
+  Finance: "FinanceApplication",
 };
 
 export function AppsJsonLd() {
@@ -69,11 +70,19 @@ export function AppsJsonLd() {
       price: "0",
       priceCurrency: "USD",
     },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: app.rating.toString(),
-      // ratingCount: "5", // uncomment and update with real review count
-    },
+    // Omitted entirely for apps with no rating yet (e.g. a brand-new
+    // launch) — a fabricated rating is misleading and can violate Google's
+    // structured-data guidelines. Same principle as
+    // components/seo/wimm-json-ld.tsx.
+    ...(typeof app.rating === "number"
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: app.rating.toString(),
+            // ratingCount: "5", // uncomment and update with real review count
+          },
+        }
+      : {}),
     author: {
       "@type": "Organization",
       name: "Paul Kreations",

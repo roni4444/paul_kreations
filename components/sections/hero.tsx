@@ -5,6 +5,18 @@ import { apps } from "@/lib/data";
 const MONO = "font-[family-name:var(--font-jetbrains-mono)] tracking-[0.05em]";
 
 export function Hero() {
+  // Average only over apps that have a real rating — skips brand-new
+  // launches (e.g. WIMM) rather than treating a missing rating as zero.
+  const ratedApps = apps.filter(
+    (app): app is typeof app & { rating: number } =>
+      typeof app.rating === "number",
+  );
+  const averageRating = ratedApps.length
+    ? (
+        ratedApps.reduce((sum, app) => sum + app.rating, 0) / ratedApps.length
+      ).toPrecision(3)
+    : null;
+
   return (
     <section
       id="home"
@@ -122,14 +134,15 @@ export function Hero() {
               value: "500+",
               label: "Total Downloads",
             },
-            {
-              icon: <Star size={13} />,
-              value: (
-                (apps[0].rating + apps[1].rating + apps[2].rating) /
-                3
-              ).toPrecision(3),
-              label: "Average" + " Rating",
-            },
+            ...(averageRating
+              ? [
+                  {
+                    icon: <Star size={13} />,
+                    value: averageRating,
+                    label: "Average Rating",
+                  },
+                ]
+              : []),
           ].map((stat) => (
             <div
               key={stat.label}

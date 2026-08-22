@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { socialLinks } from "@/lib/data";
+import { SOCIAL_ICONS } from "@/components/shared/social-icons";
 
 // Mono label style — JetBrains Mono
 const MONO = "font-[family-name:var(--font-jetbrains-mono)] tracking-[0.05em]";
@@ -69,6 +71,29 @@ export function Footer() {
               </svg>
               <span className={`${MONO} text-[11px]`}>Google Play Store</span>
             </a>
+
+            {/* Social links */}
+            <ul
+              className="flex items-center gap-2"
+              aria-label="Social media links"
+            >
+              {socialLinks.map((link) => {
+                const Icon = SOCIAL_ICONS[link.id];
+                return (
+                  <li key={link.id}>
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Paul Kreations on ${link.label}`}
+                      className="flex items-center justify-center size-8 border border-white/[0.12] text-white/50 hover:border-[#c41e3a] hover:text-white hover:bg-[#c41e3a]/10 transition-colors"
+                    >
+                      <Icon size={14} />
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
 
           {/* Navigation */}

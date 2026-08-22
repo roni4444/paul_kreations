@@ -4,12 +4,45 @@ import { apps } from "@/lib/data";
 import { BASE_URL } from "@/lib/config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const privacyRoutes = apps.map((app) => ({
-    url: `${BASE_URL}/apps/${app.slug}/privacy`,
-    lastModified: new Date(app.privacyPolicy.lastUpdated),
-    changeFrequency: "yearly" as const,
-    priority: 0.3,
-  }));
+  // Apps with their own dedicated legal pages (landingUrl set, e.g. WIMM)
+  // are excluded here — they get their real routes added explicitly below
+  // instead of a generic /apps/[slug]/privacy entry.
+  const privacyRoutes = apps
+    .filter((app) => app.privacyPolicy)
+    .map((app) => ({
+      url: `${BASE_URL}/apps/${app.slug}/privacy`,
+      lastModified: new Date(app.privacyPolicy!.lastUpdated),
+      changeFrequency: "yearly" as const,
+      priority: 0.3,
+    }));
+
+  // WIMM's own routes — previously missing from the sitemap entirely.
+  const wimmRoutes: MetadataRoute.Sitemap = [
+    {
+      url: `${BASE_URL}/wimm`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/wimm/privacy`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: `${BASE_URL}/wimm/terms`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: `${BASE_URL}/wimm/cookies`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+  ];
 
   return [
     {
@@ -24,37 +57,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly" as const,
       priority: 0.2,
     },
-    // ── Where Is My Money? ──────────────────────────────────────────────────
-    {
-      url: `${BASE_URL}/wimm`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const, // waitlist/pre-launch content changes often
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/wimm/privacy`,
-      lastModified: new Date(),
-      changeFrequency: "yearly" as const,
-      priority: 0.2,
-    },
-    {
-      url: `${BASE_URL}/wimm/terms`,
-      lastModified: new Date(),
-      changeFrequency: "yearly" as const,
-      priority: 0.2,
-    },
-    {
-      url: `${BASE_URL}/wimm/cookies`,
-      lastModified: new Date(),
-      changeFrequency: "yearly" as const,
-      priority: 0.2,
-    },
-    {
-      url: `${BASE_URL}/wimm/delete-account`,
-      lastModified: new Date(),
-      changeFrequency: "yearly" as const,
-      priority: 0.3,
-    },
     ...privacyRoutes,
+    ...wimmRoutes,
   ];
 }

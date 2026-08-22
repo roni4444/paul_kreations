@@ -1,4 +1,5 @@
-import { EyeOff, Lock, ShieldCheck, Smartphone } from "lucide-react";
+import { EyeOff, Lock, Mail, ShieldCheck, Smartphone } from "lucide-react";
+import { WIMM_SUPPORT_EMAIL } from "@/lib/data/wimm";
 
 const MONO = "font-[family-name:var(--font-jetbrains-mono)] tracking-[0.05em]";
 
@@ -57,6 +58,19 @@ export function WimmTrust() {
               </div>
             );
           })}
+        </div>
+
+        <div className="flex items-center justify-center gap-2 mt-10 pt-8 border-t border-[#D8E8E0]">
+          <Mail size={13} className="text-[#0F7A4E]" aria-hidden="true" />
+          <span className={`${MONO} text-[11px] text-[#5B6E64]`}>
+            Need help? Reach us at{" "}
+            <a
+              href={`mailto:${WIMM_SUPPORT_EMAIL}`}
+              className="text-[#0F7A4E] hover:underline"
+            >
+              {WIMM_SUPPORT_EMAIL}
+            </a>
+          </span>
         </div>
       </div>
     </section>
