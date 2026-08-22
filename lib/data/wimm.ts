@@ -30,10 +30,11 @@ import {
 // page from "waitlist" mode to "download" mode without touching components.
 // Target launch: 22 Aug 2026.
 export const WIMM_LAUNCH_DATE = "2026-08-22T00:00:00+05:30";
-export const WIMM_IS_LIVE = false;
+export const WIMM_IS_LIVE = true;
 
 export const WIMM_APP_STORE_URL = ""; // fill in when live
-export const WIMM_PLAY_STORE_URL = ""; // fill in when live
+export const WIMM_PLAY_STORE_URL =
+  "https://play.google.com/store/apps/details?id=kreations.paul.whereismymoney"; // fill in when live
 export const WIMM_WINDOWS_URL = ""; // fill in when live
 export const WIMM_MAC_URL = ""; // fill in when live
 export const WIMM_LINUX_URL = ""; // fill in when live
