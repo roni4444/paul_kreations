@@ -94,7 +94,7 @@ export function Contact() {
             <div className="flex flex-col gap-3">
               {[
                 { label: "Response time", value: "Within 24–48 hours" },
-                { label: "Email", value: "debapriyopaul.dp@gmail.com" },
+                { label: "Email", value: "support@paulkreations.com" },
               ].map((item) => (
                 <div key={item.label} className="flex items-center gap-3">
                   <div

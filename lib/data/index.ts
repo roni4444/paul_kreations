@@ -126,6 +126,40 @@ export type RoadmapItem = {
 
 export const apps: AppItem[] = [
   {
+    id: "app-4",
+    slug: "wimm",
+    name: "Where Is My Money?",
+    tagline: "Know exactly where every rupee goes.",
+    description:
+      "A complete personal finance operating system for India — banking, cards, investments, debt, tax, travel, vehicles, and family budgets, unified in one dashboard.",
+    category: "Finance",
+    type: "app",
+    playStoreUrl: WIMM_PLAY_STORE_URL,
+    downloads: "New",
+    // rating intentionally omitted — no reviews yet, see AppItem comment above
+    colorFrom: "#0F7A4E",
+    colorTo: "#1E6FA8",
+    techStack: [
+      { name: "Android", deviconPath: "android/android-original" },
+      { name: "Flutter", deviconPath: "flutter/flutter-original" },
+      { name: "Supabase", deviconPath: "supabase/supabase-original" },
+      { name: "Sentry", deviconPath: "sentry/sentry-original" },
+      {
+        name: "Android Studio",
+        deviconPath: "androidstudio/androidstudio-original",
+      },
+      { name: "Git", deviconPath: "git/git-original" },
+      // TODO: add the app's actual backend/services here (e.g. Supabase,
+      // RevenueCat) once confirmed — left minimal rather than guessed.
+    ],
+    // No privacyPolicy here on purpose — WIMM has its own dedicated legal
+    // pages at /wimm/privacy, /wimm/terms, /wimm/cookies (see
+    // components/wimm/legal-shell.tsx), so it's excluded from the generic
+    // /apps/[slug]/privacy template and from that route in sitemap.ts.
+    landingUrl: "/wimm",
+  },
+
+  {
     id: "app-1",
     slug: "henstel",
     name: "Henstel",
@@ -283,37 +317,6 @@ export const apps: AppItem[] = [
       ],
       isChildrenApp: false,
     },
-  },
-  {
-    id: "app-4",
-    slug: "wimm",
-    name: "Where Is My Money?",
-    tagline: "Know exactly where every rupee goes.",
-    description:
-      "A complete personal finance operating system for India — banking, cards, investments, debt, tax, travel, vehicles, and family budgets, unified in one dashboard.",
-    category: "Finance",
-    type: "app",
-    playStoreUrl: WIMM_PLAY_STORE_URL,
-    downloads: "New",
-    // rating intentionally omitted — no reviews yet, see AppItem comment above
-    colorFrom: "#0F7A4E",
-    colorTo: "#1E6FA8",
-    techStack: [
-      { name: "Android", deviconPath: "android/android-original" },
-      { name: "Flutter", deviconPath: "flutter/flutter-original" },
-      {
-        name: "Android Studio",
-        deviconPath: "androidstudio/androidstudio-original",
-      },
-      { name: "Git", deviconPath: "git/git-original" },
-      // TODO: add the app's actual backend/services here (e.g. Supabase,
-      // RevenueCat) once confirmed — left minimal rather than guessed.
-    ],
-    // No privacyPolicy here on purpose — WIMM has its own dedicated legal
-    // pages at /wimm/privacy, /wimm/terms, /wimm/cookies (see
-    // components/wimm/legal-shell.tsx), so it's excluded from the generic
-    // /apps/[slug]/privacy template and from that route in sitemap.ts.
-    landingUrl: "/wimm",
   },
 ];
 
