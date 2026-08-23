@@ -299,9 +299,11 @@ export const WIMM_PLATFORM_OPTIONS = [
 ] as const;
 
 // ─── FAQ ────────────────────────────────────────────────────────────────────────
-// Answers are placeholders — replace with real copy before launch.
-// Keeping the question set here now means the FAQPage JSON-LD and the
-// on-page accordion never drift out of sync.
+// Real launch copy (replaces the earlier placeholders). Keeping the question
+// set here means the FAQPage JSON-LD and the on-page accordion never drift
+// out of sync. Note: faq.tsx renders `answer` as plain text in a single <p>,
+// so these are written as prose — no markdown (**bold**, "- " bullets, etc.)
+// since it would render as literal asterisks/dashes rather than formatting.
 
 export type WimmFaqItem = {
   question: string;
@@ -312,50 +314,82 @@ export const wimmFaqs: WimmFaqItem[] = [
   {
     question: "Is my data safe?",
     answer:
-      "Where Is My Money? is local-first: your financial data lives on your device first, and cloud sync is optional. [Placeholder — replace with final security/encryption copy before launch.]",
+      "Yes. All your financial data is encrypted at rest using AES-256 encryption, directly on your phone or device. Only when you enter your 6-digit PIN does the app decrypt it to show it to you — we never see your financial data, and your phone is the source of truth. When cloud sync is enabled (Premium), your data syncs to our servers over HTTPS, encrypted both in transit and at rest.",
   },
   {
     question: "Do I need internet to use Where Is My Money?",
     answer:
-      "No — core tracking works fully offline. Internet is only needed for optional cloud sync and live rate feeds (like precious metal prices). [Placeholder — confirm before launch.]",
+      "No. The entire app works fully offline — you can track all your expenses, income, investments, budgets, and goals without ever connecting to the internet. Cloud sync across devices is optional and only available in Premium.",
   },
   {
     question: "What's the difference between free and premium?",
     answer:
-      "[Placeholder — add the final free vs. premium feature breakdown and pricing once decided.]",
+      "Free (Offline) covers everything core: expense, income, budget, goal, investment, debt, vehicle, and precious-metal tracking, encrypted backup and restore, financial health scoring, a tax calculator, reports, home-screen widgets, and local family member tagging. Premium adds cloud sync across Android, iOS, and desktop, attachments for receipts and documents, live precious-metal market rates, multi-currency support, cross-account family sharing where you can invite another person into a shared household, and priority support.",
+  },
+  {
+    question: "How much does premium cost?",
+    answer:
+      "Early-bird launch pricing, available through the end of September 2026, is roughly ₹49/week, ₹99/month, or ₹499/year — the exact price shown at checkout may vary slightly by region and currency. Early-bird subscribers lock in that price forever.",
   },
   {
     question: "Can I share with my family?",
     answer:
-      "Yes — Family Sharing lets you set up joint budgets and allowances without sharing your login. [Placeholder — refine once the feature is finalised.]",
+      "On the free plan, yes — you can tag local family members when adding expenses or income. Premium adds cross-account sharing: create a shared family, invite others to link their real accounts, choose which data categories they can see, and track household budgets, subscriptions, and joint goals together.",
   },
   {
     question: "How do I export my data?",
     answer:
-      "Every report can be exported to PDF from inside the app. [Placeholder — add step-by-step detail once the export flow is finalised.]",
+      "Free users can export an encrypted backup file, protected by a passphrase you set, any time from Settings, and restore it on a new device whenever needed. Premium adds continuous backup of your synced data to your cloud account. Everyone can also import bank statements as CSV files and export PDF financial reports.",
   },
   {
     question: "Which banks are supported?",
     answer:
-      "[Placeholder — list supported banks / import methods once confirmed.]",
+      "There's a built-in list of 200+ Indian banks, covering all major banks, NBFCs, and digital banks. Add any of them manually with an opening balance, or import a CSV statement — the app doesn't auto-connect to your bank, so you stay in full control of what's logged.",
   },
   {
     question: "Is there a web version?",
     answer:
-      "Where Is My Money? currently targets Android, iOS, Windows, macOS, and Linux. [Placeholder — confirm web-version plans, if any.]",
-  },
-  {
-    question: "How much does premium cost?",
-    answer: "[Placeholder — add pricing once finalised.]",
+      "Not yet. Where Is My Money? is mobile-first — it's available on Android now, with early-bird pricing, and iOS is coming next. Desktop apps for Windows, macOS, and Linux are planned after the mobile launch.",
   },
   {
     question: "Can I use this for business finances?",
     answer:
-      "Where Is My Money? is built for personal finance. It isn't designed for business accounting. [Placeholder — refine wording before launch.]",
+      "No — the app is designed for personal finances, built around individual budgets, household expenses, and personal tax filing under India's New Regime. If you need to separate business income and expenses from personal ones, you can use a second account, but the app isn't optimised for business accounting.",
   },
   {
     question: "What if I have multiple currencies?",
-    answer: "[Placeholder — confirm multi-currency support before launch.]",
+    answer:
+      "On the free plan, everything is tracked in INR. Premium lets you log expenses and income in any currency — the app converts it to your base currency using live exchange rates, which is useful for international travel or NRI finances.",
+  },
+  {
+    question: "How do I delete my account or my data?",
+    answer:
+      "You can wipe just the app's local data from Settings > Data Management > Factory Reset, which keeps the app installed. To delete your account completely — all local data, your cloud data if you're on Premium, and your cloud account — go to Settings > Account Deletion. Both actions are instant and irreversible.",
+  },
+  {
+    question: "How does investment tracking work?",
+    answer:
+      "You can track both SIP (recurring) and lump-sum investments. The app calculates XIRR — your real rate of return, accounting for the timing of each deposit — along with current capital gains and your asset allocation across mutual funds, stocks, gold, and other vehicles, so you can monitor your portfolio and plan around tax.",
+  },
+  {
+    question: "Does it help with income tax filing?",
+    answer:
+      "Yes, for India's New Regime. The app includes a tax calculator that pulls from your actual income entries, a slab visualisation, NPS tax-saving tips, advance tax tracking, and Form 26AS/AIS reconciliation you can upload and verify against. It's not a replacement for a CA, but it helps you understand your tax liability and keep your documents organised.",
+  },
+  {
+    question: "When is Where Is My Money? launching, and on which platforms?",
+    answer:
+      "Android is launching now, with early-bird pricing available through September 30, 2026. iOS is coming soon, once Android has stabilised, and desktop apps for Windows, macOS, and Linux are planned after the mobile launch — there are no current plans for a web version. Early-bird subscribers lock in their pricing forever, so it's a good window to join if you want to save.",
+  },
+  {
+    question: "How is the app funded?",
+    answer:
+      "The free tier is fully free forever — no ads, no data selling, no freemium tricks. Premium is a subscription (weekly, monthly, or yearly, cancel anytime) handled through RevenueCat. Usage analytics are optional and off by default for free users; if you opt in, no financial data is ever included.",
+  },
+  {
+    question: "How does it compare to other finance apps?",
+    answer:
+      "Most other apps lock core features like budgeting, investing, or tax tools behind a paywall, or run an ad-supported free tier. Where Is My Money? locks nothing finance-core behind Premium — everything a personal-finance app needs works offline and free. Premium stays genuinely optional: cloud sync, attachments, live rates, and family sharing, not a requirement for a complete app.",
   },
 ];
 
