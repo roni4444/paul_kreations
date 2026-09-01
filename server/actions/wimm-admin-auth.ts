@@ -39,7 +39,7 @@ export async function signInWithGoogleAction(
     };
   }
 
-  let isHuman: boolean;
+  let isHuman: { success: true } | { success: false; error: string };
   try {
     isHuman = await verifyTurnstileToken(parsed.data.turnstileToken);
   } catch (err) {
