@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function WimmTermsPage() {
   return (
-    <LegalShell title="Terms of Service" lastUpdated="August 10, 2026">
+    <LegalShell title="Terms of Service" lastUpdated="September 1, 2026">
       <section>
         <h2>Agreement to Terms</h2>
         <p>
@@ -45,6 +45,15 @@ export default function WimmTermsPage() {
             Use any automated system to access the Service in a manner that
             sends more requests than a human can reasonably produce
           </li>
+          <li>
+            Attempt to abuse, defraud, or manipulate the Referral Program — see
+            its own section below
+          </li>
+          <li>
+            Attempt to abuse, defraud, or manipulate Promo Offers, including by
+            misrepresenting your identity or eligibility, or by circumventing
+            the one-offer-per-account limit — see its own section below
+          </li>
         </ul>
       </section>
 
@@ -72,11 +81,155 @@ export default function WimmTermsPage() {
       <section>
         <h2>Payments and Billing</h2>
         <p>
-          Certain aspects of the Service may require payment. You agree to
-          provide accurate billing information. All payments are non-refundable
-          unless otherwise stated. We reserve the right to change our pricing at
-          any time with reasonable notice.
+          Premium subscriptions are billed through one of the following,
+          depending on your platform and region:
         </p>
+        <ul>
+          <li>
+            <strong>Apple App Store / Google Play Store</strong>, via
+            RevenueCat, on Android, iOS, and macOS.
+          </li>
+          <li>
+            <strong>Razorpay</strong>, via a payment link, on Windows and Linux
+            (India only).
+          </li>
+        </ul>
+        <p>
+          You agree to provide accurate billing information. All payments are
+          non-refundable unless otherwise stated, or required by the
+          platform/payment processor&apos;s own policies (App Store and Play
+          Store refunds are governed by Apple&apos;s and Google&apos;s own
+          terms, not ours). We reserve the right to change our pricing at any
+          time with reasonable notice.
+        </p>
+        <p>
+          Premium access may also be granted free of charge through a Promo
+          Offer, at our sole discretion, without any payment — see &quot;Promo
+          Offers&quot; below for how that works and how it interacts with a paid
+          subscription.
+        </p>
+      </section>
+
+      <section>
+        <h2>Referral Program</h2>
+        <p>
+          Where Is My Money? may offer a Referral Program allowing you to invite
+          others to the Service and, subject to eligibility, earn rewards.
+        </p>
+        <ul>
+          <li>
+            <strong>Eligibility.</strong> Enrollment requires signing in with a
+            Google account (or an available alternative sign-in method). A
+            Premium subscription is never required to enroll or to redeem a
+            referral code, and referral rewards are never a discount on a
+            Premium subscription.
+          </li>
+          <li>
+            <strong>One referrer per account.</strong> Each account may be
+            referred by, at most, one other account, for the lifetime of that
+            account.
+          </li>
+          <li>
+            <strong>Redemption window.</strong> A referral code must be redeemed
+            within a limited time period of enrolling (see the Referral Program
+            screen in-app for the current window). Codes cannot be redeemed
+            after this window closes.
+          </li>
+          <li>
+            <strong>Rewards.</strong> Referral rewards, if any, are feature
+            unlocks or other non-monetary benefits, as described in-app at the
+            time they&apos;re offered, and are subject to change. Rewards have
+            no cash value and are not transferable, exchangeable, or redeemable
+            for cash or credit.
+          </li>
+          <li>
+            <strong>Fraud and abuse.</strong> We reserve the right to withhold,
+            revoke, or reclaim any referral reward, and to suspend or terminate
+            access to the Referral Program (or, in cases of serious abuse, the
+            Service itself), if we reasonably believe an account has engaged in
+            self-referral, the use of multiple/fraudulent accounts, or any other
+            manipulation of the program.
+          </li>
+          <li>
+            <strong>Data retention.</strong> See the Privacy Policy&apos;s
+            &quot;Referral Program&quot; section for what&apos;s collected and
+            what&apos;s retained after account deletion.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Promo Offers</h2>
+        <p>
+          Where Is My Money? may, at our sole discretion, grant free Premium
+          access to specific accounts through a Promo Offer (for example, to
+          collaborators, partners, or other accounts we select).
+        </p>
+        <ul>
+          <li>
+            <strong>Invitation-based, not open enrollment.</strong> Unlike the
+            Referral Program, Promo Offers are not something any account can opt
+            into or generate — each offer is created and assigned by us, and is
+            either visible to every signed-in account or restricted to specific
+            accounts we designate. There is no code you can type in or request;
+            an offer is either shown to your account in the app or it
+            isn&apos;t.
+          </li>
+          <li>
+            <strong>Eligibility.</strong> Viewing or applying a Promo Offer
+            requires signing in with a Google account (or an available
+            alternative sign-in method).
+          </li>
+          <li>
+            <strong>One offer per account, ever.</strong> Each account may
+            apply, at most, one Promo Offer, for the lifetime of that account.
+            Offers cannot be stacked, combined, switched, or reapplied once one
+            has been used.
+          </li>
+          <li>
+            <strong>What it grants.</strong> Each offer grants Premium access
+            for the specific period or benefit described in that offer at the
+            time you apply it (for example, a specific calendar month). A Promo
+            Offer is not a subscription — it does not renew, and does not
+            continue automatically once its period ends.
+          </li>
+          <li>
+            <strong>Interaction with a paid subscription.</strong> A paid
+            Premium subscription always takes precedence over a Promo Offer. If
+            you have an active paid subscription, applying a Promo Offer will
+            have no additional effect while that subscription remains active;
+            conversely, if a paid subscription you&apos;re on ever lapses while
+            an applied offer&apos;s period is still current, Premium access
+            through that offer resumes automatically. Applying a Promo Offer
+            never affects, cancels, or interferes with a separate paid
+            subscription.
+          </li>
+          <li>
+            <strong>Changes and revocation.</strong> We may modify, deactivate,
+            or revoke any Promo Offer, or any account&apos;s access to one, at
+            any time and without notice — including after it has already been
+            applied — for example in the event of an error, a change in
+            eligibility, or suspected abuse.
+          </li>
+          <li>
+            <strong>No cash value.</strong> Promo Offers have no cash value and
+            are not transferable, exchangeable, sellable, or redeemable for cash
+            or credit.
+          </li>
+          <li>
+            <strong>Fraud and abuse.</strong> We reserve the right to withhold,
+            revoke, or reclaim access granted through a Promo Offer, and to
+            suspend or terminate access to Promo Offers (or, in cases of serious
+            abuse, the Service itself), if we reasonably believe an account has
+            engaged in fraud, misrepresentation, or any other manipulation of
+            the program.
+          </li>
+          <li>
+            <strong>Data retention.</strong> See the Privacy Policy&apos;s
+            &quot;Promo Offers&quot; section for what&apos;s collected and
+            what&apos;s retained after account deletion.
+          </li>
+        </ul>
       </section>
 
       <section>
@@ -122,6 +275,13 @@ export default function WimmTermsPage() {
           any kind, whether express or implied, including, but not limited to,
           implied warranties of merchantability, fitness for a particular
           purpose, non-infringement, or course of performance.
+        </p>
+        <p>
+          Financial calculations, projections, and figures shown in the Service
+          (including but not limited to expected returns, tax estimates, and
+          affordability scores) are estimates for informational purposes only,
+          are not financial, tax, or legal advice, and should not be relied upon
+          as such.
         </p>
       </section>
 
