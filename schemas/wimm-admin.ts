@@ -70,3 +70,12 @@ export const userLookupSchema = z.object({
 export const wimmAdminSignInSchema = z.object({
   turnstileToken: z.string().min(1, "Please complete the verification"),
 });
+
+// Sign-in only — there is deliberately no matching sign-up schema. Password
+// accounts for this admin are created by hand in Supabase, same as the
+// promo_admins row itself.
+export const wimmAdminPasswordSignInSchema = z.object({
+  email: z.string().trim().email("Enter a valid email address"),
+  password: z.string().min(1, "Enter your password"),
+  turnstileToken: z.string().min(1, "Please complete the verification"),
+});

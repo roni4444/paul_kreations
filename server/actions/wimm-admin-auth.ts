@@ -13,7 +13,10 @@
 
 import { redirect } from "next/navigation";
 import * as Sentry from "@sentry/nextjs";
-import { wimmAdminSignInSchema } from "@/schemas/wimm-admin";
+import {
+  wimmAdminPasswordSignInSchema,
+  wimmAdminSignInSchema,
+} from "@/schemas/wimm-admin";
 import { verifyTurnstileToken } from "@/services/security/turnstile";
 import { createWimmSupabaseServerClient } from "@/services/supabase/wimm-client";
 import { BASE_URL } from "@/lib/config";
@@ -75,6 +78,62 @@ export async function signInWithGoogleAction(
   }
 
   redirect(data.url);
+}
+
+// Sign-in only — there is deliberately no matching sign-up action. Password
+// accounts for this admin are created by hand in Supabase (Authentication →
+// Users → Add user), the same way the promo_admins row itself is seeded.
+// If that account uses the same email as the Google account, Supabase links
+// them under one auth.users id automatically, so a single promo_admins row
+// covers both sign-in methods; a different email needs its own row.
+export async function signInWithPasswordAction(
+  _prevState: WimmAdminSignInState,
+  formData: FormData,
+): Promise<WimmAdminSignInState> {
+  const parsed = wimmAdminPasswordSignInSchema.safeParse({
+    email: formData.get("email"),
+    password: formData.get("password"),
+    turnstileToken: formData.get("turnstileToken"),
+  });
+
+  if (!parsed.success) {
+    return {
+      status: "error",
+      message: parsed.error.issues[0]?.message ?? "Invalid input.",
+    };
+  }
+
+  let isHuman: { success: true } | { success: false; error: string };
+  try {
+    isHuman = await verifyTurnstileToken(parsed.data.turnstileToken);
+  } catch (err) {
+    Sentry.captureException(err);
+    return {
+      status: "error",
+      message: "Verification failed. Please try again.",
+    };
+  }
+
+  if (!isHuman) {
+    return {
+      status: "error",
+      message: "Verification failed. Please try again.",
+    };
+  }
+
+  const supabase = await createWimmSupabaseServerClient();
+
+  const { error } = await supabase.auth.signInWithPassword({
+    email: parsed.data.email,
+    password: parsed.data.password,
+  });
+
+  if (error) {
+    // Deliberately generic — never confirm whether the email exists.
+    return { status: "error", message: "Invalid email or password." };
+  }
+
+  redirect("/wimm/admin");
 }
 
 export async function signOutAction() {
