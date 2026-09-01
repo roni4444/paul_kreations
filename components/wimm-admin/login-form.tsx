@@ -46,7 +46,7 @@ export function WimmAdminLoginForm() {
   const isPending = isGooglePending || isPasswordPending;
 
   return (
-    <div className="flex flex-col gap-5 w-full max-w-[360px]">
+    <div className="flex flex-col gap-5 w-full max-w-90">
       <TurnstileWidget
         onVerify={setTurnstileToken}
         onExpire={() => setTurnstileToken("")}
