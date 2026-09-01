@@ -354,16 +354,14 @@ export default function WimmPrivacyPage() {
         </p>
         <ul>
           <li>
-            <strong>Name:</strong> [GRIEVANCE OFFICER NAME — required before
-            publishing]
+            <strong>Name:</strong> Debapriyo Paul
           </li>
           <li>
-            <strong>Email:</strong> [GRIEVANCE OFFICER EMAIL — required before
-            publishing]
+            <strong>Email:</strong> debapriyopaul.dp@gmail.com
           </li>
           <li>
-            <strong>Address:</strong> [REGISTERED ADDRESS — required before
-            publishing]
+            <strong>Address:</strong> 20, Bindhyabasinitala Road, Ariadaha,
+            Kolkata - 700057
           </li>
         </ul>
       </section>
@@ -393,8 +391,8 @@ export default function WimmPrivacyPage() {
         <ul>
           <li>
             By email:{" "}
-            <a href="mailto:support@mail.paulkreations.com">
-              support@mail.paulkreations.com
+            <a href="mailto:support@paulkreations.com">
+              support@paulkreations.com
             </a>
           </li>
           <li>
