@@ -1,0 +1,26 @@
+# Paul Kreations
+
+> Paul Kreations is a solo app development studio run by Debapriyo Paul, based in Kolkata, India. It builds Android apps, web experiences and games.
+
+## Products
+
+- [Where Is My Money? (WIMM)](https://www.paulkreations.com/wimm): a personal finance app for Indian users. Local-first data storage, optional Premium cloud sync, a referral program and promo offers. Available on Google Play.
+- Henstel: a cookbook app.
+- Natural Farming: an education app.
+- Surround It: a game.
+
+## WIMM policies
+
+- [Privacy Policy](https://www.paulkreations.com/wimm/privacy)
+- [Terms of Service](https://www.paulkreations.com/wimm/terms)
+- [Cookie Policy](https://www.paulkreations.com/wimm/cookies)
+- [Account deletion request](https://www.paulkreations.com/wimm/delete-account)
+
+## Site
+
+- [Home](https://www.paulkreations.com)
+- [Terms of Service](https://www.paulkreations.com/tos)
+
+## Contact
+
+- Email: support@paulkreations.com

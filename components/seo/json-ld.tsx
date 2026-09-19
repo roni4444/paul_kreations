@@ -5,20 +5,25 @@
 // Schema types used:
 //   Organization  — establishes Paul Kreations as an entity Google can understand
 //   SoftwareApplication — makes apps eligible for rich results in Google Search
+//
+// All URLs derive from BASE_URL (lib/config.ts) so the canonical domain
+// (https://www.paulkreations.com) is defined in exactly one place.
 
 import { apps, teamMembers } from "@/lib/data";
+import { BASE_URL } from "@/lib/config";
 
 // ─── Organisation schema ──────────────────────────────────────────────────────
-// Tells Google who you are, your social profiles, and your Play Store page.
-// Place this in the root layout so it appears on every page.
 
 export function OrganizationJsonLd() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": `${BASE_URL}/#organization`,
     name: "Paul Kreations",
-    url: "https://paulkreations.com",
-    logo: "https://paulkreations.com/logo.png", // add your logo to /public/logo.png
+    url: BASE_URL,
+    // app/icon.png is served by Next.js at /icon.png. Swap for a dedicated
+    // square logo (min 112x112) if you add one to /public.
+    logo: `${BASE_URL}/icon.png`,
     description:
       "Paul Kreations builds thoughtful Android apps, web experiences, and games with precision, purpose, and genuine craft.",
     founder: {
@@ -41,12 +46,29 @@ export function OrganizationJsonLd() {
   );
 }
 
-// ─── App catalogue schema ─────────────────────────────────────────────────────
-// One SoftwareApplication entry per app.
-// Makes apps eligible for Google rich results (star rating, price, category).
-// Place this on the home page near the Products section.
+// ─── WebSite schema ───────────────────────────────────────────────────────────
+// Names the site and links it to the Organization entity above.
 
-// Maps our category strings to schema.org applicationCategory values.
+export function WebSiteJsonLd() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${BASE_URL}/#website`,
+    name: "Paul Kreations",
+    url: BASE_URL,
+    publisher: { "@id": `${BASE_URL}/#organization` },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+// ─── App catalogue schema ─────────────────────────────────────────────────────
+
 const CATEGORY_MAP: Record<string, string> = {
   "Food & Drink": "FoodApplication",
   Education: "EducationalApplication",
@@ -70,10 +92,8 @@ export function AppsJsonLd() {
       price: "0",
       priceCurrency: "USD",
     },
-    // Omitted entirely for apps with no rating yet (e.g. a brand-new
-    // launch) — a fabricated rating is misleading and can violate Google's
-    // structured-data guidelines. Same principle as
-    // components/seo/wimm-json-ld.tsx.
+    // Omitted entirely for apps with no rating yet — a fabricated rating is
+    // misleading and can violate Google's structured-data guidelines.
     ...(typeof app.rating === "number"
       ? {
           aggregateRating: {
@@ -83,11 +103,7 @@ export function AppsJsonLd() {
           },
         }
       : {}),
-    author: {
-      "@type": "Organization",
-      name: "Paul Kreations",
-      url: "https://paulkreations.com",
-    },
+    author: { "@id": `${BASE_URL}/#organization` },
   }));
 
   return (

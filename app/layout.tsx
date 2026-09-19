@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import { OrganizationJsonLd } from "@/components/seo/json-ld";
+import { OrganizationJsonLd, WebSiteJsonLd } from "@/components/seo/json-ld";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { BASE_URL } from "@/lib/config";
@@ -144,7 +144,7 @@ export default function RootLayout({
     >
       <head>
         {/* Organisation JSON-LD — on every page */}
-        <OrganizationJsonLd />
+        <OrganizationJsonLd /> <WebSiteJsonLd />
       </head>
       <body
         suppressHydrationWarning
