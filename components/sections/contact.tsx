@@ -23,7 +23,7 @@ type Status = "idle" | "success" | "error";
 
 // Shared input/textarea class
 const FIELD =
-  "w-full px-3 border border-[#e3bebd] bg-white text-[#111c2d] text-sm outline-none transition-all placeholder:text-[#8f6f6f] font-[family-name:var(--font-sans)] focus:border-[#c41e3a] focus:border-2 disabled:opacity-50 disabled:cursor-not-allowed";
+  "w-full px-3 border border-[#e3bebd] bg-white text-[#111c2d] text-sm outline-none transition-all placeholder:text-[#7a5c5c] font-[family-name:var(--font-sans)] focus:border-[#c41e3a] focus:border-2 disabled:opacity-50 disabled:cursor-not-allowed";
 
 export function Contact() {
   const [isPending, startTransition] = useTransition();
@@ -102,7 +102,7 @@ export function Contact() {
                     aria-hidden="true"
                   />
                   <span
-                    className={`${MONO} text-[10px] text-[#8f6f6f] uppercase w-28 flex-shrink-0`}
+                    className={`${MONO} text-[10px] text-[#7a5c5c] uppercase w-28 flex-shrink-0`}
                   >
                     {item.label}
                   </span>

@@ -43,7 +43,6 @@ function TechIcon({ tech }: { tech: import("@/lib/data").TechStackItem }) {
         /* Text-badge fallback — used when neither icon source is available */
         <span
           className={`${MONO} inline-block px-1.5 py-0.5 text-[9px] font-medium border border-[#e3bebd] text-[#5f5e5e] leading-tight whitespace-nowrap`}
-          aria-label={tech.name}
         >
           {tech.name}
         </span>
@@ -65,6 +64,7 @@ function RatingStars({ rating }: { rating: number }) {
   return (
     <span
       className="flex items-center gap-0.5"
+      role="img"
       aria-label={`${rating} out of 5 stars`}
     >
       {Array.from({ length: 5 }).map((_, i) => (
@@ -130,12 +130,12 @@ export function Apps() {
                 {/* Category + Type badge */}
                 <div className="flex items-center justify-between">
                   <span
-                    className={`${MONO} text-[10px] text-[#8f6f6f] uppercase`}
+                    className={`${MONO} text-[10px] text-[#7a5c5c] uppercase`}
                   >
                     {app.category}
                   </span>
                   <span
-                    className={`${MONO} text-[10px] px-1.5 py-0.5 border border-[#e3bebd] text-[#8f6f6f] uppercase`}
+                    className={`${MONO} text-[10px] px-1.5 py-0.5 border border-[#e3bebd] text-[#7a5c5c] uppercase`}
                   >
                     {app.type}
                   </span>
@@ -163,7 +163,7 @@ export function Apps() {
                 {/* ── Tech Stack ─────────────────── */}
                 <div className="pt-3 border-t border-[#e3bebd]">
                   <p
-                    className={`${MONO} text-[10px] text-[#8f6f6f] uppercase mb-2.5`}
+                    className={`${MONO} text-[10px] text-[#7a5c5c] uppercase mb-2.5`}
                   >
                     Built with
                   </p>
@@ -177,7 +177,7 @@ export function Apps() {
                 {/* ── Meta ───────────────────────── */}
                 <div className="flex items-center justify-between px-3 py-2 bg-[#fff5f5] border border-[#e3bebd]">
                   <span
-                    className={`${MONO} text-[10px] text-[#8f6f6f] flex items-center gap-1.5`}
+                    className={`${MONO} text-[10px] text-[#7a5c5c] flex items-center gap-1.5`}
                   >
                     <Download size={10} aria-hidden="true" />
                     {app.downloads}
@@ -223,17 +223,18 @@ export function Apps() {
                   {app.landingUrl ? (
                     <Link
                       href={app.landingUrl}
-                      className="flex items-center gap-1.5 px-3 py-2.5 border border-[#e3bebd] hover:border-[#c41e3a] text-[#8f6f6f] hover:text-[#c41e3a] transition-colors"
-                      aria-label={`Visit the ${app.name} landing page`}
+                      className="flex items-center gap-1.5 px-3 py-2.5 border border-[#e3bebd] hover:border-[#c41e3a] text-[#7a5c5c] hover:text-[#c41e3a] transition-colors"
                       title="Landing Page"
                     >
                       <ArrowUpRight size={13} aria-hidden="true" />
-                      <span className={`${MONO} text-[10px]`}>Learn More</span>
+                      <span className={`${MONO} text-[10px]`}>
+                        About {app.name}
+                      </span>
                     </Link>
                   ) : (
                     <Link
                       href={`/apps/${app.slug}/privacy`}
-                      className="flex items-center gap-1.5 px-3 py-2.5 border border-[#e3bebd] hover:border-[#c41e3a] text-[#8f6f6f] hover:text-[#c41e3a] transition-colors"
+                      className="flex items-center gap-1.5 px-3 py-2.5 border border-[#e3bebd] hover:border-[#c41e3a] text-[#7a5c5c] hover:text-[#c41e3a] transition-colors"
                       aria-label={`${app.name} Privacy Policy`}
                       title="Privacy Policy"
                     >
@@ -253,7 +254,7 @@ export function Apps() {
             href="https://play.google.com/store/apps/developer?id=Paul+Kreations"
             target="_blank"
             rel="noopener noreferrer"
-            className={`${MONO} inline-flex items-center gap-2 text-[11px] text-[#8f6f6f] hover:text-[#c41e3a] transition-colors`}
+            className={`${MONO} inline-flex items-center gap-2 text-[11px] text-[#7a5c5c] hover:text-[#c41e3a] transition-colors`}
           >
             See all on Google Play Store
             <ExternalLink size={11} aria-hidden="true" />

@@ -18,7 +18,7 @@ const STATUS_LABEL: Record<string, string> = {
 };
 
 const STATUS_STYLE: Record<string, string> = {
-  planned: "bg-[#f9f9ff] text-[#8f6f6f] border border-[#e3bebd]",
+  planned: "bg-[#f9f9ff] text-[#7a5c5c] border border-[#e3bebd]",
   "in-progress": "bg-[#ffdad9] text-[#c41e3a] border border-[#c41e3a]/40",
   soon: "bg-[#c41e3a] text-white border border-[#9e0027]",
 };
@@ -68,7 +68,7 @@ export function Roadmap() {
                 <div className="size-10 flex items-center justify-center bg-[#f9f9ff] border border-[#e3bebd]">
                   <Icon
                     size={18}
-                    className="text-[#8f6f6f]"
+                    className="text-[#7a5c5c]"
                     aria-hidden="true"
                   />
                 </div>
@@ -81,7 +81,7 @@ export function Roadmap() {
                     </h3>
                     {item.eta && (
                       <span
-                        className={`${MONO} text-[10px] text-[#8f6f6f] bg-[#f9f9ff] border border-[#e3bebd] px-2 py-0.5 whitespace-nowrap flex-shrink-0`}
+                        className={`${MONO} text-[10px] text-[#7a5c5c] bg-[#f9f9ff] border border-[#e3bebd] px-2 py-0.5 whitespace-nowrap flex-shrink-0`}
                       >
                         ~{item.eta}
                       </span>

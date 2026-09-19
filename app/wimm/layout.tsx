@@ -33,8 +33,11 @@ export const metadata: Metadata = {
   description:
     "Track banking, credit cards, investments (with XIRR), debt, income tax, travel, vehicles, and family budgets in one dashboard. Where Is My Money? is the complete personal finance app built for India.",
   keywords: [...WIMM_PRIMARY_KEYWORDS, ...WIMM_LONGTAIL_KEYWORDS],
+  // "./" = each page's own URL. This layout wraps /wimm/privacy, /wimm/terms,
+  // /wimm/cookies and /wimm/delete-account too, so a fixed /wimm canonical
+  // would mark all of them as duplicates of the WIMM landing page.
   alternates: {
-    canonical: `${BASE_URL}/wimm`,
+    canonical: "./",
   },
   openGraph: {
     type: "website",

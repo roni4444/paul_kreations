@@ -97,8 +97,11 @@ export const metadata: Metadata = {
   },
 
   // ── Canonical & robots ──────────────────────────────────────────────────────
+  // "./" resolves against metadataBase to each page's own URL, so every route
+  // gets a self-referencing canonical. A fixed BASE_URL here would tell Google
+  // that /tos, /wimm/privacy etc. are duplicates of the homepage.
   alternates: {
-    canonical: BASE_URL,
+    canonical: "./",
   },
   robots: {
     index: true,

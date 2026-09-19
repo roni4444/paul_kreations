@@ -59,7 +59,10 @@ const NAV_LINKS = [
 function LogoMark() {
   return (
     <Image
-      src="/logo_extended.svg"
+      // 525×120 WebP (~7 KB) rendered from logo_extended.svg. The SVG embeds
+      // five base64 PNGs (1.3 MB) and next/image never optimises SVGs, so it
+      // was the slowest thing on the page and delayed LCP.
+      src="/logo_extended.webp"
       alt="Paul Kreations"
       width={140}
       height={32}

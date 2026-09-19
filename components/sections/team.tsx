@@ -94,7 +94,7 @@ export function Team() {
                       href={member.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="size-7 flex items-center justify-center text-[#8f6f6f] hover:text-[#111c2d] hover:bg-[#ffdad9] transition-colors"
+                      className="size-7 flex items-center justify-center text-[#7a5c5c] hover:text-[#111c2d] hover:bg-[#ffdad9] transition-colors"
                       aria-label={`${member.name} on GitHub`}
                     >
                       <GitHubIcon size={14} />
@@ -105,7 +105,7 @@ export function Team() {
                       href={member.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="size-7 flex items-center justify-center text-[#8f6f6f] hover:text-[#111c2d] hover:bg-[#ffdad9] transition-colors"
+                      className="size-7 flex items-center justify-center text-[#7a5c5c] hover:text-[#111c2d] hover:bg-[#ffdad9] transition-colors"
                       aria-label={`${member.name} on LinkedIn`}
                     >
                       <LinkedInIcon size={14} />
@@ -122,7 +122,7 @@ export function Team() {
               {/* ── Skills — Rose Mist chips per spec */}
               <div>
                 <p
-                  className={`${MONO} text-[10px] text-[#8f6f6f] uppercase mb-2`}
+                  className={`${MONO} text-[10px] text-[#7a5c5c] uppercase mb-2`}
                 >
                   Skills
                 </p>
@@ -141,7 +141,7 @@ export function Team() {
               {/* ── Contributions — 2px crimson left-border per spec */}
               <div className="pt-4 border-t border-[#e3bebd]">
                 <p
-                  className={`${MONO} text-[10px] text-[#8f6f6f] uppercase mb-3`}
+                  className={`${MONO} text-[10px] text-[#7a5c5c] uppercase mb-3`}
                 >
                   Contributions
                 </p>
@@ -164,7 +164,7 @@ export function Team() {
                         {c.project}
                       </span>
                       <span
-                        className={`${MONO} text-[10px] text-[#8f6f6f] truncate`}
+                        className={`${MONO} text-[10px] text-[#7a5c5c] truncate`}
                       >
                         {c.role}
                       </span>
@@ -184,7 +184,7 @@ export function Team() {
               <p className="text-sm font-semibold text-[#111c2d] mb-1">
                 Growing the Team
               </p>
-              <p className={`${MONO} text-[10px] text-[#8f6f6f] max-w-[160px]`}>
+              <p className={`${MONO} text-[10px] text-[#7a5c5c] max-w-[160px]`}>
                 New contributors appear here as the company expands.
               </p>
             </div>
