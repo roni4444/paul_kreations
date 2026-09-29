@@ -20,7 +20,7 @@
 //   { "email": "person@example.com" }   → { "user": { id, email } } | 404
 //   { "ids": ["uuid", ...] }            → { "users": [{ id, email }, ...] }
 
-import { createClient } from "jsr:@supabase/supabase-js@2";
+import { createClient, type SupabaseClient } from "jsr:@supabase/supabase-js@2";
 
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
@@ -44,7 +44,7 @@ function jsonResponse(body: unknown, status: number): Response {
  * ever grows into the tens of thousands, swap this for a direct email
  * filter if the deployed GoTrue version supports one. */
 async function findUserByEmail(
-  adminClient: ReturnType<typeof createClient>,
+  adminClient: SupabaseClient,
   email: string,
 ): Promise<{ id: string; email: string } | null> {
   const perPage = 200;

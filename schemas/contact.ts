@@ -9,7 +9,6 @@ export const contactSchema = z.object({
     .min(2, "Name must be at least 2 characters")
     .max(100, "Name is too long"),
   email: z
-    .string()
     .email("Please enter a valid email address")
     .max(255, "Email address is too long"),
   contactingTo: z.string().min(1, "Please select who you are contacting"),

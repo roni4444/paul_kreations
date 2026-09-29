@@ -8,6 +8,7 @@
 
 import * as Sentry from "@sentry/nextjs";
 import { headers } from "next/headers";
+import { z } from "zod";
 import { waitlistSchema } from "@/schemas/waitlist";
 import { verifyTurnstileToken } from "@/services/security/turnstile";
 import { insertWaitlistSignup } from "@/services/wimm/waitlist";
@@ -24,7 +25,7 @@ export async function submitWaitlistForm(data: unknown): Promise<ActionResult> {
   if (!parsed.success) {
     return {
       success: false,
-      fieldErrors: parsed.error.flatten().fieldErrors as Record<
+      fieldErrors: z.flattenError(parsed.error).fieldErrors as Record<
         string,
         string[]
       >,

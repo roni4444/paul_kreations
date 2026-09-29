@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
 import { Open_Sans, Poppins } from "next/font/google";
 import { BASE_URL } from "@/lib/config";
@@ -86,7 +87,7 @@ export const viewport: Viewport = {
 
 export default function WimmLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+}: Readonly<{ children: ReactNode }>) {
   return (
     <div
       className={`${poppins.variable} ${openSans.variable} font-[family-name:var(--font-wimm-body)] bg-[#F6FAF8]`}

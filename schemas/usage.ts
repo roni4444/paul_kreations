@@ -12,7 +12,7 @@ export const sentryUsageSchema = z.object({
   periodLabel: z.string(),
   errorEvents: z.number(),
   transactionEvents: z.number(),
-  dashboardUrl: z.string().url(),
+  dashboardUrl: z.url(),
 });
 export const sentryUsageErrorSchema = z.object({
   status: z.literal("error"),
@@ -27,7 +27,7 @@ export const resendUsageSchema = z.object({
   status: z.literal("ok"),
   recentEmailCount: z.number(),
   lastSentAt: z.string().nullable(),
-  dashboardUrl: z.string().url(),
+  dashboardUrl: z.url(),
 });
 export const resendUsageErrorSchema = z.object({
   status: z.literal("error"),
@@ -47,7 +47,7 @@ export const supabaseProjectSchema = z.object({
 export const supabaseUsageSchema = z.object({
   status: z.literal("ok"),
   projects: z.array(supabaseProjectSchema),
-  dashboardUrl: z.string().url(),
+  dashboardUrl: z.url(),
 });
 export const supabaseUsageErrorSchema = z.object({
   status: z.literal("error"),
@@ -62,7 +62,7 @@ export const appwriteUsageSchema = z.object({
   status: z.literal("ok"),
   totalStaffUsers: z.number(),
   totalStaffRows: z.number(),
-  dashboardUrl: z.string().url(),
+  dashboardUrl: z.url(),
 });
 export const appwriteUsageErrorSchema = z.object({
   status: z.literal("error"),

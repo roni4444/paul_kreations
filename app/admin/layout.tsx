@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { Metadata } from "next";
 
 // Every page under /admin inherits this — kept out of search results since
@@ -6,10 +7,6 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AdminLayout({ children }: { children: ReactNode }) {
   return <div className="min-h-screen bg-[#f9f9ff]">{children}</div>;
 }

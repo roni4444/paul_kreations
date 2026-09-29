@@ -11,6 +11,7 @@
 
 import * as Sentry from "@sentry/nextjs";
 import { headers } from "next/headers";
+import { z } from "zod";
 import { deleteAccountSchema } from "@/schemas/delete-account";
 import { verifyTurnstileToken } from "@/services/security/turnstile";
 import { insertDeletionRequest } from "@/services/wimm/delete-account";
@@ -31,7 +32,7 @@ export async function submitDeleteAccountRequest(
   if (!parsed.success) {
     return {
       success: false,
-      fieldErrors: parsed.error.flatten().fieldErrors as Record<
+      fieldErrors: z.flattenError(parsed.error).fieldErrors as Record<
         string,
         string[]
       >,

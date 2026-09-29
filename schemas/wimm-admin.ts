@@ -6,7 +6,7 @@
 
 import { z } from "zod";
 
-const uuidSchema = z.string().uuid();
+const uuidSchema = z.uuid();
 
 function isParseableDate(value: string): boolean {
   return !Number.isNaN(Date.parse(value));
@@ -54,7 +54,7 @@ export const promoOfferFormSchema = z
       new Date(data.validUntil).getTime() <= new Date(data.validFrom).getTime()
     ) {
       ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+        code: "custom",
         path: ["validUntil"],
         message: "End date/time must be after the start date/time",
       });
@@ -64,7 +64,7 @@ export const promoOfferFormSchema = z
 export type PromoOfferFormData = z.infer<typeof promoOfferFormSchema>;
 
 export const userLookupSchema = z.object({
-  email: z.string().trim().email("Enter a valid email address"),
+  email: z.string().trim().pipe(z.email("Enter a valid email address")),
 });
 
 export const wimmAdminSignInSchema = z.object({
@@ -75,7 +75,7 @@ export const wimmAdminSignInSchema = z.object({
 // accounts for this admin are created by hand in Supabase, same as the
 // promo_admins row itself.
 export const wimmAdminPasswordSignInSchema = z.object({
-  email: z.string().trim().email("Enter a valid email address"),
+  email: z.string().trim().pipe(z.email("Enter a valid email address")),
   password: z.string().min(1, "Enter your password"),
   turnstileToken: z.string().min(1, "Please complete the verification"),
 });

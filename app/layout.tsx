@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
@@ -131,7 +132,7 @@ export const viewport: Viewport = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html
@@ -147,7 +148,8 @@ export default function RootLayout({
     >
       <head>
         {/* Organisation JSON-LD — on every page */}
-        <OrganizationJsonLd /> <WebSiteJsonLd />
+        <OrganizationJsonLd />
+        <WebSiteJsonLd />
       </head>
       <body
         suppressHydrationWarning

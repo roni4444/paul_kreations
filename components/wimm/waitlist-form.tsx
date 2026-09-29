@@ -11,8 +11,10 @@
 // still use a muted red — that's a universal UX convention for "something's
 // wrong here," not a statement about the user's finances, so it stays.
 
+import type { SubmitEvent as ReactSubmitEvent } from "react";
 import { useState, useTransition } from "react";
 import { AlertCircle, CheckCircle, Loader2, Send } from "lucide-react";
+import { z } from "zod";
 import { waitlistSchema } from "@/schemas/waitlist";
 import { submitWaitlistForm } from "@/server/actions/waitlist";
 import { WIMM_INTEREST_OPTIONS, WIMM_PLATFORM_OPTIONS } from "@/lib/data/wimm";
@@ -33,7 +35,7 @@ export function WimmWaitlistForm() {
   const [formKey, setFormKey] = useState(0);
   const [turnstileToken, setTurnstileToken] = useState("");
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: ReactSubmitEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const raw = new FormData(e.currentTarget);
@@ -55,7 +57,7 @@ export function WimmWaitlistForm() {
     const parsed = waitlistSchema.safeParse(data);
     if (!parsed.success) {
       setFieldErrors(
-        parsed.error.flatten().fieldErrors as Record<string, string[]>,
+        z.flattenError(parsed.error).fieldErrors as Record<string, string[]>,
       );
       if (!turnstileToken) {
         setStatus("error");

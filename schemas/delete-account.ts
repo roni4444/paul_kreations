@@ -9,7 +9,6 @@ import { z } from "zod";
 
 export const deleteAccountSchema = z.object({
   email: z
-    .string()
     .email("Please enter a valid email address")
     .max(255, "Email address is too long"),
   // Optional second identifier — helps disambiguate if someone signed up

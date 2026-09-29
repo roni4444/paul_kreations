@@ -49,7 +49,7 @@ export function SupportInbox() {
       await refreshList();
       setLoading(false);
     }
-    initialLoad();
+    void initialLoad();
 
     const interval = setInterval(refreshList, POLL_INTERVAL_MS);
     return () => clearInterval(interval);
@@ -162,7 +162,7 @@ function ConversationPanel({
       await refreshMessages();
       setLoadingMessages(false);
     }
-    initialLoad();
+    void initialLoad();
 
     const interval = setInterval(refreshMessages, POLL_INTERVAL_MS);
     return () => clearInterval(interval);
@@ -185,7 +185,7 @@ function ConversationPanel({
       return;
     }
     setDraft("");
-    refreshMessages();
+    void refreshMessages();
   }
 
   async function handleToggleStatus() {
@@ -261,7 +261,7 @@ function ConversationPanel({
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
-                handleSend();
+                void handleSend();
               }
             }}
             placeholder="Type a reply…"

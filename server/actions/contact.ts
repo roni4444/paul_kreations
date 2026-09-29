@@ -5,6 +5,7 @@
 // Validates input with Zod, then delegates to the email service.
 // Never called directly from UI — imported by the contact form component.
 
+import { z } from "zod";
 import { contactSchema } from "@/schemas/contact";
 import { sendContactEmail } from "@/services/email";
 
@@ -20,7 +21,7 @@ export async function submitContactForm(data: unknown): Promise<ActionResult> {
   if (!result.success) {
     return {
       success: false,
-      fieldErrors: result.error.flatten().fieldErrors as Record<
+      fieldErrors: z.flattenError(result.error).fieldErrors as Record<
         string,
         string[]
       >,

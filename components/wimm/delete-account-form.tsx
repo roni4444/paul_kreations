@@ -5,8 +5,10 @@
 // require the user to be logged in — Play Store requires this path to work
 // for someone who has already uninstalled the app.
 
+import type { SubmitEvent as ReactSubmitEvent } from "react";
 import { useState, useTransition } from "react";
 import { AlertCircle, CheckCircle, Loader2, Send } from "lucide-react";
+import { z } from "zod";
 import { deleteAccountSchema } from "@/schemas/delete-account";
 import { submitDeleteAccountRequest } from "@/server/actions/delete-account";
 import { TurnstileWidget } from "@/components/shared/turnstile-widget";
@@ -26,7 +28,7 @@ export function WimmDeleteAccountForm() {
   const [formKey, setFormKey] = useState(0);
   const [turnstileToken, setTurnstileToken] = useState("");
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: ReactSubmitEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const raw = new FormData(e.currentTarget);
@@ -41,7 +43,7 @@ export function WimmDeleteAccountForm() {
     const parsed = deleteAccountSchema.safeParse(data);
     if (!parsed.success) {
       setFieldErrors(
-        parsed.error.flatten().fieldErrors as Record<string, string[]>,
+        z.flattenError(parsed.error).fieldErrors as Record<string, string[]>,
       );
       if (!turnstileToken) {
         setStatus("error");

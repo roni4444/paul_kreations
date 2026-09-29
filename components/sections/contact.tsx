@@ -5,7 +5,9 @@
 // Submits via Server Action (server/actions/contact.ts).
 // "Contacting" dropdown auto-populates from teamMembers in lib/data/index.ts.
 
+import type { SubmitEvent as ReactSubmitEvent } from "react";
 import { useState, useTransition } from "react";
+import { z } from "zod";
 import { contactSchema } from "@/schemas/contact";
 import { submitContactForm } from "@/server/actions/contact";
 import { teamMembers } from "@/lib/data";
@@ -32,7 +34,7 @@ export function Contact() {
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
   const [formKey, setFormKey] = useState(0); // resets form on success
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: ReactSubmitEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const raw = new FormData(e.currentTarget);
@@ -47,7 +49,7 @@ export function Contact() {
     const parsed = contactSchema.safeParse(data);
     if (!parsed.success) {
       setFieldErrors(
-        parsed.error.flatten().fieldErrors as Record<string, string[]>,
+        z.flattenError(parsed.error).fieldErrors as Record<string, string[]>,
       );
       return;
     }
