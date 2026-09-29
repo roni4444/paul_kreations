@@ -17,10 +17,10 @@ const FIELD =
 
 export function EligibleUsersPicker({
   initialUsers,
-  onChange,
+  onChangeAction,
 }: {
   initialUsers: EligibleUser[];
-  onChange: (users: EligibleUser[]) => void;
+  onChangeAction: (users: EligibleUser[]) => void;
 }) {
   const [users, setUsers] = useState<EligibleUser[]>(initialUsers);
   const [email, setEmail] = useState("");
@@ -29,7 +29,7 @@ export function EligibleUsersPicker({
 
   function updateUsers(next: EligibleUser[]) {
     setUsers(next);
-    onChange(next);
+    onChangeAction(next);
   }
 
   function handleAdd() {

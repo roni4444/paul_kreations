@@ -2,7 +2,7 @@
 
 // components/shared/turnstile-widget.tsx
 // Renders the Cloudflare Turnstile challenge and reports the resulting
-// token back to the parent form via onVerify. Server-side verification
+// token back to the parent form via onVerifyAction. Server-side verification
 // happens in services/security/turnstile.ts — this component only
 // collects the token, it never trusts itself.
 //
@@ -52,14 +52,14 @@ function loadTurnstileScript(): Promise<void> {
 }
 
 type TurnstileWidgetProps = {
-  onVerify: (token: string) => void;
-  onExpire?: () => void;
+  onVerifyAction: (token: string) => void;
+  onExpireAction?: () => void;
   className?: string;
 };
 
 export function TurnstileWidget({
-  onVerify,
-  onExpire,
+  onVerifyAction,
+  onExpireAction,
   className,
 }: TurnstileWidgetProps) {
   const containerId = useId().replace(/:/g, "");
@@ -80,8 +80,8 @@ export function TurnstileWidget({
       if (cancelled || !window.turnstile) return;
       widgetIdRef.current = window.turnstile.render(`#${containerId}`, {
         sitekey: siteKey,
-        callback: onVerify,
-        "expired-callback": onExpire,
+        callback: onVerifyAction,
+        "expired-callback": onExpireAction,
       });
     });
 

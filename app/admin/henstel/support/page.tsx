@@ -1,6 +1,7 @@
+import type { Metadata } from "next";
 import { SupportInbox } from "./support-inbox";
 
-export const metadata = { title: "Support — Henstel admin" };
+export const metadata: Metadata = { title: "Support — Henstel admin" };
 
 export default function SupportPage() {
   return (

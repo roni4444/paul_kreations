@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { listCookbooks } from "@/services/supabase/cookbooks";
 import {
@@ -8,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { CreateCookbookForm } from "./create-cookbook-form";
 
-export const metadata = { title: "Cookbooks" };
+export const metadata: Metadata = { title: "Cookbooks" };
 export const dynamic = "force-dynamic";
 
 export default async function CookbooksPage() {

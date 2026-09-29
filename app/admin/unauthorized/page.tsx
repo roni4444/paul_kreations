@@ -1,8 +1,9 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { signOut } from "@/server/actions/admin-auth";
 import { Button } from "@/components/ui/button";
 
-export const metadata = { title: "Not authorized" };
+export const metadata: Metadata = { title: "Not authorized" };
 
 export default function UnauthorizedPage() {
   return (

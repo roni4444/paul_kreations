@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getCurrentStaff, staffCanAccess } from "@/services/staff";
@@ -10,7 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export const metadata = { title: "Henstel admin" };
+export const metadata: Metadata = { title: "Henstel admin" };
 
 export default async function HenstelAdminHome() {
   const staff = await getCurrentStaff();

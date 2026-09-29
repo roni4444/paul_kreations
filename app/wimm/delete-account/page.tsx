@@ -10,7 +10,6 @@ export const metadata: Metadata = {
   alternates: { canonical: `${BASE_URL}/wimm/delete-account` },
 };
 
-const HEADING = "font-[family-name:var(--font-wimm-heading)]";
 const MONO = "font-[family-name:var(--font-jetbrains-mono)] tracking-[0.05em]";
 
 export default function WimmDeleteAccountPage() {

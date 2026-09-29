@@ -219,8 +219,8 @@ export function WimmWaitlistForm() {
 
       {/* Turnstile */}
       <TurnstileWidget
-        onVerify={setTurnstileToken}
-        onExpire={() => setTurnstileToken("")}
+        onVerifyAction={setTurnstileToken}
+        onExpireAction={() => setTurnstileToken("")}
       />
 
       {/* Submit */}

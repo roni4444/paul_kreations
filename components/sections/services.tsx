@@ -1,4 +1,4 @@
-import {services} from "@/lib/data";
+import { services } from "@/lib/data";
 import {
   Gamepad2,
   Globe,
@@ -48,7 +48,7 @@ export function Services() {
 
         {/* ── Service Cards — flat, 1px border, no shadow ─ */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          {services.map((service, index) => {
+          {services.map((service) => {
             const Icon = ICON_MAP[service.icon] ?? ScrollText;
 
             return (

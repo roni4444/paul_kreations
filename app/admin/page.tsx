@@ -1,5 +1,6 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-import { Lock, ArrowRight } from "lucide-react";
+import { ArrowRight, Lock } from "lucide-react";
 import { MANAGED_APPS } from "@/lib/admin/apps";
 import { getCurrentStaff, staffCanAccess } from "@/services/staff";
 import {
@@ -10,7 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export const metadata = { title: "Admin" };
+export const metadata: Metadata = { title: "Admin" };
 
 export default async function AdminPickerPage() {
   const staff = await getCurrentStaff();

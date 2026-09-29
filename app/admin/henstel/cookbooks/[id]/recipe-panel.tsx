@@ -8,9 +8,9 @@ import type { RecipeDetail } from "@/services/supabase/cookbooks";
 import type { GlobalLookupNames } from "@/services/supabase/global-lookups";
 import { isNewName } from "@/services/supabase/global-lookups";
 import {
-  markRecipeReviewedAction,
   deleteRecipeAction,
   fixRecipeWithAiAction,
+  markRecipeReviewedAction,
 } from "@/server/actions/cookbooks";
 import { RecipeEditForm } from "./recipe-edit-form";
 
@@ -75,11 +75,11 @@ export function RecipePanel({
       <RecipeEditForm
         recipe={recipe}
         cookbookId={cookbookId}
-        onSaved={() => {
+        onSavedAction={() => {
           setMode("view");
           router.refresh();
         }}
-        onCancel={() => setMode("view")}
+        onCancelAction={() => setMode("view")}
       />
     );
   }

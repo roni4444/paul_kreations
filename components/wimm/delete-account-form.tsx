@@ -158,8 +158,8 @@ export function WimmDeleteAccountForm() {
       </div>
 
       <TurnstileWidget
-        onVerify={setTurnstileToken}
-        onExpire={() => setTurnstileToken("")}
+        onVerifyAction={setTurnstileToken}
+        onExpireAction={() => setTurnstileToken("")}
       />
 
       <button

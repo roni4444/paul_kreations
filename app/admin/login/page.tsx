@@ -1,8 +1,9 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getManagedApp } from "@/lib/admin/apps";
 import { LoginForm } from "./login-form";
 
-export const metadata = { title: "Admin sign in" };
+export const metadata: Metadata = { title: "Admin sign in" };
 
 const ERROR_MESSAGES: Record<string, string> = {
   missing_token:

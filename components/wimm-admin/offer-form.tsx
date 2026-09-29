@@ -202,7 +202,7 @@ export function OfferForm({
         <span className={LABEL}>Eligible people</span>
         <EligibleUsersPicker
           initialUsers={initialEligibleUsers}
-          onChange={setEligibleUsers}
+          onChangeAction={setEligibleUsers}
         />
       </div>
 

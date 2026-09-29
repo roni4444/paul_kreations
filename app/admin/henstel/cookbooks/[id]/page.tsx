@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getCookbook, listRecipeDetails } from "@/services/supabase/cookbooks";
 import { getGlobalLookupNames } from "@/services/supabase/global-lookups";
@@ -5,12 +6,12 @@ import { UploadPdfFlow } from "./upload-pdf-flow";
 import { RecipeAccordion } from "./recipe-accordion";
 import { RecipePanel } from "./recipe-panel";
 import {
-  markCookbookReviewedAction,
   deleteCookbookAction,
+  markCookbookReviewedAction,
 } from "@/server/actions/cookbooks";
 import { Button } from "@/components/ui/button";
 
-export const metadata = { title: "Cookbook" };
+export const metadata: Metadata = { title: "Cookbook" };
 
 export default async function CookbookDetailPage({
   params,

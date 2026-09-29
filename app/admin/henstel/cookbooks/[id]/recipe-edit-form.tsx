@@ -35,13 +35,13 @@ function parseNameList(text: string): { name: string }[] {
 export function RecipeEditForm({
   recipe,
   cookbookId,
-  onSaved,
-  onCancel,
+  onSavedAction,
+  onCancelAction,
 }: {
   recipe: RecipeDetail;
   cookbookId: string;
-  onSaved: () => void;
-  onCancel: () => void;
+  onSavedAction: () => void;
+  onCancelAction: () => void;
 }) {
   const [touched, setTouched] = useState<Set<RecipeSection>>(new Set());
   const [saving, setSaving] = useState(false);
@@ -153,7 +153,7 @@ export function RecipeEditForm({
       setError(result.message ?? "Couldn't save changes.");
       return;
     }
-    onSaved();
+    onSavedAction();
   }
 
   const inputClass = "rounded-[4px] border-[#e3bebd] text-sm";
@@ -413,7 +413,7 @@ export function RecipeEditForm({
         <Button
           type="button"
           variant="outline"
-          onClick={onCancel}
+          onClick={onCancelAction}
           disabled={saving}
           className="h-8 rounded-[4px]"
         >

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { ExternalLink } from "lucide-react";
 import { getUsageDashboardAction } from "@/server/actions/usage";
 import {
@@ -8,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export const metadata = { title: "Usage — Henstel admin" };
+export const metadata: Metadata = { title: "Usage — Henstel admin" };
 
 function StatRow({ label, value }: { label: string; value: string | number }) {
   return (

@@ -48,8 +48,8 @@ export function WimmAdminLoginForm() {
   return (
     <div className="flex flex-col gap-5 w-full max-w-90">
       <TurnstileWidget
-        onVerify={setTurnstileToken}
-        onExpire={() => setTurnstileToken("")}
+        onVerifyAction={setTurnstileToken}
+        onExpireAction={() => setTurnstileToken("")}
       />
 
       <form action={googleFormAction} className="flex flex-col gap-3">
