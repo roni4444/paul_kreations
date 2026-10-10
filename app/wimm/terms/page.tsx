@@ -1,29 +1,44 @@
 import type { Metadata } from "next";
 import { LegalShell } from "@/components/wimm/legal-shell";
 import { BASE_URL } from "@/lib/config";
+import {
+  WIMM_LEGAL_LAST_UPDATED,
+  WIMM_SUPPORT_EMAIL,
+} from "@/lib/data/wimm-legal";
+
+// Body text mirrors terms-of-service.md (10 October 2026) — the source of
+// truth for wording. Headings carry stable ids for deep links.
 
 export const metadata: Metadata = {
   title: "Terms of Service",
   description:
-    "Terms of Service for Where Is My Money? — the rules that govern use of the app and website.",
+    "Terms of Service for Where is My Money? — the rules that govern use of the app and website.",
   alternates: { canonical: `${BASE_URL}/wimm/terms` },
 };
 
 export default function WimmTermsPage() {
   return (
-    <LegalShell title="Terms of Service" lastUpdated="September 1, 2026">
+    <LegalShell title="Terms of Service" lastUpdated={WIMM_LEGAL_LAST_UPDATED}>
       <section>
-        <h2>Agreement to Terms</h2>
+        <h2 id="agreement-to-terms">Agreement to Terms</h2>
         <p>
-          By accessing or using the services provided by Where Is My Money? at
-          paulkreations.com/wimm (the &quot;Service&quot;), you agree to be
-          bound by these Terms of Service (&quot;Terms&quot;). If you disagree
-          with any part of these terms, you may not access the Service.
+          By accessing or using the services provided by Where is My Money? (the
+          &quot;Service&quot;), you agree to be bound by these Terms of Service
+          (&quot;Terms&quot;). If you disagree with any part of these terms, you
+          may not access the Service.
         </p>
       </section>
-
       <section>
-        <h2>Use of Service</h2>
+        <h2 id="eligibility">Eligibility</h2>
+        <p>
+          You must be at least 18 years old to create an account, subscribe to
+          Premium, or use cloud sync. The offline-only version of the app is not
+          directed at children. If you believe a child has created an account,
+          contact us and we will delete it.
+        </p>
+      </section>
+      <section>
+        <h2 id="use-of-service">Use of Service</h2>
         <p>
           You agree to use the Service only for lawful purposes and in
           accordance with these Terms. You agree not to:
@@ -56,30 +71,53 @@ export default function WimmTermsPage() {
           </li>
         </ul>
       </section>
-
       <section>
-        <h2>Intellectual Property</h2>
+        <h2 id="your-data-backups-and-account-deletion">
+          Your Data, Backups and Account Deletion
+        </h2>
+        <p>
+          By default your financial data stays on your device. You are
+          responsible for keeping your own backups (Settings → Data Management).
+          If you turn on Premium cloud sync, a copy is stored in the cloud so it
+          stays available across your devices; this is a convenience, not a
+          guaranteed archive.
+        </p>
+        <p>
+          You can delete your cloud account at any time from Settings → Delete
+          Account (or at{" "}
+          <a href="https://www.paulkreations.com/wimm/delete-account">
+            https://www.paulkreations.com/wimm/delete-account
+          </a>
+          ). Deletion permanently removes your cloud financial records,
+          attachments and sign-in. It cannot be undone, and it does not remove
+          the copy stored on your own device or backup files you exported
+          yourself. If your account still owns shared data that other people
+          depend on (for example a family, a joint goal or a shared budget), you
+          will be asked to hand over or remove it first. The Privacy Policy
+          explains exactly what is deleted, what is kept and for how long.
+        </p>
+      </section>
+      <section>
+        <h2 id="intellectual-property">Intellectual Property</h2>
         <p>
           The Service and its original content, features, and functionality are
-          and will remain the exclusive property of Where Is My Money?. The
+          and will remain the exclusive property of Where is My Money?. The
           Service is protected by copyright, trademark, and other laws. Our
           trademarks may not be used in connection with any product or service
           without our prior written consent.
         </p>
       </section>
-
       <section>
-        <h2>User Content</h2>
+        <h2 id="user-content">User Content</h2>
         <p>
           You retain ownership of any content you submit to or through the
-          Service. By submitting content, you grant Where Is My Money? a
+          Service. By submitting content, you grant Where is My Money? a
           non-exclusive, worldwide, royalty-free license to use, reproduce, and
           display such content in connection with operating the Service.
         </p>
       </section>
-
       <section>
-        <h2>Payments and Billing</h2>
+        <h2 id="payments-and-billing">Payments and Billing</h2>
         <p>
           Premium subscriptions are billed through one of the following,
           depending on your platform and region:
@@ -109,11 +147,10 @@ export default function WimmTermsPage() {
           subscription.
         </p>
       </section>
-
       <section>
-        <h2>Referral Program</h2>
+        <h2 id="referral-program">Referral Program</h2>
         <p>
-          Where Is My Money? may offer a Referral Program allowing you to invite
+          Where is My Money? may offer a Referral Program allowing you to invite
           others to the Service and, subject to eligibility, earn rewards.
         </p>
         <ul>
@@ -157,11 +194,10 @@ export default function WimmTermsPage() {
           </li>
         </ul>
       </section>
-
       <section>
-        <h2>Promo Offers</h2>
+        <h2 id="promo-offers">Promo Offers</h2>
         <p>
-          Where Is My Money? may, at our sole discretion, grant free Premium
+          Where is My Money? may, at our sole discretion, grant free Premium
           access to specific accounts through a Promo Offer (for example, to
           collaborators, partners, or other accounts we select).
         </p>
@@ -231,9 +267,8 @@ export default function WimmTermsPage() {
           </li>
         </ul>
       </section>
-
       <section>
-        <h2>Termination</h2>
+        <h2 id="termination">Termination</h2>
         <p>
           We may terminate or suspend your access to the Service immediately,
           without prior notice or liability, for any reason, including without
@@ -244,11 +279,10 @@ export default function WimmTermsPage() {
           immediately.
         </p>
       </section>
-
       <section>
-        <h2>Limitation of Liability</h2>
+        <h2 id="limitation-of-liability">Limitation of Liability</h2>
         <p>
-          In no event shall Where Is My Money?, nor its directors, employees,
+          In no event shall Where is My Money?, nor its directors, employees,
           partners, agents, suppliers, or affiliates, be liable for any
           indirect, incidental, special, consequential, or punitive damages,
           including without limitation, loss of profits, data, use, goodwill, or
@@ -266,9 +300,8 @@ export default function WimmTermsPage() {
           </li>
         </ul>
       </section>
-
       <section>
-        <h2>Disclaimer</h2>
+        <h2 id="disclaimer">Disclaimer</h2>
         <p>
           The Service is provided on an &quot;AS IS&quot; and &quot;AS
           AVAILABLE&quot; basis. The Service is provided without warranties of
@@ -284,18 +317,16 @@ export default function WimmTermsPage() {
           as such.
         </p>
       </section>
-
       <section>
-        <h2>Governing Law</h2>
+        <h2 id="governing-law">Governing Law</h2>
         <p>
-          These Terms shall be governed and construed in accordance with the
-          laws of the jurisdiction in which Where Is My Money? operates, without
-          regard to its conflict of law provisions.
+          These Terms are governed by the laws of India. [CONFIRM: courts at
+          Kolkata, West Bengal, India — replace with your preferred venue before
+          publishing.]
         </p>
       </section>
-
       <section>
-        <h2>Changes to Terms</h2>
+        <h2 id="changes-to-terms">Changes to Terms</h2>
         <p>
           We reserve the right to modify or replace these Terms at any time. If
           a revision is material, we will try to provide at least 30 days&apos;
@@ -306,9 +337,8 @@ export default function WimmTermsPage() {
           become effective, you agree to be bound by the revised terms.
         </p>
       </section>
-
       <section>
-        <h2>Contact Us</h2>
+        <h2 id="contact-us">Contact Us</h2>
         <p>
           If you have any questions about these Terms of Service, please contact
           us:
@@ -316,13 +346,13 @@ export default function WimmTermsPage() {
         <ul>
           <li>
             By email:{" "}
-            <a href="mailto:support@mail.paulkreations.com">
-              support@mail.paulkreations.com
-            </a>
+            <a href={`mailto:${WIMM_SUPPORT_EMAIL}`}>{WIMM_SUPPORT_EMAIL}</a>
           </li>
           <li>
             By visiting:{" "}
-            <a href="https://paulkreations.com/wimm">paulkreations.com/wimm</a>
+            <a href="https://www.paulkreations.com/wimm">
+              https://www.paulkreations.com/wimm
+            </a>
           </li>
         </ul>
       </section>

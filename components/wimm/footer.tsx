@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { WIMM_SUPPORT_EMAIL } from "@/lib/data/wimm";
 
 const HEADING = "font-[family-name:var(--font-wimm-heading)]";
 const MONO = "font-[family-name:var(--font-jetbrains-mono)] tracking-[0.05em]";
@@ -78,7 +79,7 @@ export function WimmFooter() {
                   href="/wimm/delete-account"
                   className="text-sm text-white/50 hover:text-white transition-colors"
                 >
-                  Delete My Account
+                  Delete account
                 </Link>
               </li>
               <li>
@@ -100,10 +101,10 @@ export function WimmFooter() {
             <ul className="flex flex-col gap-2.5">
               <li>
                 <a
-                  href="mailto:support@mail.paulkreations.com"
+                  href={`mailto:${WIMM_SUPPORT_EMAIL}`}
                   className="text-sm text-white/50 hover:text-white transition-colors"
                 >
-                  support@mail.paulkreations.com
+                  {WIMM_SUPPORT_EMAIL}
                 </a>
               </li>
             </ul>

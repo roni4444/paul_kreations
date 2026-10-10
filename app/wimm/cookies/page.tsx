@@ -1,116 +1,137 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { LegalShell } from "@/components/wimm/legal-shell";
+import { LegalTable } from "@/components/wimm/legal-table";
 import { BASE_URL } from "@/lib/config";
+import {
+  WIMM_LEGAL_LAST_UPDATED,
+  WIMM_SUPPORT_EMAIL,
+} from "@/lib/data/wimm-legal";
+
+// Written from an audit of what www.paulkreations.com/wimm actually sets or
+// loads (code review + a live page load). If the site's scripts, analytics or
+// auth change, update the tables below in the same change.
 
 export const metadata: Metadata = {
   title: "Cookie Policy",
   description:
-    "Cookie Policy for Where Is My Money? — what cookies we use and how to manage them.",
+    "Cookie Policy for the Where is My Money? website — the cookies and similar browser storage it uses.",
   alternates: { canonical: `${BASE_URL}/wimm/cookies` },
 };
 
 export default function WimmCookiesPage() {
   return (
-    <LegalShell title="Cookie Policy" lastUpdated="August 10, 2026">
+    <LegalShell title="Cookie Policy" lastUpdated={WIMM_LEGAL_LAST_UPDATED}>
       <section>
-        <h2>What Are Cookies</h2>
+        <h2 id="summary">In short</h2>
         <p>
-          Cookies are small text files that are stored on your computer or
-          mobile device when you visit a website. They are widely used to make
-          websites work more efficiently and to provide information to the
-          owners of the site.
+          <strong>
+            This website does not set cookies for visitors, and we do not use
+            advertising or marketing cookies.
+          </strong>{" "}
+          Because of that we do not show a cookie banner. The website does keep
+          one small item in your browser&apos;s session storage for error
+          diagnostics, and it loads a few services described below.
         </p>
         <p>
-          Where Is My Money? uses cookies and similar technologies on
-          paulkreations.com/wimm (the &quot;Service&quot;) to enhance your
-          browsing experience and analyze how the Service is used.
+          This page covers the website at paulkreations.com/wimm only. The
+          analytics, attribution and crash-reporting tools inside the app are
+          not cookies and are described in the{" "}
+          <Link href="/wimm/privacy#third-party-services">Privacy Policy</Link>.
         </p>
       </section>
 
       <section>
-        <h2>Types of Cookies We Use</h2>
-        <p>We use the following types of cookies:</p>
-        <ul>
-          <li>
-            <strong>Essential Cookies</strong> — These cookies are necessary for
-            the Service to function properly. They enable basic features like
-            page navigation and access to secure areas.
-          </li>
-          <li>
-            <strong>Preference Cookies</strong> — These cookies allow the
-            Service to remember choices you make (such as your language or
-            region) and provide enhanced, personalized features.
-          </li>
-          <li>
-            <strong>Analytics Cookies</strong> — These cookies help us
-            understand how visitors interact with the Service by collecting and
-            reporting information anonymously.
-          </li>
-          <li>
-            <strong>Marketing Cookies</strong> — These cookies are used to track
-            visitors across websites to display relevant advertisements.
-          </li>
-        </ul>
+        <h2 id="cookies-and-browser-storage">Cookies and browser storage</h2>
+        <LegalTable
+          caption="Cookies and browser storage used by the website"
+          columns={["Name", "Provider", "Purpose", "Lifetime", "Essential"]}
+          rows={[
+            [
+              <code key="n">sentryReplaySession</code>,
+              "Sentry, through our own /monitoring address",
+              "Session storage item, not a cookie. Marks a visit so that, for a sample of visits and whenever an error occurs, we can see what led to the error and fix it.",
+              "Until you close the tab",
+              "No (diagnostics)",
+            ],
+            [
+              <code key="n">admin_session</code>,
+              "Paul Kreations (Appwrite sign-in)",
+              "Keeps site staff signed in to the staff area. Only set after a staff member signs in; never set for visitors.",
+              "Until the staff member signs out or the session expires",
+              "Yes",
+            ],
+            [
+              <code key="n">sb-…-auth-token</code>,
+              "Paul Kreations (Supabase sign-in)",
+              "Keeps WIMM administrators signed in to the admin area. Only set after an administrator signs in; never set for visitors.",
+              "Until the administrator signs out or the session expires",
+              "Yes",
+            ],
+          ]}
+        />
       </section>
 
       <section>
-        <h2>Third-Party Cookies</h2>
-        <p>We use cookies from the following third-party services:</p>
-        <ul>
-          <li>
-            Google Analytics — Uses cookies to collect anonymous usage
-            statistics and website traffic data.
-          </li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>Managing Cookies</h2>
+        <h2 id="other-technologies">Other services the website loads</h2>
+        <p>None of these set a cookie of our own on your device.</p>
+        <LegalTable
+          caption="Other services loaded by the website"
+          columns={["Service", "Provider", "Purpose", "Where"]}
+          rows={[
+            [
+              "Web Analytics",
+              "Vercel",
+              "Counts page views. Does not use cookies.",
+              "All pages",
+            ],
+            [
+              "Speed Insights",
+              "Vercel",
+              "Measures page loading speed. Does not use cookies.",
+              "All pages",
+            ],
+            [
+              "Turnstile",
+              "Cloudflare",
+              "Checks that a form is being filled in by a person, not a program. It loads from Cloudflare and may store data it needs to run the check, under Cloudflare's own policies.",
+              "Delete-account page only",
+            ],
+          ]}
+        />
         <p>
-          You can control and manage cookies in several ways. Most browsers
-          allow you to:
-        </p>
-        <ul>
-          <li>View what cookies are stored and delete them individually</li>
-          <li>Block third-party cookies</li>
-          <li>Block cookies from specific sites</li>
-          <li>Block all cookies</li>
-          <li>Delete all cookies when you close your browser</li>
-        </ul>
-        <p>
-          Please note that if you choose to block or delete cookies, some
-          features of the Service may not function properly.
-        </p>
-        <p>
-          To manage cookies in your browser, check your browser&apos;s help
-          section or visit the browser&apos;s settings.
-        </p>
-      </section>
-
-      <section>
-        <h2>Changes to This Cookie Policy</h2>
-        <p>
-          We may update this Cookie Policy from time to time to reflect changes
-          in technology, regulation, or our business practices. Any changes will
-          be posted on this page with an updated &quot;Last Updated&quot; date.
+          Website fonts are served from this site itself, not from a font
+          provider.
         </p>
       </section>
 
       <section>
-        <h2>Contact Us</h2>
+        <h2 id="managing-cookies-and-storage">Managing cookies and storage</h2>
         <p>
-          If you have any questions about this Cookie Policy, please contact us:
+          Browsers let you view and delete cookies and site storage, block
+          third-party content, or clear everything when you close the browser.
+          Blocking the diagnostics item above does not affect how the website
+          works. Blocking Turnstile may stop the delete-account form from
+          working; you can email us instead.
         </p>
+      </section>
+
+      <section>
+        <h2 id="changes-to-this-cookie-policy">
+          Changes to This Cookie Policy
+        </h2>
+        <p>
+          If the website starts using cookies or other storage, we will update
+          this page and its &quot;Last Updated&quot; date before we do.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="contact-us">Contact Us</h2>
         <ul>
           <li>
             By email:{" "}
-            <a href="mailto:support@mail.paulkreations.com">
-              support@mail.paulkreations.com
-            </a>
-          </li>
-          <li>
-            By visiting:{" "}
-            <a href="https://paulkreations.com/wimm">paulkreations.com/wimm</a>
+            <a href={`mailto:${WIMM_SUPPORT_EMAIL}`}>{WIMM_SUPPORT_EMAIL}</a>
           </li>
         </ul>
       </section>

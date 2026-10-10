@@ -131,7 +131,8 @@ export function WimmHero() {
         </div>
 
         <p className={`${MONO} mt-6 text-[10px] text-[#7C9187] uppercase`}>
-          Android · iOS · Windows · macOS · Linux — No ads, no data selling
+          Android · iOS · Windows · macOS · Linux — We do not sell your personal
+          data
         </p>
       </div>
     </section>

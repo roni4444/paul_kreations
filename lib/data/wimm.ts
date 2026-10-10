@@ -212,9 +212,9 @@ export const wimmBenefitGroups: WimmBenefitGroup[] = [
     id: "control-privacy",
     title: "Control & Privacy",
     points: [
-      "Local-first — your data lives on your device first, cloud sync is optional",
-      "No ads, no data selling, ever",
-      "Biometric + PIN security on top of local storage",
+      "Local-first — your data lives on your device first, cloud sync is optional (Premium)",
+      "We do not sell your personal data",
+      "Your local financial data is stored encrypted on your device",
     ],
   },
   {
@@ -314,7 +314,7 @@ export const wimmFaqs: WimmFaqItem[] = [
   {
     question: "Is my data safe?",
     answer:
-      "Yes. All your financial data is encrypted at rest using AES-256 encryption, directly on your phone or device. Only when you enter your 6-digit PIN does the app decrypt it to show it to you — we never see your financial data, and your phone is the source of truth. When cloud sync is enabled (Premium), your data syncs to our servers over HTTPS, encrypted both in transit and at rest.",
+      "By default your financial data is stored only on your device, encrypted, and is not sent to us. If you turn on Premium cloud sync, a copy is stored in our database, hosted on Supabase in Mumbai, India. Data in transit to our servers is encrypted, our hosting provider encrypts stored data, and access to each person's cloud records is restricted by database access rules. No method of transmission or storage is 100% secure, so we cannot guarantee absolute security. The Privacy Policy explains this in full.",
   },
   {
     question: "Do I need internet to use Where Is My Money?",
@@ -364,7 +364,7 @@ export const wimmFaqs: WimmFaqItem[] = [
   {
     question: "How do I delete my account or my data?",
     answer:
-      "You can wipe just the app's local data from Settings > Data Management > Factory Reset, which keeps the app installed. To delete your account completely — all local data, your cloud data if you're on Premium, and your cloud account — go to Settings > Account Deletion. Both actions are instant and irreversible.",
+      "To delete your cloud account, go to Settings → Delete Account in the app, or use the delete-account page on this website if you no longer have the app. Deletion is permanent and cannot be undone. It removes your cloud records, attachments and sign-in; it does not remove the copy on your own device or backup files you exported yourself, and the Privacy Policy lists what is kept and for how long. If your account owns shared data that other people depend on, you will be asked to hand it over or remove it first. To wipe only the app's local data, go to Settings > Data Management > Factory Reset.",
   },
   {
     question: "How does investment tracking work?",
@@ -384,7 +384,7 @@ export const wimmFaqs: WimmFaqItem[] = [
   {
     question: "How is the app funded?",
     answer:
-      "The free tier is fully free forever — no ads, no data selling, no freemium tricks. Premium is a subscription (weekly, monthly, or yearly, cancel anytime) handled through RevenueCat. Usage analytics are optional and off by default for free users; if you opt in, no financial data is ever included.",
+      "The free tier is free forever, and we do not sell your personal data. Premium is a subscription (weekly, monthly, or yearly, cancel anytime) handled through RevenueCat. On the free tier, usage analytics are off until you opt in. We design analytics so that it never includes amounts, balances, account or merchant names, descriptions, notes or other free text you type.",
   },
   {
     question: "How does it compare to other finance apps?",

@@ -1,36 +1,36 @@
-import { EyeOff, Lock, Mail, ShieldCheck, Smartphone } from "lucide-react";
+import { EyeOff, Lock, Mail, MapPin, ShieldCheck } from "lucide-react";
 import { WIMM_SUPPORT_EMAIL } from "@/lib/data/wimm";
 
 const MONO = "font-[family-name:var(--font-jetbrains-mono)] tracking-[0.05em]";
 
-// NOTE: Only claims you've explicitly confirmed appear here (local-first
-// storage, no ads/no data selling, biometric+PIN). Deliberately not
-// including "End-to-End Encrypted" or compliance badges (GDPR etc.) since
-// those weren't confirmed — add them once the corresponding feature/audit
-// is actually in place. False security claims are a real legal/trust risk.
+// NOTE: Every claim here must be stated in the Privacy Policy
+// (app/wimm/privacy/page.tsx). Do not add security or compliance claims
+// ("bank-grade", "end-to-end encrypted", GDPR badges, biometric/PIN, etc.)
+// unless the policy says so first. False security claims are a real
+// legal/trust risk.
 const badges = [
   {
     icon: Lock,
     title: "Local-First Storage",
     description:
-      "Your data lives on your device first. Cloud sync is optional, never forced.",
+      "Your financial data stays on your device by default. Cloud sync is optional and Premium.",
   },
   {
     icon: EyeOff,
-    title: "No Ads, No Data Selling",
+    title: "No Data Selling",
     description:
-      "Where Is My Money? doesn't monetise your financial data. Ever.",
+      "We do not sell your personal data, and we do not use your financial records for advertising.",
   },
   {
-    icon: Smartphone,
-    title: "Biometric + PIN Security",
-    description: "Lock the app behind your fingerprint, face, or PIN.",
+    icon: MapPin,
+    title: "Cloud Hosted in Mumbai",
+    description: "Our cloud database is hosted in Mumbai, India.",
   },
   {
     icon: ShieldCheck,
     title: "You're In Control",
     description:
-      "Export everything to PDF, or delete your data, whenever you choose.",
+      "Export your data, or delete your account, whenever you choose.",
   },
 ];
 

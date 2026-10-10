@@ -1,125 +1,154 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { LegalShell } from "@/components/wimm/legal-shell";
 import { WimmDeleteAccountForm } from "@/components/wimm/delete-account-form";
 import { BASE_URL } from "@/lib/config";
+import {
+  WIMM_BACKUP_RETENTION,
+  WIMM_LEGAL_LAST_UPDATED,
+  WIMM_RESPONSE_TARGET,
+  WIMM_SUPPORT_EMAIL,
+} from "@/lib/data/wimm-legal";
+
+// Google Play's data-deletion form points here, so it must work for someone who
+// no longer has the app. Wording follows the "Account Deletion and Data
+// Retention" section of the Privacy Policy — keep the two in step.
 
 export const metadata: Metadata = {
   title: "Delete Your Account",
   description:
-    "Request deletion of your Where Is My Money? account and data — by Paul Kreations.",
+    "Delete your Where is My Money? account and data — in the app, or by request if you no longer have the app.",
   alternates: { canonical: `${BASE_URL}/wimm/delete-account` },
 };
 
-const MONO = "font-[family-name:var(--font-jetbrains-mono)] tracking-[0.05em]";
-
 export default function WimmDeleteAccountPage() {
   return (
-    <LegalShell title="Delete Your Account" lastUpdated="August 10, 2026">
+    <LegalShell
+      title="Delete Your Account"
+      lastUpdated={WIMM_LEGAL_LAST_UPDATED}
+    >
       <section>
         <p>
-          <strong>Where Is My Money?</strong>, by developer{" "}
-          <strong>Paul Kreations</strong>, lets you request deletion of your
-          account and associated data at any time — whether or not you still
-          have the app installed.
+          <strong>Where is My Money?</strong>, by developer{" "}
+          <strong>Paul Kreations</strong>, lets you delete your cloud account at
+          any time, whether or not you still have the app installed. Deletion is
+          permanent and cannot be undone.
         </p>
       </section>
 
-      {/* ── Steps — kept prominent and first, per Play Store's requirement ── */}
       <section>
-        <h2>How to request deletion</h2>
-        <p>There are two ways to delete your account:</p>
+        <h2 id="how-to-delete-your-account">How to delete your account</h2>
         <ul>
           <li>
-            <strong>In the app</strong> — go to Settings → Account → Delete
-            Account, confirm, and your account and synced data are deleted
-            immediately.{" "}
-            <em>
-              (This in-app flow ships in an upcoming app update — until then,
-              use the form below.)
-            </em>
+            <strong>In the app:</strong> open Settings → Delete Account.
           </li>
           <li>
-            <strong>From this page</strong> — fill out the form below with the
-            email address (and, if different, the username or phone number) you
-            used to sign up. We&apos;ll verify and process your request.
-          </li>
-        </ul>
-      </section>
-
-      {/* ── Data specifics — the part Play Store checks most carefully ──── */}
-      <section>
-        <h2>What gets deleted</h2>
-        <p>
-          Where Is My Money? is local-first: most of your financial data
-          (transactions, budgets, vehicle records, and so on) lives only on your
-          device and is never sent to our servers unless you turn on cloud sync.
-          Deleting the app from your device, or clearing its storage in your
-          device settings, permanently removes that on-device data immediately —
-          we have no copy of it and cannot delete what we never received.
-        </p>
-        <p>For data that does reach our servers, a deletion request removes:</p>
-        <ul>
-          <li>Your account profile (name, email, authentication record)</li>
-          <li>
-            Any cloud-synced backup of your financial data, if cloud sync was
-            enabled
-          </li>
-          <li>
-            Family sharing group memberships and allowances tied to your account
-          </li>
-          <li>
-            Your entry in our waitlist/newsletter list, if you signed up with
-            the same email
+            <strong>Without the app:</strong> use the request form below, or
+            email{" "}
+            <a href={`mailto:${WIMM_SUPPORT_EMAIL}`}>{WIMM_SUPPORT_EMAIL}</a>{" "}
+            from the email address of the account. We confirm that the request
+            comes from the account&apos;s email address before deleting
+            anything, and we aim to reply within {WIMM_RESPONSE_TARGET}.
           </li>
         </ul>
       </section>
 
       <section>
-        <h2>What may be retained, and for how long</h2>
-        <p>
-          <span className={`${MONO} text-[10px] text-[#B27B1F] uppercase`}>
-            Confirm before relying on this section
-          </span>
-        </p>
-        <p>
-          We may retain limited data for a short period after deletion for
-          operational and legal reasons, for example:
-        </p>
+        <h2 id="what-is-deleted">What is deleted</h2>
         <ul>
           <li>
-            Backup snapshots may persist for up to 90 days as part of routine
-            backup rotation, after which they are automatically purged
+            All your cloud financial records, profile and settings, across every
+            feature
           </li>
           <li>
-            Records required for tax, billing, or fraud-prevention obligations
-            (e.g. payment/subscription history) may be retained for as long as
-            applicable law requires
+            Your uploaded attachments and generated reports in cloud storage
+          </li>
+          <li>Your support chats and feedback</li>
+          <li>Your Promo Offer redemption record</li>
+          <li>Your sign-in account itself</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 id="what-is-not-deleted-or-not-immediately">
+          What is not deleted, or not immediately
+        </h2>
+        <ul>
+          <li>
+            <strong>Referral Program enrollment.</strong> Your referral code and
+            referral history are kept so that signing back in with the same
+            Google account reconnects you to them. Ask us and we will delete
+            this record.
           </li>
           <li>
-            Aggregated, de-identified analytics that can no longer be linked
-            back to you are not considered personal data and are not deleted
+            <strong>Payment and subscription records,</strong> which we and the
+            app stores and payment processors must keep under tax and accounting
+            law.
+          </li>
+          <li>
+            <strong>Routine hosting backups.</strong> Deleted records may remain
+            in our hosting provider&apos;s encrypted backups until they are
+            overwritten in the normal cycle, currently up to{" "}
+            <strong>{WIMM_BACKUP_RETENTION}</strong>. We do not restore a
+            deleted account&apos;s data.
+          </li>
+          <li>
+            <strong>
+              Analytics, attribution, crash and push-notification records.
+            </strong>{" "}
+            These are kept under a pseudonymous account or device ID, not in
+            your financial records, only as long as needed to improve the
+            Service or as the provider&apos;s retention settings allow. You can
+            ask us to delete or anonymize those linked to you.
           </li>
         </ul>
         <p>
-          We aim to process every deletion request within{" "}
-          <strong>30 days</strong> and will email you once it&apos;s done.
+          The full detail is in the{" "}
+          <Link href="/wimm/privacy#account-deletion-and-data-retention">
+            Privacy Policy
+          </Link>
+          .
         </p>
       </section>
 
       <section>
-        <h2>Submit a request</h2>
+        <h2 id="if-your-account-is-blocked-from-deletion">
+          If your account is blocked from deletion
+        </h2>
+        <p>
+          If your account still owns shared data that other people depend on
+          (for example a family, joint goal, shared budget, trip group or shared
+          subscription), the app will tell you what to hand over or remove
+          first, so that other people&apos;s data is not lost without notice.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="data-on-your-own-device">Data stored only on your device</h2>
+        <p>
+          By default your financial data stays on your device and is not on our
+          servers, so we cannot delete it for you. Deleting the app, or its data
+          in your device settings, removes it. Backup files you exported
+          yourself are also yours to delete.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="request-deletion">Request deletion without the app</h2>
+        <p>
+          Enter the email address you used for your account. We confirm the
+          request comes from that address before deleting, and we aim to reply
+          within {WIMM_RESPONSE_TARGET}.
+        </p>
         <WimmDeleteAccountForm />
       </section>
 
       <section>
-        <h2>Contact Us</h2>
-        <p>Questions about this process:</p>
+        <h2 id="contact-us">Contact Us</h2>
         <ul>
           <li>
             By email:{" "}
-            <a href="mailto:support@mail.paulkreations.com">
-              support@mail.paulkreations.com
-            </a>
+            <a href={`mailto:${WIMM_SUPPORT_EMAIL}`}>{WIMM_SUPPORT_EMAIL}</a>
           </li>
         </ul>
       </section>
