@@ -10,8 +10,11 @@ export const staffRowSchema = z.object({
   id: z.string().min(1),
   email: z.string().min(1),
   role: z.enum(["owner", "staff"]),
-  apps: z.array(z.enum(["henstel", "natural-farming"])),
+  apps: z.array(z.enum(["henstel", "natural-farming", "wimm"])),
   is_active: z.boolean(),
+  // Added by docs/sql/staff_wimm_access.sql — tolerated as missing so the
+  // app keeps working before that migration has been run.
+  display_name: z.string().nullish(),
 });
 
 export type StaffRow = z.infer<typeof staffRowSchema>;

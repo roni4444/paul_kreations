@@ -1,25 +1,17 @@
 "use client";
 
-// components/wimm-admin/blog-post-form.tsx
-// Create/edit form for blog posts inside the WIMM admin. Styled like
-// offer-form.tsx (WIMM green, native inputs). The Markdown preview reuses
-// the same renderer as the public post page.
-
 import { useActionState, useState } from "react";
-import { Loader2 } from "lucide-react";
-import { MarkdownContent } from "@/components/blog/markdown-content";
 import type { BlogFormState } from "@/server/actions/blog";
-
-const MONO = "font-[family-name:var(--font-jetbrains-mono)] tracking-[0.05em]";
-const LABEL = `${MONO} text-[11px] text-[#4A5A52] uppercase`;
-const FIELD =
-  "w-full px-3 border border-[#D8E8E0] bg-white text-[#0E2A20] text-sm outline-none transition-all placeholder:text-[#8FA69B] focus:border-[#0F7A4E] focus:border-2 disabled:opacity-50 disabled:cursor-not-allowed h-11";
-const PRIMARY =
-  "inline-flex items-center justify-center gap-2 h-11 px-6 bg-[#0F7A4E] hover:bg-[#0A5C3A] disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold transition-colors";
-const SECONDARY =
-  "inline-flex items-center justify-center gap-2 h-11 px-6 border border-[#D8E8E0] bg-white hover:border-[#0F7A4E] disabled:opacity-50 disabled:cursor-not-allowed text-[#0E2A20] text-sm font-semibold transition-colors";
+import { MarkdownContent } from "@/components/blog/markdown-content";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 
 const initialState: BlogFormState = { status: "idle" };
+
+const LABEL = "font-mono text-xs tracking-wide text-[#8f6f6f] uppercase";
+const FIELD = "rounded-[4px] border-[#e3bebd]";
 
 interface BlogPostFormProps {
   action: (
@@ -47,74 +39,65 @@ export function BlogPostForm({
   const [body, setBody] = useState(defaults?.bodyMd ?? "");
   const [showPreview, setShowPreview] = useState(false);
 
-  const spinner = isPending ? (
-    <Loader2 size={14} className="animate-spin" aria-hidden="true" />
-  ) : null;
-
   return (
-    <form action={formAction} className="flex max-w-[760px] flex-col gap-6">
+    <form action={formAction} className="flex flex-col gap-5">
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="title" className={LABEL}>
-          Title <span className="text-[#0F7A4E]">*</span>
-        </label>
-        <input
+        <Label htmlFor="title" className={LABEL}>
+          Title
+        </Label>
+        <Input
           id="title"
           name="title"
-          type="text"
           required
           maxLength={160}
           defaultValue={defaults?.title}
           className={FIELD}
-          disabled={isPending}
         />
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="slug" className={LABEL}>
+        <Label htmlFor="slug" className={LABEL}>
           Slug
-        </label>
-        <input
+        </Label>
+        <Input
           id="slug"
           name="slug"
-          type="text"
           maxLength={80}
           defaultValue={defaults?.slug}
           placeholder="leave blank to generate from the title"
           className={FIELD}
-          disabled={isPending}
         />
         {mode === "edit" && status === "published" && (
-          <p className={`${MONO} text-[10px] text-[#7C9187]`}>
+          <p className="text-xs text-[#8f6f6f]">
             Changing the slug of a published post changes its public URL.
           </p>
         )}
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="excerpt" className={LABEL}>
+        <Label htmlFor="excerpt" className={LABEL}>
           Excerpt
-        </label>
-        <textarea
+        </Label>
+        <Textarea
           id="excerpt"
           name="excerpt"
-          rows={3}
           maxLength={300}
+          rows={3}
           defaultValue={defaults?.excerpt}
           placeholder="One or two sentences shown in the post list and in search results."
-          className={`${FIELD} h-auto resize-none py-2`}
-          disabled={isPending}
+          className={FIELD}
         />
       </div>
 
       <div className="flex flex-col gap-1.5">
         <div className="flex items-center justify-between">
-          <label htmlFor="bodyMd" className={LABEL}>
+          <Label htmlFor="bodyMd" className={LABEL}>
             Content (Markdown)
-          </label>
+          </Label>
           <button
             type="button"
             onClick={() => setShowPreview((v) => !v)}
-            className={`${MONO} text-[11px] text-[#0F7A4E] uppercase hover:underline`}
+            className="font-mono text-xs tracking-wide text-[#c41e3a] uppercase hover:underline"
           >
             {showPreview ? "Edit" : "Preview"}
           </button>
@@ -122,88 +105,91 @@ export function BlogPostForm({
 
         {/* Kept mounted (just hidden) while previewing so the value is
             still submitted with the form. */}
-        <textarea
+        <Textarea
           id="bodyMd"
           name="bodyMd"
           value={body}
           onChange={(e) => setBody(e.target.value)}
           maxLength={50000}
-          disabled={isPending}
+          className={`${FIELD} min-h-[420px] font-mono ${showPreview ? "hidden" : ""}`}
           placeholder={
             "## A heading\n\nWrite in **Markdown**. Links, lists, quotes and code blocks are supported."
           }
-          className={`${FIELD} h-auto min-h-[420px] resize-y py-2 font-mono ${showPreview ? "hidden" : ""}`}
         />
         {showPreview && (
-          <div className="min-h-[420px] border border-[#D8E8E0] bg-white px-5 py-2">
+          <div className="min-h-[420px] rounded-[4px] border border-[#e3bebd] bg-white px-5 py-2">
             {body.trim() ? (
               <MarkdownContent source={body} />
             ) : (
-              <p className="my-4 text-sm text-[#7C9187]">Nothing to preview.</p>
+              <p className="my-4 text-sm text-[#8f6f6f]">Nothing to preview.</p>
             )}
           </div>
         )}
       </div>
 
       {state.status === "error" && (
-        <div className="border border-[#C0392B] bg-[#FCEEEC] px-3 py-2.5">
-          <span className={`${MONO} text-[11px] text-[#C0392B]`}>
-            {state.message}
-          </span>
-        </div>
+        <p role="alert" className="text-sm text-[#9e0027]">
+          {state.message}
+        </p>
       )}
       {state.status === "saved" && (
-        <div className="border border-[#0F7A4E] bg-[#E8F5EE] px-3 py-2.5">
-          <span className={`${MONO} text-[11px] text-[#0A5C3A]`}>
-            {state.message}
-          </span>
-        </div>
+        <p role="status" className="text-sm text-[#3b6d11]">
+          {state.message}
+        </p>
       )}
 
       <div className="flex flex-wrap gap-3">
         {mode === "create" ? (
-          <button
+          <Button
             type="submit"
             name="intent"
             value="save"
             disabled={isPending}
-            className={PRIMARY}
+            className="h-9 rounded-[4px] bg-[#c41e3a] text-white hover:bg-[#9e0027]"
           >
-            {spinner}
-            Create draft
-          </button>
+            {isPending ? "Creating…" : "Create draft"}
+          </Button>
         ) : (
           <>
-            <button
+            <Button
               type="submit"
               name="intent"
               value="save"
+              variant={status === "published" ? "default" : "outline"}
               disabled={isPending}
-              className={status === "published" ? PRIMARY : SECONDARY}
+              className={
+                status === "published"
+                  ? "h-9 rounded-[4px] bg-[#c41e3a] text-white hover:bg-[#9e0027]"
+                  : "h-9 rounded-[4px]"
+              }
             >
-              {spinner}
-              {status === "published" ? "Save changes" : "Save draft"}
-            </button>
+              {isPending
+                ? "Saving…"
+                : status === "published"
+                  ? "Save changes"
+                  : "Save draft"}
+            </Button>
             {status === "draft" ? (
-              <button
+              <Button
                 type="submit"
                 name="intent"
                 value="publish"
                 disabled={isPending}
-                className={PRIMARY}
+                className="h-9 rounded-[4px] bg-[#c41e3a] text-white hover:bg-[#9e0027]"
               >
                 Publish
-              </button>
+              </Button>
             ) : (
-              <button
+              <Button
                 type="submit"
                 name="intent"
                 value="unpublish"
+                variant="outline"
                 disabled={isPending}
-                className={SECONDARY}
+                className="h-9 rounded-[4px]"
               >
                 Unpublish
-              </button>
+              </Button>
             )}
           </>
         )}

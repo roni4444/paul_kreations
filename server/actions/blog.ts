@@ -1,10 +1,10 @@
 // server/actions/blog.ts
-// Server Actions for the blog editor inside the WIMM admin
-// (/wimm/admin/blog). Every action starts with requireWimmAdmin() —
-// proxy.ts only confirms *a* WIMM session exists, not money.promo_admins
-// membership, so this is the real authorization boundary. Data access
-// lives in services/supabase/blog.ts; this file is validation + error
-// translation only, matching server/actions/wimm-admin.ts.
+// Server Actions for the blog editor in the main admin
+// (/admin/wimm/blog). Every action starts with requireStaffAccess("wimm")
+// — see services/staff.ts for why that's the real authorization boundary,
+// not the calling page. Data access lives in services/supabase/blog.ts;
+// this file is validation + error translation only, matching
+// server/actions/cookbooks.ts.
 
 "use server";
 
@@ -12,7 +12,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import * as Sentry from "@sentry/nextjs";
 import { blogPostFormSchema } from "@/schemas/blog";
-import { requireWimmAdmin } from "@/services/supabase/wimm-admin";
+import { requireStaffAccess } from "@/services/staff";
 import * as blogService from "@/services/supabase/blog";
 
 export interface BlogFormState {
@@ -47,7 +47,7 @@ export async function createBlogPostAction(
   _prevState: BlogFormState,
   formData: FormData,
 ): Promise<BlogFormState> {
-  const admin = await requireWimmAdmin();
+  const staff = await requireStaffAccess("wimm");
 
   const parsed = parseForm(formData);
   if (!parsed.success) {
@@ -66,7 +66,7 @@ export async function createBlogPostAction(
         excerpt: parsed.data.excerpt,
         bodyMd: parsed.data.bodyMd,
       },
-      { id: admin.userId, name: admin.displayName },
+      { id: staff.id, name: staff.displayName },
     );
   } catch (err) {
     if (err instanceof Error && err.message === blogService.SLUG_TAKEN) {
@@ -76,8 +76,8 @@ export async function createBlogPostAction(
     return { status: "error", message: GENERIC_ERROR };
   }
 
-  revalidatePath("/wimm/admin/blog");
-  redirect(`/wimm/admin/blog/${postId}`);
+  revalidatePath("/admin/wimm/blog");
+  redirect(`/admin/wimm/blog/${postId}`);
 }
 
 /** Bound to a post id in the edit page: updateBlogPostAction.bind(null, id).
@@ -87,7 +87,7 @@ export async function updateBlogPostAction(
   _prevState: BlogFormState,
   formData: FormData,
 ): Promise<BlogFormState> {
-  const admin = await requireWimmAdmin();
+  const staff = await requireStaffAccess("wimm");
 
   const parsed = parseForm(formData);
   if (!parsed.success) {
@@ -107,15 +107,15 @@ export async function updateBlogPostAction(
         bodyMd: parsed.data.bodyMd,
       },
       parsed.data.intent,
-      { id: admin.userId, name: admin.displayName },
+      { id: staff.id, name: staff.displayName },
     );
 
     if (!result) {
       return { status: "error", message: "That post no longer exists." };
     }
 
-    revalidatePath("/wimm/admin/blog");
-    revalidatePath(`/wimm/admin/blog/${postId}`);
+    revalidatePath("/admin/wimm/blog");
+    revalidatePath(`/admin/wimm/blog/${postId}`);
     revalidatePublicBlog(result.previousSlug, parsed.data.slug);
 
     const message =
@@ -135,15 +135,15 @@ export async function updateBlogPostAction(
 }
 
 export async function deleteBlogPostAction(postId: string) {
-  await requireWimmAdmin();
+  await requireStaffAccess("wimm");
 
   try {
     const slug = await blogService.deletePost(postId);
-    revalidatePath("/wimm/admin/blog");
+    revalidatePath("/admin/wimm/blog");
     revalidatePublicBlog(slug);
   } catch (err) {
     Sentry.captureException(err);
     throw err;
   }
-  redirect("/wimm/admin/blog");
+  redirect("/admin/wimm/blog");
 }

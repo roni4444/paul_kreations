@@ -7,7 +7,7 @@ export const magicLinkSchema = z.object({
   email: z
     .email("Enter a valid email address")
     .max(255, "Email address is too long"),
-  app: z.enum(["henstel", "natural-farming"]),
+  app: z.enum(["henstel", "natural-farming", "wimm"]),
 });
 
 export type MagicLinkFormData = z.infer<typeof magicLinkSchema>;

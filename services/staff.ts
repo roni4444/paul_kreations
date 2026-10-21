@@ -29,7 +29,10 @@ export async function getCurrentStaff(): Promise<Staff | null> {
     // is always the auth user's id — see scripts/add-staff.mjs.
     const { data, error } = await supabase
       .from("staff")
-      .select("id, email, role, apps, is_active")
+      // select("*") rather than a column list: display_name is added by
+      // docs/sql/staff_wimm_access.sql, and an explicit list would make
+      // this query fail (and lock every admin out) until it has been run.
+      .select("*")
       .eq("id", user.id)
       .maybeSingle();
 
@@ -49,6 +52,8 @@ export async function getCurrentStaff(): Promise<Staff | null> {
     return {
       id: parsed.data.id,
       email: parsed.data.email,
+      displayName:
+        parsed.data.display_name?.trim() || parsed.data.email.split("@")[0],
       role: parsed.data.role,
       apps: parsed.data.apps as AppSlug[],
       isActive: parsed.data.is_active,
