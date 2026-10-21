@@ -1,9 +1,9 @@
 // services/stream/agent-identity.ts
 // Generates a stable, human-friendly pseudonym for a staff member from
-// their Appwrite user ID — deterministic (same ID always yields the same
+// their staff ID — deterministic (same ID always yields the same
 // name), so customers see a consistent "agent" across a conversation
 // without ever seeing a staff member's real email. No new data entry
-// step, no new Appwrite column — see ADR 0003.
+// step, no new staff-table column — see ADR 0003.
 
 const ADJECTIVES = [
   "Swift",

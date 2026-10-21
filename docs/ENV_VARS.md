@@ -62,3 +62,20 @@ TURNSTILE_SECRET_KEY=0x4AAAAAAAxxxxxxxx
 # to a different inbox than general contact-form messages.
 
 # DELETION_REQUESTS_EMAIL=you@example.com
+
+## Admin staff auth (dedicated Supabase project)
+
+Replaces the Appwrite vars. Server-only except where noted. The secret key
+bypasses RLS: keep it out of NEXT_PUBLIC_* and out of client components.
+
+ADMIN_SUPABASE_URL=https://fggsfrsourpxhunfnihm.supabase.co
+
+ADMIN_SUPABASE_PUBLISHABLE_KEY=sb_publishable_xxxxxxxx
+
+ADMIN_SUPABASE_SECRET_KEY=sb_secret_xxxxxxxx
+
+CRON_SECRET (unchanged) is still needed for the daily keep-warm cron.
+
+Remove from .env.local and Vercel once the new login works:
+NEXT_PUBLIC_APPWRITE_ENDPOINT, NEXT_PUBLIC_APPWRITE_PROJECT_ID,
+APPWRITE_API_KEY, APPWRITE_DATABASE_ID, APPWRITE_STAFF_TABLE_ID.

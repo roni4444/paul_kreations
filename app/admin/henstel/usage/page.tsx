@@ -143,27 +143,24 @@ export default async function UsagePage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Appwrite</CardTitle>
-            <CardDescription>Staff auth project</CardDescription>
+            <CardTitle>Staff auth</CardTitle>
+            <CardDescription>Admin-auth Supabase project</CardDescription>
           </CardHeader>
           <CardContent>
-            {usage.appwrite.status === "error" ? (
-              <ErrorCard message={usage.appwrite.message} />
+            {usage.staffAuth.status === "error" ? (
+              <ErrorCard message={usage.staffAuth.message} />
             ) : (
               <>
+                <StatRow label="Staff" value={usage.staffAuth.totalStaff} />
                 <StatRow
-                  label="Staff users"
-                  value={usage.appwrite.totalStaffUsers}
-                />
-                <StatRow
-                  label="Staff table rows"
-                  value={usage.appwrite.totalStaffRows}
+                  label="Active staff"
+                  value={usage.staffAuth.activeStaff}
                 />
                 <p className="mt-2 text-xs text-[#8f6f6f]">
-                  Bandwidth, storage, and execution usage aren&apos;t exposed
-                  via API key — see the console for detail.
+                  Bandwidth, storage, and compute usage aren&apos;t exposed via
+                  API key — see the dashboard for detail.
                 </p>
-                <DashboardLink href={usage.appwrite.dashboardUrl} />
+                <DashboardLink href={usage.staffAuth.dashboardUrl} />
               </>
             )}
           </CardContent>

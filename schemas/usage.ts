@@ -57,25 +57,25 @@ export type SupabaseUsage =
   | z.infer<typeof supabaseUsageSchema>
   | z.infer<typeof supabaseUsageErrorSchema>;
 
-// ── Appwrite ────────────────────────────────────────────────────────────
-export const appwriteUsageSchema = z.object({
+// ── Staff auth (admin-auth Supabase project) ─────────────────────────────
+export const staffAuthUsageSchema = z.object({
   status: z.literal("ok"),
-  totalStaffUsers: z.number(),
-  totalStaffRows: z.number(),
+  totalStaff: z.number(),
+  activeStaff: z.number(),
   dashboardUrl: z.url(),
 });
-export const appwriteUsageErrorSchema = z.object({
+export const staffAuthUsageErrorSchema = z.object({
   status: z.literal("error"),
   message: z.string(),
 });
-export type AppwriteUsage =
-  | z.infer<typeof appwriteUsageSchema>
-  | z.infer<typeof appwriteUsageErrorSchema>;
+export type StaffAuthUsage =
+  | z.infer<typeof staffAuthUsageSchema>
+  | z.infer<typeof staffAuthUsageErrorSchema>;
 
 export const usageDashboardSchema = z.object({
   sentry: z.union([sentryUsageSchema, sentryUsageErrorSchema]),
   resend: z.union([resendUsageSchema, resendUsageErrorSchema]),
   supabase: z.union([supabaseUsageSchema, supabaseUsageErrorSchema]),
-  appwrite: z.union([appwriteUsageSchema, appwriteUsageErrorSchema]),
+  staffAuth: z.union([staffAuthUsageSchema, staffAuthUsageErrorSchema]),
 });
 export type UsageDashboard = z.infer<typeof usageDashboardSchema>;

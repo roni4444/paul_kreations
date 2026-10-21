@@ -1,7 +1,7 @@
 {
   "crons": [
     {
-      "path": "/api/internal/keep-appwrite-warm",
+      "path": "/api/internal/keep-staff-auth-warm",
       "schedule": "0 6 * * *"
     }
   ]

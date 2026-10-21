@@ -9,20 +9,20 @@ import { requireStaffAccess } from "@/services/staff";
 import { getSentryUsage } from "@/services/usage/sentry-usage";
 import { getResendUsage } from "@/services/usage/resend-usage";
 import { getSupabaseUsage } from "@/services/usage/supabase-usage";
-import { getAppwriteUsage } from "@/services/usage/appwrite-usage";
+import { getStaffAuthUsage } from "@/services/usage/staff-auth-usage";
 import type { UsageDashboard } from "@/schemas/usage";
 
 export async function getUsageDashboardAction(): Promise<UsageDashboard> {
   await requireStaffAccess("henstel");
 
   try {
-    const [sentry, resend, supabase, appwrite] = await Promise.all([
+    const [sentry, resend, supabase, staffAuth] = await Promise.all([
       getSentryUsage(),
       getResendUsage(),
       getSupabaseUsage(),
-      getAppwriteUsage(),
+      getStaffAuthUsage(),
     ]);
-    return { sentry, resend, supabase, appwrite };
+    return { sentry, resend, supabase, staffAuth };
   } catch (err) {
     // Each individual getX() already catches its own errors and returns
     // a { status: "error" } card rather than throwing — this catch is
@@ -36,7 +36,7 @@ export async function getUsageDashboardAction(): Promise<UsageDashboard> {
       sentry: errored,
       resend: errored,
       supabase: errored,
-      appwrite: errored,
+      staffAuth: errored,
     };
   }
 }

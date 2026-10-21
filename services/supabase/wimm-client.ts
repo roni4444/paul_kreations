@@ -7,7 +7,7 @@
 // Henstel/Natural Farming admin session.
 //
 // Never import this outside services/supabase/wimm-admin.ts,
-// server/actions/wimm-admin*.ts, and middleware.ts — everything else
+// server/actions/wimm-admin*.ts, and proxy.ts — everything else
 // goes through the service layer (PROJECT_RULES.md §11).
 
 import { type CookieOptions, createServerClient } from "@supabase/ssr";
@@ -51,7 +51,7 @@ export async function createWimmSupabaseServerClient() {
           );
         } catch {
           // Called from a Server Component with no response to write to —
-          // middleware.ts refreshes the session on the next navigation.
+          // proxy.ts refreshes the session on the next navigation.
         }
       },
     },

@@ -2,7 +2,10 @@
 
 ## Status
 
-Accepted. Supersedes the staff-auth half of ADR 0001 (the `staging`/`chef`/
+Superseded
+by [0004 — Staff auth moves to a dedicated Supabase project](./0004-staff-auth-supabase.md).
+Previously: Accepted. Supersedes the staff-auth half of ADR 0001 (the `staging`/
+`chef`/
 `pg_cron` decisions in ADR 0001 are unaffected and still stand).
 
 ## Context
@@ -60,8 +63,8 @@ Farming" instruction, not because it was unsound.
 
 ## Consequences
 
-- One more vendor in the stack, used for exactly one narrow purpose
-  (staff identity), wrapped behind `services/appwrite/clients.ts` and
+- One more vendor in the stack, used for exactly one narrow purpose (staff
+  identity), wrapped behind `services/appwrite/clients.ts` and
   `services/staff.ts` — nothing else in the codebase talks to Appwrite
   directly, matching the project's `/services` boundary rule.
 - `APPWRITE_API_KEY` is a real secret (full project privileges) and is

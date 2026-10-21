@@ -1,7 +1,7 @@
 "use server";
 
 // server/actions/wimm-admin.ts
-// Every action re-checks requireWimmAdmin() itself — middleware.ts only
+// Every action re-checks requireWimmAdmin() itself — proxy.ts only
 // confirms *a* Supabase session exists, not money.promo_admins
 // membership. All actual data access lives in
 // services/supabase/wimm-admin.ts; this file is validation + error

@@ -1,59 +1,60 @@
 // services/staff.ts
 // Reads the current admin's staff record. This is the only place that
-// queries the staff table directly — never query it from UI or route
-// handlers.
+// queries the staff table on behalf of a signed-in user — never query it
+// from UI or route handlers.
 
-import { createAdminClient, createSessionClient } from "./appwrite/clients";
+import * as Sentry from "@sentry/nextjs";
+import { createAdminSessionClient } from "./supabase/admin-client";
+import { staffRowSchema } from "@/schemas/staff";
 import type { AppSlug, Staff } from "@/lib/admin/types";
 
-function requireEnv(name: string): string {
-  const value = process.env[name];
-  if (!value) {
-    throw new Error(`Missing required environment variable: ${name}`);
-  }
-  return value;
-}
-
-interface StaffRow {
-  $id: string;
-  email: string;
-  role: "owner" | "staff";
-  apps: string[];
-  isActive: boolean;
-}
-
 export async function getCurrentStaff(): Promise<Staff | null> {
-  const sessionClient = await createSessionClient();
-  if (!sessionClient) return null;
-
-  let userId: string;
-  try {
-    const user = await sessionClient.account.get();
-    userId = user.$id;
-  } catch {
-    // Cookie present but the session is no longer valid (expired/revoked).
-    return null;
-  }
+  // Created OUTSIDE the try/catch on purpose: this awaits cookies(), which
+  // signals "this page is dynamic" by throwing a special error during
+  // static prerendering. Swallowing it would let Next try to prerender
+  // admin pages at build time.
+  const supabase = await createAdminSessionClient();
 
   try {
-    // The staff row's ID is always the Appwrite user's $id — see
-    // scripts/add-staff.mjs — so this is a direct lookup, not a query.
-    const { tablesDB } = createAdminClient();
-    const row = (await tablesDB.getRow(
-      requireEnv("APPWRITE_DATABASE_ID"),
-      requireEnv("APPWRITE_STAFF_TABLE_ID"),
-      userId,
-    )) as unknown as StaffRow;
+    // getUser() validates the session with the Supabase Auth server —
+    // unlike getSession(), it can't be fooled by a tampered cookie.
+    const {
+      data: { user },
+      error: userError,
+    } = await supabase.auth.getUser();
+    if (userError || !user) return null;
+
+    // Runs as the signed-in user, so RLS ("read your own row only") is
+    // enforced by the database, not just by this code. The staff row's id
+    // is always the auth user's id — see scripts/add-staff.mjs.
+    const { data, error } = await supabase
+      .from("staff")
+      .select("id, email, role, apps, is_active")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    if (error) {
+      Sentry.captureException(error);
+      return null;
+    }
+    // Authenticated, but no staff row — not staff.
+    if (!data) return null;
+
+    const parsed = staffRowSchema.safeParse(data);
+    if (!parsed.success) {
+      Sentry.captureException(parsed.error);
+      return null;
+    }
 
     return {
-      id: row.$id,
-      email: row.email,
-      role: row.role,
-      apps: row.apps as AppSlug[],
-      isActive: row.isActive,
+      id: parsed.data.id,
+      email: parsed.data.email,
+      role: parsed.data.role,
+      apps: parsed.data.apps as AppSlug[],
+      isActive: parsed.data.is_active,
     };
-  } catch {
-    // Authenticated with Appwrite, but no staff row — not staff.
+  } catch (err) {
+    Sentry.captureException(err);
     return null;
   }
 }

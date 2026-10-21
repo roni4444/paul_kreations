@@ -72,7 +72,7 @@ export default withSentryConfig(nextConfig, {
   widenClientFileUpload: true,
 
   // Route Sentry requests through /monitoring to bypass ad-blockers
-  // Make sure this path doesn't clash with any Next.js middleware
+  // Make sure this path doesn't clash with any Next.js proxy
   tunnelRoute: "/monitoring",
 
   // Auto-instrument Vercel Cron Monitors

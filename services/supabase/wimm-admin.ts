@@ -1,7 +1,7 @@
 // services/supabase/wimm-admin.ts
 // Authorization boundary + all data access for the WIMM promo-offers
 // admin. Every Server Action and every protected page calls
-// requireWimmAdmin() itself — middleware.ts only confirms *a* Supabase
+// requireWimmAdmin() itself — proxy.ts only confirms *a* Supabase
 // session exists, not that it belongs to a money.promo_admins row.
 //
 // money.promo_offer_redemptions is deliberately SELECT + DELETE only in

@@ -58,7 +58,7 @@ export default async function HenstelAdminHome() {
             <CardHeader>
               <CardTitle>Usage</CardTitle>
               <CardDescription className="mt-1">
-                Sentry, Resend, Supabase, and Appwrite at a glance
+                Sentry, Resend, Supabase, and staff auth at a glance
               </CardDescription>
             </CardHeader>
           </Card>
