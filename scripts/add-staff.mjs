@@ -9,8 +9,8 @@
 //   node --env-file=.env.local scripts/add-staff.mjs <email> <role> <apps>
 //
 // Examples:
-//   node --env-file=.env.local scripts/add-staff.mjs you@example.com owner henstel
-//   node --env-file=.env.local scripts/add-staff.mjs colleague@example.com staff henstel,natural-farming
+//   node --env-file=.env.local scripts/add-staff.mjs you@example.com owner
+//   node --env-file=.env.local scripts/add-staff.mjs colleague@example.com staff henstel
 //
 // role defaults to "staff" if omitted. apps is a comma-separated list
 // (ignored for role=owner, which always has access to everything — see
@@ -24,7 +24,7 @@ const VALID_APPS = ["henstel", "natural-farming"];
 
 const [, , emailArg, roleArg, appsArg] = process.argv;
 const email = emailArg?.trim().toLowerCase();
-const role = roleArg ?? "staff";
+const role = roleArg || "staff";
 const apps = (appsArg ?? "")
   .split(",")
   .map((s) => s.trim())

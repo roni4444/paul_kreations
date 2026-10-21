@@ -24,12 +24,28 @@ export default async function WimmAdminProtectedLayout({
     <div className="min-h-screen bg-[#F6FAF8]">
       <div className="border-b border-[#D8E8E0] bg-white">
         <div className="max-w-[1040px] mx-auto px-6 h-16 flex items-center justify-between">
-          <Link
-            href="/wimm/admin"
-            className={`${HEADING} font-semibold text-[#0E2A20] text-[14px]`}
-          >
-            WIMM Admin — Promo Offers
-          </Link>
+          <div className="flex items-center gap-6">
+            <Link
+              href="/wimm/admin"
+              className={`${HEADING} font-semibold text-[#0E2A20] text-[14px]`}
+            >
+              WIMM Admin
+            </Link>
+            <nav aria-label="WIMM admin" className="flex items-center gap-4">
+              <Link
+                href="/wimm/admin"
+                className={`${MONO} text-[11px] text-[#4A5A52] uppercase hover:text-[#0F7A4E]`}
+              >
+                Promo offers
+              </Link>
+              <Link
+                href="/wimm/admin/blog"
+                className={`${MONO} text-[11px] text-[#4A5A52] uppercase hover:text-[#0F7A4E]`}
+              >
+                Blog
+              </Link>
+            </nav>
+          </div>
           <div className="flex items-center gap-4">
             <span className={`${MONO} text-[11px] text-[#7C9187]`}>
               {admin.email}

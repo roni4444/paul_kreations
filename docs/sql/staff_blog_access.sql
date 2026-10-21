@@ -1,0 +1,17 @@
+-- docs/sql/staff_blog_access.sql
+-- NOT NEEDED — kept only so the file isn't left half-explained.
+--
+-- An earlier version of the blog put the editor in the staff admin and
+-- asked you to run SQL here. The blog editor now lives inside the WIMM
+-- admin (/wimm/admin/blog), signed in with the WIMM Google account, so the
+-- staff table needs no changes. You can delete this file.
+--
+-- If you ALREADY ran the earlier version in the admin-auth project
+-- (fggsfrsourpxhunfnihm), it is harmless and you can leave it. To undo it,
+-- run the statements below (only if no staff row uses 'blog'):
+--
+-- alter table public.staff drop column if exists display_name;
+-- alter table public.staff drop constraint if exists staff_apps_check;
+-- alter table public.staff
+--     add constraint staff_apps_check
+--         check (apps <@ array ['henstel', 'natural-farming']::text[]);

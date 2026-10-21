@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Lock } from "lucide-react";
-import { MANAGED_APPS } from "@/lib/admin/apps";
+import { EXTERNAL_ADMINS, MANAGED_APPS } from "@/lib/admin/apps";
 import { getCurrentStaff, staffCanAccess } from "@/services/staff";
 import {
   Card,
@@ -78,6 +78,29 @@ export default async function AdminPickerPage() {
             <div key={app.slug}>{card}</div>
           );
         })}
+
+        {/* Admins with their own sign-in and Supabase project — the picker
+            only links to them; the staff session plays no part. */}
+        {EXTERNAL_ADMINS.map((admin) => (
+          <Link key={admin.slug} href={admin.href}>
+            <Card className="transition-colors hover:border-[#c41e3a]">
+              <CardHeader className="flex flex-row items-center justify-between">
+                <div>
+                  <CardTitle>{admin.name}</CardTitle>
+                  <CardDescription className="mt-1">
+                    {admin.tagline}
+                  </CardDescription>
+                </div>
+                <ArrowRight size={16} className="shrink-0 text-[#c41e3a]" />
+              </CardHeader>
+              <CardContent>
+                <span className="font-mono text-xs tracking-wide text-[#8f6f6f] uppercase">
+                  {admin.note}
+                </span>
+              </CardContent>
+            </Card>
+          </Link>
+        ))}
       </div>
     </div>
   );

@@ -7,10 +7,11 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 const NAV_LINKS = [
-  { href: "#products", label: "Products" },
-  { href: "#services", label: "Services" },
-  { href: "#team", label: "Team" },
-  { href: "#roadmap", label: "What's Next" },
+  { href: "/#products", label: "Products" },
+  { href: "/#services", label: "Services" },
+  { href: "/#team", label: "Team" },
+  { href: "/#roadmap", label: "What's Next" },
+  { href: "/blog", label: "Blog" },
 ];
 
 // ─── HOW TO USE YOUR LOGO ──────────────────────────────────────────────────────

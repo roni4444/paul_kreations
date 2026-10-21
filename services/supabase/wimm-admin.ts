@@ -26,6 +26,10 @@ import type {
 export interface WimmAdminSession {
   userId: string;
   email: string;
+  /** Shown publicly as blog author/reviewer. Taken from the Google
+   * profile name; falls back to the part of the email before the @ —
+   * never the full address. */
+  displayName: string;
 }
 
 /** Redirects rather than throwing — every caller is a Server Component
@@ -52,7 +56,20 @@ export async function requireWimmAdmin(): Promise<WimmAdminSession> {
 
   if (!adminRow) redirect("/wimm/admin/unauthorized");
 
-  return { userId: user.id, email: user.email ?? "" };
+  const meta = (user.user_metadata ?? {}) as Record<string, unknown>;
+  const profileName =
+    typeof meta.full_name === "string"
+      ? meta.full_name
+      : typeof meta.name === "string"
+        ? meta.name
+        : "";
+  const email = user.email ?? "";
+
+  return {
+    userId: user.id,
+    email,
+    displayName: profileName.trim() || email.split("@")[0] || "Admin",
+  };
 }
 
 export async function listOffers(): Promise<PromoOffer[]> {
