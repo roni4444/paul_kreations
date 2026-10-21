@@ -23,7 +23,7 @@ async function loadPosts(): Promise<{
     return {
       posts: [],
       error:
-        "Couldn't load posts. Has docs/sql/blog.sql been run on the main Supabase project?",
+        "Couldn't load posts. Has docs/sql/blog.sql been run on the admin-auth Supabase project?",
     };
   }
 }
