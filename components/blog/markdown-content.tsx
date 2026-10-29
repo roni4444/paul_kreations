@@ -7,10 +7,13 @@
 // schemes (javascript: etc.), so staff-authored Markdown can't inject
 // script into the page. Images are intentionally not rendered in v1.
 //
+// remark-gfm adds tables, strikethrough, task lists and bare-URL links.
+//
 // Styling is mapped per element here rather than via a typography plugin,
 // to avoid adding another dependency (PROJECT_RULES.md §7).
 
 import ReactMarkdown, { type Components } from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const components: Components = {
   h1: ({ children }) => (
@@ -84,9 +87,29 @@ const components: Components = {
   strong: ({ children }) => (
     <strong className="font-semibold text-[#111c2d]">{children}</strong>
   ),
+  table: ({ children }) => (
+    <div className="my-6 overflow-x-auto">
+      <table className="w-full border-collapse text-left text-sm text-[#2b3445]">
+        {children}
+      </table>
+    </div>
+  ),
+  thead: ({ children }) => <thead className="bg-[#fff5f5]">{children}</thead>,
+  th: ({ children }) => (
+    <th className="border border-[#e3bebd] px-3 py-2 font-semibold text-[#111c2d]">
+      {children}
+    </th>
+  ),
+  td: ({ children }) => (
+    <td className="border border-[#e3bebd] px-3 py-2 align-top">{children}</td>
+  ),
   img: () => null,
 };
 
 export function MarkdownContent({ source }: { source: string }) {
-  return <ReactMarkdown components={components}>{source}</ReactMarkdown>;
+  return (
+    <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
+      {source}
+    </ReactMarkdown>
+  );
 }
