@@ -21,6 +21,10 @@ import {
   type BlogPostPublic,
   getPublishedPostBySlug,
 } from "@/services/supabase/blog";
+import {
+  listApprovedComments,
+  type PublicComment,
+} from "@/services/supabase/blog-comments";
 
 export const revalidate = 60;
 
