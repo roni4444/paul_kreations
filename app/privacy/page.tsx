@@ -84,7 +84,15 @@ export default function PrivacyPolicyPage() {
             totals. To count one view or one reaction per visitor, your browser
             stores a small cookie (see the{" "}
             <Link href="/cookies">Cookie Policy</Link>). The totals are not
-            linked to your identity.
+            linked to your identity. Likes and dislikes on individual comments
+            work the same way.
+          </li>
+          <li>
+            <strong>Currency display.</strong> Some guides show amounts in your
+            local currency. We work out your country from your request (the
+            hosting provider supplies it) to pick a default currency; we do not
+            store it. If you pick a currency yourself, your browser remembers
+            that choice on your device only.
           </li>
           <li>
             <strong>Technical data.</strong> When you load a page, our hosting

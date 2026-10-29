@@ -6,7 +6,7 @@
 // comment is held for moderation, so the success message says so.
 
 import type { SubmitEvent as ReactSubmitEvent } from "react";
-import { useState, useTransition } from "react";
+import { useId, useState, useTransition } from "react";
 import { submitCommentAction } from "@/server/actions/blog-comments";
 import { TurnstileWidget } from "@/components/shared/turnstile-widget";
 import { Button } from "@/components/ui/button";
@@ -23,7 +23,24 @@ type Status =
   | { kind: "sent" }
   | { kind: "error"; message: string };
 
-export function CommentForm({ postId }: { postId: string }) {
+interface CommentFormProps {
+  postId: string;
+  /** Top-level comment being replied to (reply mode). */
+  parentId?: string;
+  /** Pre-filled text, e.g. "@Name " when replying to a reply. */
+  initialBody?: string;
+  /** Shows a Cancel/Close button (reply mode). */
+  onCancel?: () => void;
+}
+
+export function CommentForm({
+  postId,
+  parentId,
+  initialBody,
+  onCancel,
+}: CommentFormProps) {
+  const uid = useId();
+  const isReply = Boolean(parentId);
   const [isPending, startTransition] = useTransition();
   const [status, setStatus] = useState<Status>({ kind: "idle" });
   const [turnstileToken, setTurnstileToken] = useState("");
@@ -38,6 +55,7 @@ export function CommentForm({ postId }: { postId: string }) {
     startTransition(async () => {
       const result = await submitCommentAction({
         postId,
+        parentId,
         authorName: (raw.get("authorName") as string) ?? "",
         authorEmail: (raw.get("authorEmail") as string) ?? "",
         body: (raw.get("body") as string) ?? "",
@@ -65,11 +83,11 @@ export function CommentForm({ postId }: { postId: string }) {
       noValidate
     >
       <div className="flex flex-col gap-1.5">
-        <Label htmlFor="comment-name" className={LABEL}>
+        <Label htmlFor={`${uid}-name`} className={LABEL}>
           Name
         </Label>
         <Input
-          id="comment-name"
+          id={`${uid}-name`}
           name="authorName"
           maxLength={60}
           autoComplete="nickname"
@@ -79,11 +97,11 @@ export function CommentForm({ postId }: { postId: string }) {
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <Label htmlFor="comment-email" className={LABEL}>
+        <Label htmlFor={`${uid}-email`} className={LABEL}>
           Email (optional)
         </Label>
         <Input
-          id="comment-email"
+          id={`${uid}-email`}
           name="authorEmail"
           type="email"
           maxLength={254}
@@ -97,13 +115,14 @@ export function CommentForm({ postId }: { postId: string }) {
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <Label htmlFor="comment-body" className={LABEL}>
+        <Label htmlFor={`${uid}-body`} className={LABEL}>
           Comment
         </Label>
         <Textarea
-          id="comment-body"
+          id={`${uid}-body`}
           name="body"
-          rows={5}
+          rows={isReply ? 3 : 5}
+          defaultValue={initialBody}
           maxLength={2000}
           disabled={isPending}
           className={FIELD}
@@ -115,9 +134,9 @@ export function CommentForm({ postId }: { postId: string }) {
         aria-hidden
         className="absolute -left-[9999px] h-0 w-0 overflow-hidden"
       >
-        <label htmlFor="comment-website">Website</label>
+        <label htmlFor={`${uid}-website`}>Website</label>
         <input
-          id="comment-website"
+          id={`${uid}-website`}
           name="website"
           type="text"
           tabIndex={-1}
@@ -138,7 +157,8 @@ export function CommentForm({ postId }: { postId: string }) {
       )}
       {status.kind === "sent" && (
         <p role="status" className="text-sm text-[#3b6d11]">
-          Thanks! Your comment will appear after it has been reviewed.
+          Thanks! Your {isReply ? "reply" : "comment"} will appear after it has
+          been reviewed.
         </p>
       )}
 
@@ -148,8 +168,18 @@ export function CommentForm({ postId }: { postId: string }) {
           disabled={isPending}
           className="h-9 rounded-[4px] bg-[#c41e3a] text-white hover:bg-[#9e0027]"
         >
-          {isPending ? "Sending…" : "Post comment"}
+          {isPending ? "Sending…" : isReply ? "Post reply" : "Post comment"}
         </Button>
+        {onCancel && (
+          <Button
+            type="button"
+            variant="outline"
+            onClick={onCancel}
+            className="ml-2 h-9 rounded-[4px]"
+          >
+            {status.kind === "sent" ? "Close" : "Cancel"}
+          </Button>
+        )}
       </div>
     </form>
   );

@@ -62,6 +62,12 @@ export default function CookiePolicyPage() {
               "Functional",
             ],
             [
+              <code key="n">bcr</code>,
+              "Remembers which blog comments you liked or disliked, so you can change or remove a reaction and cannot react twice.",
+              "1 year",
+              "Functional",
+            ],
+            [
               <code key="n">bv_&lt;post id&gt;</code>,
               "Remembers that your visit to a blog post has been counted, so it counts once per day.",
               "24 hours",
@@ -96,9 +102,14 @@ export default function CookiePolicyPage() {
               "Session storage item (not a cookie), cleared when you close the tab. Lets us see what led to an error, for a sample of visits and whenever an error occurs.",
             ],
             [
+              <code key="n">pk_currency</code>,
+              "This website",
+              "Local storage item (not a cookie) that remembers the currency you chose for amounts in blog guides. It stays on your device.",
+            ],
+            [
               "Turnstile",
               "Cloudflare",
-              "Checks that the blog comment form is used by a person. It may store data it needs to run the check, under Cloudflare's own policies.",
+              "Checks that the contact form and the blog comment form are used by a person. It may store data it needs to run the check, under Cloudflare's own policies.",
             ],
             [
               "Web Analytics, Speed Insights",
@@ -159,7 +170,8 @@ export default function CookiePolicyPage() {
           or clear everything when you close the browser. If you block our
           first-party cookies, the site still works; your like or dislike just
           will not be remembered, and a post may count your visit again.
-          Blocking Turnstile may stop the comment form from working.
+          Blocking Turnstile may stop the contact and comment forms from
+          working; you can email us instead.
         </p>
       </LegalSection>
 

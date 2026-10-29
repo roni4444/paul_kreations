@@ -13,9 +13,14 @@
 // to avoid adding another dependency (PROJECT_RULES.md §7).
 
 import { isValidElement, type ReactNode } from "react";
-import ReactMarkdown, { type Components } from "react-markdown";
+import ReactMarkdown, {
+  type Components,
+  defaultUrlTransform
+} from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { PlayStoreButton } from "@/components/blog/play-store-button";
+import { Money } from "@/components/blog/currency";
+import { prepareMarkdown } from "@/lib/money";
 
 /** Plain text of a heading's children (they can contain **bold**, links…). */
 function textOf(node: ReactNode): string {
@@ -80,6 +85,11 @@ const components: Components = {
     <p className="my-4 text-base leading-7 text-[#2b3445]">{children}</p>
   ),
   a: ({ href, children }) => {
+    // {{money:N}} is turned into [₹N](money:N) by prepareMarkdown().
+    if (typeof href === "string" && href.startsWith("money:")) {
+      const amount = Number(href.slice("money:".length));
+      if (Number.isFinite(amount)) return <Money amount={amount} />;
+    }
     const external = typeof href === "string" && /^https?:\/\//i.test(href);
     return (
       <a
@@ -155,8 +165,15 @@ const components: Components = {
 
 export function MarkdownContent({ source }: { source: string }) {
   return (
-    <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
-      {source}
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      components={components}
+      // react-markdown drops unknown URL schemes; let our money: token through.
+      urlTransform={(url) =>
+        url.startsWith("money:") ? url : defaultUrlTransform(url)
+      }
+    >
+      {prepareMarkdown(source)}
     </ReactMarkdown>
   );
 }

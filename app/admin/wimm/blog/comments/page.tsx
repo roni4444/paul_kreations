@@ -92,7 +92,11 @@ export default async function WimmCommentsAdminPage({
               className="rounded-[4px] border border-[#e3bebd] bg-white p-4"
             >
               <p className={`${MONO} text-[11px] text-[#8f6f6f] uppercase`}>
-                {c.authorName} · {formatBlogDate(c.createdAt)} · on{" "}
+                {c.authorName} · {formatBlogDate(c.createdAt)}
+                {c.parentId
+                  ? ` · reply to ${c.parentAuthorName ?? "a comment"}`
+                  : ""}{" "}
+                · on{" "}
                 {c.postSlug ? (
                   <Link
                     href={`/blog/${c.postSlug}`}

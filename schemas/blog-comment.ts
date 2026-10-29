@@ -6,6 +6,8 @@ import { z } from "zod";
 
 export const commentFormSchema = z.object({
   postId: z.uuid(),
+  // Set when replying; the server resolves it to a top-level comment.
+  parentId: z.uuid().optional(),
   authorName: z
     .string()
     .trim()
@@ -40,6 +42,7 @@ export type Reaction = (typeof REACTIONS)[number];
 
 export const reactionSchema = z.enum(REACTIONS);
 export const postIdSchema = z.uuid();
+export const commentIdSchema = z.uuid();
 
 export const COMMENT_STATUSES = ["pending", "approved", "rejected"] as const;
 export type CommentStatus = (typeof COMMENT_STATUSES)[number];

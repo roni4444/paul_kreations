@@ -16,6 +16,8 @@ import { PostBody } from "@/components/blog/post-body";
 import { ProtectedContent } from "@/components/blog/protected-content";
 import { ShareButtons } from "@/components/blog/share-buttons";
 import { BASE_URL } from "@/lib/config";
+import { CurrencyProvider, CurrencySwitcher } from "@/components/blog/currency";
+import { hasMoneyMarkers, isInrOnly } from "@/lib/money";
 import { AdSlot } from "@/components/ads/ad-slot";
 import { AdSenseScript } from "@/components/ads/adsense-script";
 import { postQualifiesForAds } from "@/lib/ads";
@@ -99,6 +101,11 @@ export default async function BlogPostPage({
 
   const { comments, failed: commentsFailed } = await loadComments(post.id);
   const showAds = postQualifiesForAds(post.bodyMd);
+  const mentionsWimm = /\bWIMM\b/.test(post.bodyMd);
+  // Amounts are converted only in guides that mark them and aren't flagged
+  // India-specific ({{currency:inr}}).
+  const convertCurrency =
+    hasMoneyMarkers(post.bodyMd) && !isInrOnly(post.bodyMd);
 
   return (
     <>
@@ -113,42 +120,54 @@ export default async function BlogPostPage({
           ← All posts
         </Link>
 
-        <article className="mt-6">
-          <header>
-            <h1 className="text-3xl leading-tight font-semibold text-[#111c2d] sm:text-4xl">
-              {post.title}
-            </h1>
-            <div className="mt-4">
-              <PostMeta post={post} />
+        <CurrencyProvider enabled={convertCurrency}>
+          <article className="mt-6">
+            <header>
+              <h1 className="text-3xl leading-tight font-semibold text-[#111c2d] sm:text-4xl">
+                {post.title}
+              </h1>
+              <div className="mt-4">
+                <PostMeta post={post} />
+              </div>
+              <p
+                className={`${MONO} mt-1 text-[11px] text-[#8f6f6f] uppercase`}
+              >
+                Published{" "}
+                <time dateTime={post.publishedAt}>
+                  {formatBlogDate(post.publishedAt)}
+                </time>
+              </p>
+              {mentionsWimm && (
+                <p className="mt-4 rounded-[4px] border border-[#e3bebd] bg-[#fff5f5] px-3 py-2 text-sm text-[#5f5e5e]">
+                  <strong className="font-semibold text-[#111c2d]">WIMM</strong>{" "}
+                  is short for <em>Where Is My Money?</em>, our personal finance
+                  app for Android.
+                </p>
+              )}
+              <CurrencySwitcher />
+            </header>
+
+            <div className="mt-8 border-t border-[#e3bebd] pt-2">
+              <ProtectedContent>
+                <PostBody source={post.bodyMd} />
+              </ProtectedContent>
             </div>
-            <p className={`${MONO} mt-1 text-[11px] text-[#8f6f6f] uppercase`}>
-              Published{" "}
-              <time dateTime={post.publishedAt}>
-                {formatBlogDate(post.publishedAt)}
-              </time>
-            </p>
-          </header>
 
-          <div className="mt-8 border-t border-[#e3bebd] pt-2">
-            <ProtectedContent>
-              <PostBody source={post.bodyMd} />
-            </ProtectedContent>
-          </div>
+            <PostEngagement
+              postId={post.id}
+              initial={{
+                views: post.viewCount,
+                likes: post.likeCount,
+                dislikes: post.dislikeCount,
+              }}
+            />
 
-          <PostEngagement
-            postId={post.id}
-            initial={{
-              views: post.viewCount,
-              likes: post.likeCount,
-              dislikes: post.dislikeCount,
-            }}
-          />
-
-          <ShareButtons
-            url={`${BASE_URL}/blog/${post.slug}`}
-            title={post.title}
-          />
-        </article>
+            <ShareButtons
+              url={`${BASE_URL}/blog/${post.slug}`}
+              title={post.title}
+            />
+          </article>
+        </CurrencyProvider>
 
         {/* Closing ad: below the like buttons, above the comments, so it
             separates the reaction row from the comment form. */}
