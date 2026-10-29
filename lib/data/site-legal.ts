@@ -6,7 +6,7 @@
 
 export const SITE_LEGAL_LAST_UPDATED = "2026-10-29";
 
-export const SITE_CONTACT_EMAIL = "contact@paulkreations.com";
+export const SITE_CONTACT_EMAIL = "support@paulkreations.com";
 
 // Grievance Officer — India's DPDP Act, 2023. Same person and postal
 // address as in the WIMM privacy policy, with the site contact address.
