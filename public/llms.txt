@@ -19,7 +19,11 @@
 ## Site
 
 - [Home](https://www.paulkreations.com)
+- [Blog](https://www.paulkreations.com/blog)
+- [Privacy Policy](https://www.paulkreations.com/privacy)
+- [Cookie Policy](https://www.paulkreations.com/cookies)
 - [Terms of Service](https://www.paulkreations.com/tos)
+- [Disclaimer](https://www.paulkreations.com/disclaimer)
 
 ## Contact
 

@@ -141,13 +141,21 @@ export function Footer() {
           <span className={`${MONO} text-[10px] text-white/25`}>
             © {year} Paul Kreations. All rights reserved.
           </span>
-          <div className="flex items-center gap-4">
-            <Link
-              href="/tos"
-              className={`${MONO} text-[10px] text-white/30 hover:text-white/60 transition-colors`}
-            >
-              Terms of Service
-            </Link>
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+            {[
+              { href: "/privacy", label: "Privacy Policy" },
+              { href: "/cookies", label: "Cookie Policy" },
+              { href: "/tos", label: "Terms of Service" },
+              { href: "/disclaimer", label: "Disclaimer" },
+            ].map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`${MONO} text-[10px] text-white/30 hover:text-white/60 transition-colors`}
+              >
+                {link.label}
+              </Link>
+            ))}
             <span className={`${MONO} text-[10px] text-white/25`}>
               Built with Next.js &amp; Tailwind CSS
             </span>

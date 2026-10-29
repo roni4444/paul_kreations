@@ -19,3 +19,16 @@ export const contactSchema = z.object({
 });
 
 export type ContactFormData = z.infer<typeof contactSchema>;
+
+// What the Server Action receives: the form fields plus anti-abuse extras.
+// Kept separate so ContactFormData (used by the email service) stays just
+// the message itself.
+export const contactSubmissionSchema = contactSchema.extend({
+  // Cloudflare Turnstile token — verified server-side before anything is
+  // sent (services/security/turnstile.ts). May be empty only in local dev
+  // when no Turnstile key is configured; the verifier decides.
+  turnstileToken: z.string().max(4096),
+  // Honeypot — no constraints on purpose, so a bot that fills it still
+  // parses successfully and gets a fake success (see the action).
+  website: z.string().optional(),
+});

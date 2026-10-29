@@ -34,9 +34,11 @@ export default function WimmCookiesPage() {
           diagnostics, and it loads a few services described below.
         </p>
         <p>
-          This page covers the website at paulkreations.com/wimm only. The
-          analytics, attribution and crash-reporting tools inside the app are
-          not cookies and are described in the{" "}
+          This page covers the website at paulkreations.com/wimm only. The rest
+          of paulkreations.com, including the blog, has its own{" "}
+          <Link href="/cookies">Cookie Policy</Link>. The analytics, attribution
+          and crash-reporting tools inside the app are not cookies and are
+          described in the{" "}
           <Link href="/wimm/privacy#third-party-services">Privacy Policy</Link>.
         </p>
       </section>
@@ -55,17 +57,10 @@ export default function WimmCookiesPage() {
               "No (diagnostics)",
             ],
             [
-              <code key="n">admin_session</code>,
-              "Paul Kreations (Appwrite sign-in)",
-              "Keeps site staff signed in to the staff area. Only set after a staff member signs in; never set for visitors.",
-              "Until the staff member signs out or the session expires",
-              "Yes",
-            ],
-            [
               <code key="n">sb-…-auth-token</code>,
               "Paul Kreations (Supabase sign-in)",
-              "Keeps WIMM administrators signed in to the admin area. Only set after an administrator signs in; never set for visitors.",
-              "Until the administrator signs out or the session expires",
+              "Keeps site staff and WIMM administrators signed in to their admin areas. Only set after they sign in; never set for visitors.",
+              "Until they sign out or the session expires",
               "Yes",
             ],
           ]}

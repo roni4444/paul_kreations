@@ -12,7 +12,10 @@ import * as Sentry from "@sentry/nextjs";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { CommentsSection } from "@/components/blog/comments-section";
-import { MarkdownContent } from "@/components/blog/markdown-content";
+import { PostBody } from "@/components/blog/post-body";
+import { AdSlot } from "@/components/ads/ad-slot";
+import { AdSenseScript } from "@/components/ads/adsense-script";
+import { postQualifiesForAds } from "@/lib/ads";
 import { PostEngagement } from "@/components/blog/post-engagement";
 import { formatBlogDate, PostMeta } from "@/components/blog/post-meta";
 import { BlogPostJsonLd } from "@/components/seo/blog-json-ld";
@@ -92,10 +95,12 @@ export default async function BlogPostPage({
   if (!post) notFound();
 
   const { comments, failed: commentsFailed } = await loadComments(post.id);
+  const showAds = postQualifiesForAds(post.bodyMd);
 
   return (
     <>
       <BlogPostJsonLd post={post} />
+      {showAds && <AdSenseScript />}
       <Navbar />
       <main className="mx-auto w-full max-w-[720px] flex-1 px-6 pt-32 pb-24">
         <Link
@@ -122,7 +127,7 @@ export default async function BlogPostPage({
           </header>
 
           <div className="mt-8 border-t border-[#e3bebd] pt-2">
-            <MarkdownContent source={post.bodyMd} />
+            <PostBody source={post.bodyMd} />
           </div>
 
           <PostEngagement
@@ -134,6 +139,10 @@ export default async function BlogPostPage({
             }}
           />
         </article>
+
+        {/* Closing ad: below the like buttons, above the comments, so it
+            separates the reaction row from the comment form. */}
+        {showAds && <AdSlot variant="display" />}
 
         <CommentsSection
           postId={post.id}

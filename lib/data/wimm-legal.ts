@@ -22,6 +22,6 @@ export const WIMM_RESPONSE_TARGET = "30 days";
 // Grievance Officer — required under India's DPDP Act, 2023.
 export const WIMM_GRIEVANCE_OFFICER = {
   name: "Debapriyo Paul",
-  email: "suppoart@paulkreations.com",
+  email: "support@paulkreations.com",
   address: "20, Bindhyabasinitala Road, Ariadaha, Kolkata - 700057",
 } as const;

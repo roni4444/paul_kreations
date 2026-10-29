@@ -7,7 +7,7 @@ import Link from "next/link";
 import { BASE_URL } from "@/lib/config";
 import { ArrowLeft, FileText } from "lucide-react";
 
-const UPDATED = "2025-06-10";
+const UPDATED = "2026-10-29";
 const CONTACT_EMAIL = "contact@paulkreations.com";
 const MONO = "font-[family-name:var(--font-jetbrains-mono)] tracking-[0.05em]";
 
@@ -88,16 +88,31 @@ const SECTIONS = [
   },
   {
     n: "11",
-    title: "Privacy",
-    body: `Use of this website and our apps is also governed by our individual app privacy policies, accessible via the Products section of this website. We do not sell personal data to third parties.`,
+    title: "Blog and Educational Content",
+    body: `Articles on our blog are for general education only and are not financial, tax, investment or legal advice. Please read our Disclaimer (/disclaimer) before relying on any content. We try to keep posts accurate but do not guarantee that they are complete or current.`,
   },
   {
     n: "12",
+    title: "Comments",
+    body: `Blog comments are anonymous and are reviewed before they appear. You are responsible for what you post. Do not post anything unlawful, abusive, misleading, spam or advertising, or anyone's personal information. We may edit, refuse or remove any comment at our discretion. By posting a comment you allow Paul Kreations to display it on the website for as long as it remains published. To have a comment removed, email us with a link to the post and the name you used.`,
+  },
+  {
+    n: "13",
+    title: "Advertising and Third-Party Links",
+    body: `Blog pages show, or may show, advertisements served by Google AdSense, and our content may link to third-party websites. We do not control or endorse third-party ads, products or sites and are not responsible for them. Your dealings with advertisers or other sites are between you and them.`,
+  },
+  {
+    n: "14",
+    title: "Privacy and Cookies",
+    body: `How we handle personal data is described in our Privacy Policy (/privacy), and the cookies we use are described in our Cookie Policy (/cookies). Our apps are also governed by their individual privacy policies, accessible via the Products section of this website. We do not sell personal data to third parties.`,
+  },
+  {
+    n: "15",
     title: "Governing Law",
     body: `These Terms are governed by the laws of India. Any disputes shall be subject to the exclusive jurisdiction of the courts of West Bengal, India.`,
   },
   {
-    n: "13",
+    n: "16",
     title: "Changes to These Terms",
     body: `Paul Kreations may update these Terms at any time. The "Last updated" date at the top of this page reflects the most recent revision. Continued use of the website or our services after changes are posted constitutes acceptance of the revised Terms.`,
   },
@@ -171,7 +186,7 @@ export default function TermsOfService() {
         {/* Contact */}
         <section className="mt-8">
           <h2 className="text-base font-bold text-[#111c2d] mb-3 flex items-center gap-2">
-            <span className={`${MONO} text-[10px] text-[#c41e3a] w-5`}>14</span>
+            <span className={`${MONO} text-[10px] text-[#c41e3a] w-5`}>17</span>
             Contact
           </h2>
           <div className="pl-7 font-[family-name:var(--font-sans)] text-sm text-[#5f5e5e] leading-relaxed">

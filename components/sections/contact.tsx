@@ -10,6 +10,7 @@ import { useState, useTransition } from "react";
 import { z } from "zod";
 import { contactSchema } from "@/schemas/contact";
 import { submitContactForm } from "@/server/actions/contact";
+import { TurnstileWidget } from "@/components/shared/turnstile-widget";
 import { teamMembers } from "@/lib/data";
 import { AlertCircle, CheckCircle, Loader2, Send } from "lucide-react";
 
@@ -33,6 +34,9 @@ export function Contact() {
   const [statusMessage, setStatusMessage] = useState("");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
   const [formKey, setFormKey] = useState(0); // resets form on success
+  const [turnstileToken, setTurnstileToken] = useState("");
+  // Turnstile tokens are single-use; remounting the widget gives a new one.
+  const [widgetKey, setWidgetKey] = useState(0);
 
   function handleSubmit(e: ReactSubmitEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -44,6 +48,7 @@ export function Contact() {
       contactingTo: (raw.get("contactingTo") as string) ?? "",
       message: (raw.get("message") as string) ?? "",
     };
+    const honeypot = (raw.get("website") as string) ?? "";
 
     // Client-side validation for instant feedback
     const parsed = contactSchema.safeParse(data);
@@ -55,8 +60,21 @@ export function Contact() {
     }
     setFieldErrors({});
 
+    // When a Turnstile key is configured, wait for the challenge to finish.
+    if (process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY && !turnstileToken) {
+      setStatus("error");
+      setStatusMessage("Please complete the verification below.");
+      return;
+    }
+
     startTransition(async () => {
-      const result = await submitContactForm(data);
+      const result = await submitContactForm({
+        ...data,
+        turnstileToken,
+        website: honeypot,
+      });
+      setTurnstileToken("");
+      setWidgetKey((k) => k + 1);
 
       if (result.success) {
         setStatus("success");
@@ -224,6 +242,28 @@ export function Contact() {
                 </span>
               )}
             </div>
+
+            {/* Honeypot — hidden from people and assistive tech; bots fill it. */}
+            <div
+              aria-hidden
+              className="absolute -left-[9999px] h-0 w-0 overflow-hidden"
+            >
+              <label htmlFor="contact-website">Website</label>
+              <input
+                id="contact-website"
+                name="website"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+              />
+            </div>
+
+            {/* Cloudflare Turnstile (PROJECT_RULES.md §9) */}
+            <TurnstileWidget
+              key={widgetKey}
+              onVerifyAction={setTurnstileToken}
+              onExpireAction={() => setTurnstileToken("")}
+            />
 
             {/* Submit */}
             <div className="flex items-center gap-4">

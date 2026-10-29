@@ -79,3 +79,17 @@ CRON_SECRET (unchanged) is still needed for the daily keep-warm cron.
 Remove from .env.local and Vercel once the new login works:
 NEXT_PUBLIC_APPWRITE_ENDPOINT, NEXT_PUBLIC_APPWRITE_PROJECT_ID,
 APPWRITE_API_KEY, APPWRITE_DATABASE_ID, APPWRITE_STAFF_TABLE_ID.
+
+# ── Google AdSense (blog ads) ─────────────────────────────────────────────────
+
+# Ads stay OFF until all three are set, and are always off in development.
+
+# Set them in Vercel (Production) once AdSense has approved the site and you
+
+# have created two ad units: an "In-article" unit and a "Display" unit.
+
+# The same unit id may be used several times on one page.
+
+NEXT_PUBLIC_ADSENSE_CLIENT=ca-pub-2310065446402536
+NEXT_PUBLIC_ADSENSE_SLOT_IN_ARTICLE=0000000000
+NEXT_PUBLIC_ADSENSE_SLOT_DISPLAY=0000000000
