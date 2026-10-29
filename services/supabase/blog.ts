@@ -3,7 +3,8 @@
 // these functions — never query the table anywhere else (PROJECT_RULES.md
 // §11).
 //
-// Uses the main-site service-role client (RLS has no policies for
+// Uses the admin-auth project's service-role client (blog_posts lives in
+// the same project as public.staff) (RLS has no policies for
 // anon/authenticated on this table — see docs/sql/blog.sql), so it is THIS
 // file's job to keep public reads safe:
 //   - public functions always filter status = 'published'
@@ -11,7 +12,7 @@
 // Admin functions assume the caller already passed requireWimmAdmin() —
 // see server/actions/blog.ts.
 
-import { getSupabaseServerClient } from "./client";
+import { createAdminServiceClient } from "./admin-client";
 
 // ── Types ─────────────────────────────────────────────────────────────────
 
@@ -116,7 +117,7 @@ export const SLUG_TAKEN = "SLUG_TAKEN";
 // ── Public reads ──────────────────────────────────────────────────────────
 
 export async function listPublishedPosts(): Promise<BlogPostSummary[]> {
-  const supabase = getSupabaseServerClient();
+  const supabase = createAdminServiceClient();
   const { data, error } = await supabase
     .from("blog_posts")
     .select(SUMMARY_COLUMNS)
@@ -130,7 +131,7 @@ export async function listPublishedPosts(): Promise<BlogPostSummary[]> {
 export async function getPublishedPostBySlug(
   slug: string,
 ): Promise<BlogPostPublic | null> {
-  const supabase = getSupabaseServerClient();
+  const supabase = createAdminServiceClient();
   const { data, error } = await supabase
     .from("blog_posts")
     .select(`${SUMMARY_COLUMNS}, body_md`)
@@ -148,7 +149,7 @@ export async function getPublishedPostBySlug(
 // ── Admin reads ───────────────────────────────────────────────────────────
 
 export async function listAllPostsForAdmin(): Promise<BlogPostAdminRow[]> {
-  const supabase = getSupabaseServerClient();
+  const supabase = createAdminServiceClient();
   const { data, error } = await supabase
     .from("blog_posts")
     .select(ADMIN_COLUMNS)
@@ -161,7 +162,7 @@ export async function listAllPostsForAdmin(): Promise<BlogPostAdminRow[]> {
 export async function getPostForAdmin(
   id: string,
 ): Promise<BlogPostAdminDetail | null> {
-  const supabase = getSupabaseServerClient();
+  const supabase = createAdminServiceClient();
   const { data, error } = await supabase
     .from("blog_posts")
     .select(`${ADMIN_COLUMNS}, excerpt, body_md, author_id`)
@@ -194,7 +195,7 @@ export async function createPost(
   input: BlogWriteInput,
   author: { id: string; name: string },
 ): Promise<string> {
-  const supabase = getSupabaseServerClient();
+  const supabase = createAdminServiceClient();
   const { data, error } = await supabase
     .from("blog_posts")
     .insert({
@@ -257,7 +258,7 @@ export async function updatePost(
     patch.reviewer_name = editor.name;
   }
 
-  const supabase = getSupabaseServerClient();
+  const supabase = createAdminServiceClient();
   const { error } = await supabase
     .from("blog_posts")
     .update(patch)
@@ -275,7 +276,7 @@ export async function deletePost(id: string): Promise<string | null> {
   const existing = await getPostForAdmin(id);
   if (!existing) return null;
 
-  const supabase = getSupabaseServerClient();
+  const supabase = createAdminServiceClient();
   const { error } = await supabase.from("blog_posts").delete().eq("id", id);
   if (error) throw new Error(`deletePost: ${error.message}`);
   return existing.slug;

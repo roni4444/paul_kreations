@@ -1,7 +1,7 @@
 -- docs/sql/blog.sql
--- Run this once in the SQL Editor of the MAIN SITE Supabase project — the
--- one behind NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY, the same
--- project that holds public.waitlist_signups. Not the admin-auth project (fggsfrsourpxhunfnihm).
+-- Run this once in the SQL Editor of the ADMIN-AUTH Supabase project
+-- (fggsfrsourpxhunfnihm) — the same project that holds public.staff.
+-- author_id / reviewer_id are public.staff ids.
 --
 -- Phase 1 of the blog: posts. Comments, reactions and view tracking arrive
 -- in phase 2 (the counter columns below are created now so phase 2 needs no
@@ -38,8 +38,8 @@ create table if not exists public.blog_posts
 )),
 
     -- Author = whoever created the post; reviewer = whoever last edited it
-    -- (when that is someone other than the author). These are WIMM admin
-    -- user IDs (money.promo_admins members), kept as plain UUIDs with no
+    -- (when that is someone other than the author). These are staff
+    -- ids (public.staff), kept as plain UUIDs with no
     -- foreign key; the display name is stored as a snapshot so the public
     -- page never has to look anyone up.
     author_id uuid not null,
@@ -104,3 +104,14 @@ alter table public.blog_posts
     enable row level security;
 
 revoke all on public.blog_posts from anon, authenticated;
+
+-- The server uses the service_role key. Grant it explicitly: projects whose
+-- Data API does not auto-grant new tables fail with "permission denied"
+-- (42501) otherwise. Harmless if it already has access.
+grant
+all
+on public.blog_posts to service_role;
+
+-- Make PostgREST pick up the new table immediately.
+notify
+pgrst, 'reload schema';

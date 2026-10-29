@@ -21,6 +21,16 @@ export interface BlogFormState {
 }
 
 const GENERIC_ERROR = "Something went wrong saving the post. Please try again.";
+
+/** In development the real cause is appended so a failed save is
+ * diagnosable without digging through logs; production keeps the generic
+ * message and relies on Sentry. */
+function failure(err: unknown): string {
+  console.error("[blog action]", err);
+  if (process.env.NODE_ENV === "production") return GENERIC_ERROR;
+  const detail = err instanceof Error ? err.message : String(err);
+  return `${GENERIC_ERROR} (${detail})`;
+}
 const SLUG_TAKEN_MESSAGE =
   "Another post already uses that slug. Choose a different one.";
 
@@ -73,7 +83,7 @@ export async function createBlogPostAction(
       return { status: "error", message: SLUG_TAKEN_MESSAGE };
     }
     Sentry.captureException(err);
-    return { status: "error", message: GENERIC_ERROR };
+    return { status: "error", message: failure(err) };
   }
 
   revalidatePath("/admin/wimm/blog");
@@ -130,7 +140,7 @@ export async function updateBlogPostAction(
       return { status: "error", message: SLUG_TAKEN_MESSAGE };
     }
     Sentry.captureException(err);
-    return { status: "error", message: GENERIC_ERROR };
+    return { status: "error", message: failure(err) };
   }
 }
 
