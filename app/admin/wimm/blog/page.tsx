@@ -46,11 +46,18 @@ export default async function WimmBlogAdminPage() {
             reviewer.
           </p>
         </div>
-        <Link href="/admin/wimm/blog/new" className="shrink-0">
-          <Button className="h-9 rounded-[4px] bg-[#c41e3a] text-white hover:bg-[#9e0027]">
-            New post
-          </Button>
-        </Link>
+        <div className="flex shrink-0 gap-2">
+          <Link href="/admin/wimm/blog/comments">
+            <Button variant="outline" className="h-9 rounded-[4px]">
+              Comments
+            </Button>
+          </Link>
+          <Link href="/admin/wimm/blog/new" className="shrink-0">
+            <Button className="h-9 rounded-[4px] bg-[#c41e3a] text-white hover:bg-[#9e0027]">
+              New post
+            </Button>
+          </Link>
+        </div>
       </div>
 
       <div className="mt-8 flex flex-col gap-3">

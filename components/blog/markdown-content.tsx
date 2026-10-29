@@ -12,27 +12,66 @@
 // Styling is mapped per element here rather than via a typography plugin,
 // to avoid adding another dependency (PROJECT_RULES.md §7).
 
+import { isValidElement, type ReactNode } from "react";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 
+/** Plain text of a heading's children (they can contain **bold**, links…). */
+function textOf(node: ReactNode): string {
+  if (typeof node === "string" || typeof node === "number") return String(node);
+  if (Array.isArray(node)) return node.map(textOf).join("");
+  if (isValidElement<{ children?: ReactNode }>(node)) {
+    return textOf(node.props.children);
+  }
+  return "";
+}
+
+/** GitHub-style heading id ("Worked example: ₹45,000 pay" ->
+ * "worked-example-45000-pay"), so `[text](#worked-example-45000-pay)` links
+ * in a post's "In this guide" list scroll to the heading. */
+function headingId(children: ReactNode): string | undefined {
+  const id = textOf(children)
+    .toLowerCase()
+    .trim()
+    .replace(/[^\p{L}\p{N}\s-]/gu, "")
+    .replace(/\s+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return id || undefined;
+}
+
+// scroll-mt keeps the heading clear of the fixed navbar after an anchor jump.
+const HEADING_OFFSET = "scroll-mt-28";
+
 const components: Components = {
   h1: ({ children }) => (
-    <h2 className="mt-10 mb-3 text-2xl font-semibold text-[#111c2d]">
+    <h2
+      id={headingId(children)}
+      className={`${HEADING_OFFSET} mt-10 mb-3 text-2xl font-semibold text-[#111c2d]`}
+    >
       {children}
     </h2>
   ),
   h2: ({ children }) => (
-    <h2 className="mt-10 mb-3 text-2xl font-semibold text-[#111c2d]">
+    <h2
+      id={headingId(children)}
+      className={`${HEADING_OFFSET} mt-10 mb-3 text-2xl font-semibold text-[#111c2d]`}
+    >
       {children}
     </h2>
   ),
   h3: ({ children }) => (
-    <h3 className="mt-8 mb-2 text-xl font-semibold text-[#111c2d]">
+    <h3
+      id={headingId(children)}
+      className={`${HEADING_OFFSET} mt-8 mb-2 text-xl font-semibold text-[#111c2d]`}
+    >
       {children}
     </h3>
   ),
   h4: ({ children }) => (
-    <h4 className="mt-6 mb-2 text-base font-semibold text-[#111c2d]">
+    <h4
+      id={headingId(children)}
+      className={`${HEADING_OFFSET} mt-6 mb-2 text-base font-semibold text-[#111c2d]`}
+    >
       {children}
     </h4>
   ),

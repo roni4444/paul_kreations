@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { requireWimmStaffPage } from "./guard";
+import * as Sentry from "@sentry/nextjs";
 import { signOut } from "@/server/actions/admin-auth";
+import { countPendingComments } from "@/services/supabase/blog-comments";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -12,8 +14,18 @@ import {
 
 export const metadata: Metadata = { title: "Where Is My Money? admin" };
 
+async function pendingCommentCount(): Promise<number | null> {
+  try {
+    return await countPendingComments();
+  } catch (err) {
+    Sentry.captureException(err);
+    return null;
+  }
+}
+
 export default async function WimmStaffAdminHome() {
   const staff = await requireWimmStaffPage();
+  const pending = await pendingCommentCount();
 
   return (
     <div className="mx-auto max-w-[640px] px-6 py-20">
@@ -31,6 +43,24 @@ export default async function WimmStaffAdminHome() {
               <CardTitle>Blog</CardTitle>
               <CardDescription className="mt-1">
                 Write, edit, and publish posts shown at /blog
+              </CardDescription>
+            </CardHeader>
+          </Card>
+        </Link>
+
+        <Link href="/admin/wimm/blog/comments">
+          <Card className="transition-colors hover:border-[#c41e3a]">
+            <CardHeader>
+              <CardTitle>
+                Comments
+                {pending ? (
+                  <span className="ml-2 rounded-[4px] bg-[#c41e3a] px-2 py-0.5 text-xs font-normal text-white">
+                    {pending} pending
+                  </span>
+                ) : null}
+              </CardTitle>
+              <CardDescription className="mt-1">
+                Review comments left on blog posts
               </CardDescription>
             </CardHeader>
           </Card>

@@ -14,6 +14,18 @@
 
 import { createAdminServiceClient } from "./admin-client";
 
+/** Postgres/PostgREST errors carry a code and often a hint — keep them so a
+ * failure is diagnosable (e.g. 42501 = permission denied, PGRST205 = table
+ * not in the API schema cache). */
+function dbErrorMessage(
+  op: string,
+  error: { message: string; code?: string; hint?: string | null },
+): string {
+  const code = error.code ? ` [${error.code}]` : "";
+  const hint = error.hint ? ` Hint: ${error.hint}` : "";
+  return `${op}${code}: ${error.message}${hint}`;
+}
+
 // ── Types ─────────────────────────────────────────────────────────────────
 
 /** What the public list shows. Contains no staff IDs. */
@@ -29,7 +41,13 @@ export interface BlogPostSummary {
 
 /** What a public post page shows. */
 export interface BlogPostPublic extends BlogPostSummary {
+  /** Post id — not sensitive; the comment/reaction actions are keyed on it. */
+  id: string;
   bodyMd: string;
+  /** Counters as of this render (ISR) — the client refreshes them. */
+  viewCount: number;
+  likeCount: number;
+  dislikeCount: number;
 }
 
 export type BlogStatus = "draft" | "published";
@@ -124,7 +142,7 @@ export async function listPublishedPosts(): Promise<BlogPostSummary[]> {
     .eq("status", "published")
     .order("published_at", { ascending: false });
 
-  if (error) throw new Error(`listPublishedPosts: ${error.message}`);
+  if (error) throw new Error(dbErrorMessage("listPublishedPosts", error));
   return (data as SummaryRow[]).map(toSummary);
 }
 
@@ -134,16 +152,31 @@ export async function getPublishedPostBySlug(
   const supabase = createAdminServiceClient();
   const { data, error } = await supabase
     .from("blog_posts")
-    .select(`${SUMMARY_COLUMNS}, body_md`)
+    .select(
+      `${SUMMARY_COLUMNS}, id, body_md, view_count, like_count, dislike_count`,
+    )
     .eq("status", "published")
     .eq("slug", slug)
     .maybeSingle();
 
-  if (error) throw new Error(`getPublishedPostBySlug: ${error.message}`);
+  if (error) throw new Error(dbErrorMessage("getPublishedPostBySlug", error));
   if (!data) return null;
 
-  const row = data as SummaryRow & { body_md: string };
-  return { ...toSummary(row), bodyMd: row.body_md };
+  const row = data as SummaryRow & {
+    id: string;
+    body_md: string;
+    view_count: number;
+    like_count: number;
+    dislike_count: number;
+  };
+  return {
+    ...toSummary(row),
+    id: row.id,
+    bodyMd: row.body_md,
+    viewCount: row.view_count,
+    likeCount: row.like_count,
+    dislikeCount: row.dislike_count,
+  };
 }
 
 // ── Admin reads ───────────────────────────────────────────────────────────
@@ -155,7 +188,7 @@ export async function listAllPostsForAdmin(): Promise<BlogPostAdminRow[]> {
     .select(ADMIN_COLUMNS)
     .order("updated_at", { ascending: false });
 
-  if (error) throw new Error(`listAllPostsForAdmin: ${error.message}`);
+  if (error) throw new Error(dbErrorMessage("listAllPostsForAdmin", error));
   return (data as AdminRow[]).map(toAdminRow);
 }
 
@@ -169,7 +202,7 @@ export async function getPostForAdmin(
     .eq("id", id)
     .maybeSingle();
 
-  if (error) throw new Error(`getPostForAdmin: ${error.message}`);
+  if (error) throw new Error(dbErrorMessage("getPostForAdmin", error));
   if (!data) return null;
 
   const row = data as AdminDetailRow;
@@ -212,7 +245,7 @@ export async function createPost(
 
   if (error) {
     if (error.code === UNIQUE_VIOLATION) throw new Error(SLUG_TAKEN);
-    throw new Error(`createPost: ${error.message}`);
+    throw new Error(dbErrorMessage("createPost", error));
   }
   return (data as { id: string }).id;
 }
@@ -266,7 +299,7 @@ export async function updatePost(
 
   if (error) {
     if (error.code === UNIQUE_VIOLATION) throw new Error(SLUG_TAKEN);
-    throw new Error(`updatePost: ${error.message}`);
+    throw new Error(dbErrorMessage("updatePost", error));
   }
   return { previousSlug: existing.slug, status };
 }
@@ -278,6 +311,6 @@ export async function deletePost(id: string): Promise<string | null> {
 
   const supabase = createAdminServiceClient();
   const { error } = await supabase.from("blog_posts").delete().eq("id", id);
-  if (error) throw new Error(`deletePost: ${error.message}`);
+  if (error) throw new Error(dbErrorMessage("deletePost", error));
   return existing.slug;
 }

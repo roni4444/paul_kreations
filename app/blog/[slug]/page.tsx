@@ -11,7 +11,9 @@ import { notFound } from "next/navigation";
 import * as Sentry from "@sentry/nextjs";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
+import { CommentsSection } from "@/components/blog/comments-section";
 import { MarkdownContent } from "@/components/blog/markdown-content";
+import { PostEngagement } from "@/components/blog/post-engagement";
 import { formatBlogDate, PostMeta } from "@/components/blog/post-meta";
 import { BlogPostJsonLd } from "@/components/seo/blog-json-ld";
 import { publicSlugSchema } from "@/schemas/blog";
@@ -40,6 +42,18 @@ const loadPost = cache(
     }
   },
 );
+
+/** Comments are secondary — if loading them fails the post still renders. */
+async function loadComments(
+  postId: string,
+): Promise<{ comments: PublicComment[]; failed: boolean }> {
+  try {
+    return { comments: await listApprovedComments(postId), failed: false };
+  } catch (err) {
+    Sentry.captureException(err);
+    return { comments: [], failed: true };
+  }
+}
 
 export async function generateMetadata({
   params,
@@ -73,6 +87,8 @@ export default async function BlogPostPage({
   const post = await loadPost(slug);
   if (!post) notFound();
 
+  const { comments, failed: commentsFailed } = await loadComments(post.id);
+
   return (
     <>
       <BlogPostJsonLd post={post} />
@@ -104,7 +120,22 @@ export default async function BlogPostPage({
           <div className="mt-8 border-t border-[#e3bebd] pt-2">
             <MarkdownContent source={post.bodyMd} />
           </div>
+
+          <PostEngagement
+            postId={post.id}
+            initial={{
+              views: post.viewCount,
+              likes: post.likeCount,
+              dislikes: post.dislikeCount,
+            }}
+          />
         </article>
+
+        <CommentsSection
+          postId={post.id}
+          comments={comments}
+          loadFailed={commentsFailed}
+        />
       </main>
       <Footer />
     </>
