@@ -105,6 +105,17 @@ export default async function WimmCommentsAdminPage({
                   c.postTitle
                 )}
               </p>
+              {c.authorEmail && (
+                <p className="mt-1 text-xs text-[#5f5e5e]">
+                  Email (private):{" "}
+                  <a
+                    href={`mailto:${c.authorEmail}`}
+                    className="text-[#c41e3a] hover:underline"
+                  >
+                    {c.authorEmail}
+                  </a>
+                </p>
+              )}
               <p className="mt-2 text-sm leading-6 whitespace-pre-wrap text-[#2b3445]">
                 {c.body}
               </p>

@@ -15,6 +15,7 @@ export interface PublicComment {
 }
 
 export interface AdminComment extends PublicComment {
+  authorEmail: string | null;
   status: CommentStatus;
   postId: string;
   postTitle: string;
@@ -69,6 +70,7 @@ export async function listApprovedComments(
 export async function createPendingComment(input: {
   postId: string;
   authorName: string;
+  authorEmail?: string;
   body: string;
 }): Promise<boolean> {
   const supabase = createAdminServiceClient();
@@ -85,6 +87,7 @@ export async function createPendingComment(input: {
   const { error } = await supabase.from("blog_comments").insert({
     post_id: input.postId,
     author_name: input.authorName,
+    author_email: input.authorEmail ? input.authorEmail : null,
     body: input.body,
     status: "pending",
   });
@@ -101,7 +104,7 @@ export async function listCommentsForAdmin(
   const { data, error } = await supabase
     .from("blog_comments")
     .select(
-      "id, post_id, author_name, body, status, created_at, moderated_at, moderated_by_name, blog_posts(title, slug)",
+      "id, post_id, author_name, author_email, body, status, created_at, moderated_at, moderated_by_name, blog_posts(title, slug)",
     )
     .eq("status", status)
     .order("created_at", { ascending: status === "pending" })
@@ -113,6 +116,7 @@ export async function listCommentsForAdmin(
     id: string;
     post_id: string;
     author_name: string;
+    author_email: string | null;
     body: string;
     status: CommentStatus;
     created_at: string;
@@ -126,6 +130,7 @@ export async function listCommentsForAdmin(
     return {
       id: r.id,
       authorName: r.author_name,
+      authorEmail: r.author_email,
       body: r.body,
       createdAt: r.created_at,
       status: r.status,

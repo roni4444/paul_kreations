@@ -13,6 +13,9 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { CommentsSection } from "@/components/blog/comments-section";
 import { PostBody } from "@/components/blog/post-body";
+import { ProtectedContent } from "@/components/blog/protected-content";
+import { ShareButtons } from "@/components/blog/share-buttons";
+import { BASE_URL } from "@/lib/config";
 import { AdSlot } from "@/components/ads/ad-slot";
 import { AdSenseScript } from "@/components/ads/adsense-script";
 import { postQualifiesForAds } from "@/lib/ads";
@@ -127,7 +130,9 @@ export default async function BlogPostPage({
           </header>
 
           <div className="mt-8 border-t border-[#e3bebd] pt-2">
-            <PostBody source={post.bodyMd} />
+            <ProtectedContent>
+              <PostBody source={post.bodyMd} />
+            </ProtectedContent>
           </div>
 
           <PostEngagement
@@ -137,6 +142,11 @@ export default async function BlogPostPage({
               likes: post.likeCount,
               dislikes: post.dislikeCount,
             }}
+          />
+
+          <ShareButtons
+            url={`${BASE_URL}/blog/${post.slug}`}
+            title={post.title}
           />
         </article>
 

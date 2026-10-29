@@ -39,6 +39,7 @@ export function CommentForm({ postId }: { postId: string }) {
       const result = await submitCommentAction({
         postId,
         authorName: (raw.get("authorName") as string) ?? "",
+        authorEmail: (raw.get("authorEmail") as string) ?? "",
         body: (raw.get("body") as string) ?? "",
         website: (raw.get("website") as string) ?? "",
         turnstileToken,
@@ -75,6 +76,24 @@ export function CommentForm({ postId }: { postId: string }) {
           disabled={isPending}
           className={FIELD}
         />
+      </div>
+
+      <div className="flex flex-col gap-1.5">
+        <Label htmlFor="comment-email" className={LABEL}>
+          Email (optional)
+        </Label>
+        <Input
+          id="comment-email"
+          name="authorEmail"
+          type="email"
+          maxLength={254}
+          autoComplete="email"
+          disabled={isPending}
+          className={FIELD}
+        />
+        <p className="text-xs text-[#8f6f6f]">
+          Never shown on the site. Only used if we want to reply to you.
+        </p>
       </div>
 
       <div className="flex flex-col gap-1.5">

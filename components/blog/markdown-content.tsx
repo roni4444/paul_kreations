@@ -15,6 +15,7 @@
 import { isValidElement, type ReactNode } from "react";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { PlayStoreButton } from "@/components/blog/play-store-button";
 
 /** Plain text of a heading's children (they can contain **bold**, links…). */
 function textOf(node: ReactNode): string {
@@ -101,11 +102,18 @@ const components: Components = {
     </ol>
   ),
   li: ({ children }) => <li className="leading-7">{children}</li>,
-  blockquote: ({ children }) => (
-    <blockquote className="my-6 border-l-2 border-[#c41e3a] pl-4 text-[#5f5e5e] italic">
-      {children}
-    </blockquote>
-  ),
+  blockquote: ({ children }) => {
+    // "Do this in WIMM" / "Try this in WIMM" boxes get a Play Store button.
+    const isWimmCallout = /^\s*(do|try)\b[^.\n]{0,40}\bin WIMM/i.test(
+      textOf(children),
+    );
+    return (
+      <blockquote className="my-6 border-l-2 border-[#c41e3a] pl-4 text-[#5f5e5e] italic">
+        {children}
+        {isWimmCallout && <PlayStoreButton />}
+      </blockquote>
+    );
+  },
   hr: () => <hr className="my-8 border-[#e3bebd]" />,
   pre: ({ children }) => (
     <pre className="my-5 overflow-x-auto rounded-[4px] bg-[#111c2d] p-4 font-mono text-sm leading-6 text-[#f9f9ff]">

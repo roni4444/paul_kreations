@@ -73,9 +73,11 @@ export default function PrivacyPolicyPage() {
             name, email address and message) so we can reply.
           </li>
           <li>
-            <strong>Blog comments.</strong> A name of your choice and your
-            comment text. We do not ask for or store your email address. Once a
-            comment is approved, the name and text are public on the post.
+            <strong>Blog comments.</strong> A name of your choice, your comment
+            text and, only if you choose to give it, an email address. The email
+            is optional, is never shown on the site and is used only so we can
+            reply to you about your comment. Once a comment is approved, the
+            name and text are public on the post.
           </li>
           <li>
             <strong>Likes, dislikes and views.</strong> Each post keeps running
@@ -98,8 +100,8 @@ export default function PrivacyPolicyPage() {
             the error. Text and form inputs are masked by default.
           </li>
           <li>
-            <strong>Bot checks.</strong> Cloudflare Turnstile runs on the blog
-            comment form to tell people from programs.
+            <strong>Bot checks.</strong> Cloudflare Turnstile runs on the
+            contact form and the blog comment form to tell people from programs.
           </li>
           <li>
             <strong>Advertising data.</strong> Our blog pages show, or may show,
@@ -153,7 +155,7 @@ export default function PrivacyPolicyPage() {
             [
               "Supabase",
               "Database for blog posts, comments, counters and staff accounts",
-              "Comment name and text; reaction and view totals; staff email addresses",
+              "Comment name, text and optional email; reaction and view totals; staff email addresses",
             ],
             [
               "Cloudflare",
@@ -258,8 +260,9 @@ export default function PrivacyPolicyPage() {
           </li>
           <li>
             <strong>Comments:</strong> approved comments stay on the post until
-            we remove them or you ask us to. Comments we do not approve may be
-            deleted at any time.
+            we remove them or you ask us to; an email address you gave stays
+            private and is deleted with the comment. Comments we do not approve
+            may be deleted at any time.
           </li>
           <li>
             <strong>Reaction and view totals:</strong> kept with the post; they

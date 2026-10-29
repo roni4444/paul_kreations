@@ -11,6 +11,16 @@ export const commentFormSchema = z.object({
     .trim()
     .min(1, "Please enter your name.")
     .max(60, "Name must be 60 characters or fewer."),
+  // Optional. Never shown publicly; only staff can see it.
+  authorEmail: z
+    .string()
+    .trim()
+    .max(254, "Email address is too long.")
+    .refine(
+      (v) => v === "" || z.email().safeParse(v).success,
+      "Please enter a valid email address, or leave it blank.",
+    )
+    .optional(),
   body: z
     .string()
     .trim()
