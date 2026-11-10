@@ -70,6 +70,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     { url: BASE_URL, changeFrequency: "monthly", priority: 1.0 },
+    { url: `${BASE_URL}/about`, changeFrequency: "yearly", priority: 0.4 },
     { url: `${BASE_URL}/tos`, changeFrequency: "yearly", priority: 0.2 },
     { url: `${BASE_URL}/privacy`, changeFrequency: "yearly", priority: 0.2 },
     { url: `${BASE_URL}/cookies`, changeFrequency: "yearly", priority: 0.2 },

@@ -143,6 +143,7 @@ export function Footer() {
           </span>
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
             {[
+              { href: "/about", label: "About" },
               { href: "/privacy", label: "Privacy Policy" },
               { href: "/cookies", label: "Cookie Policy" },
               { href: "/tos", label: "Terms of Service" },
