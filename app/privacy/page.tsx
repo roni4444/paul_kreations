@@ -1,7 +1,7 @@
 // app/privacy/page.tsx
 // Privacy Policy for the paulkreations.com website (including the blog).
-// App-specific policies live elsewhere: /wimm/privacy for Where Is My Money?
-// and /apps/[slug]/privacy for the other apps. If the site starts using a new
+// App-specific policies live elsewhere: /wimm/privacy, /henstel/privacy,
+// /natural-farming/privacy and /surround-it/privacy. If the site starts using a new
 // service or collecting new data, update this page and its date in the same
 // change.
 

@@ -4,6 +4,14 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   async redirects() {
     return [
+      // ── Old generic privacy URLs → each app's own privacy page ──────────────
+      // /apps/<slug>/privacy was registered in Play Console (and hardcoded in
+      // the Natural Farming app) before the apps got dedicated pages.
+      {
+        source: "/apps/:slug(henstel|natural-farming|surround-it)/privacy",
+        destination: "/:slug/privacy",
+        permanent: true,
+      },
       // ── wimm.paulkreations.com → www.paulkreations.com/wimm ─────────────────
       // Lets us share the short "wimm.paulkreations.com" link while keeping
       // the app on the canonical www domain for unified SEO / analytics / auth

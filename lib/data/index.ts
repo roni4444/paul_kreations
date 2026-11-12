@@ -50,8 +50,9 @@ export type PrivacyPolicyData = {
 export type AppItem = {
   id: string;
   /**
-   * URL slug — used for /apps/[slug]/privacy.
-   * This is what goes in the Play Store Console privacy policy URL.
+   * URL slug — also the landing route (/<slug>) and the legal pages under it
+   * (/<slug>/privacy etc.). The Play Console privacy policy URL is
+   * /<slug>/privacy.
    * Keep lowercase and hyphen-separated.
    */
   slug: string;
@@ -170,8 +171,7 @@ export const apps: AppItem[] = [
     type: "app",
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=kreations.paul.henstel",
-    downloads: "5+",
-    rating: 4.0,
+    downloads: "New",
     colorFrom: "#9e0027",
     colorTo: "#c41e3a",
     techStack: [
@@ -193,30 +193,7 @@ export const apps: AppItem[] = [
       // { name: "Stream Chat", localIconPath: "/tech-icons/stream-chat.png" },
       // { name: "Wiredash",    localIconPath: "/tech-icons/wiredash.png"    },
     ],
-    privacyPolicy: {
-      lastUpdated: "2025-06-01",
-      contactEmail: "debapriyopaul.dp@gmail.com",
-      permissions: [
-        "INTERNET — Required to load recipes, sync data, and deliver app updates.",
-        "ACCESS_NETWORK_STATE — Used to check connectivity before making network requests.",
-      ],
-      thirdPartyServices: [
-        {
-          name: "Google Firebase (Analytics & Crashlytics)",
-          privacyUrl: "https://firebase.google.com/support/privacy",
-        },
-        {
-          name: "Google Play Services",
-          privacyUrl: "https://policies.google.com/privacy",
-        },
-      ],
-      dataCollected: [
-        "Anonymized usage statistics (screens visited, features used)",
-        "Crash reports and error logs — no personal content is included",
-        "Device information such as OS version and device model, used for compatibility",
-      ],
-      isChildrenApp: false,
-    },
+    landingUrl: "/henstel",
   },
   {
     id: "app-2",
@@ -230,43 +207,20 @@ export const apps: AppItem[] = [
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=agri.startup.natural_farming",
     downloads: "500+",
-    rating: 4.5,
     colorFrom: "#474746",
     colorTo: "#636262",
     techStack: [
       { name: "Android", deviconPath: "android/android-original" },
-      { name: "Flutter", deviconPath: "flutter/flutter-original" },
-      { name: "Firebase", deviconPath: "firebase/firebase-plain" },
+      { name: "Kotlin", deviconPath: "kotlin/kotlin-original" },
+      { name: "Supabase", deviconPath: "supabase/supabase-original" },
+      { name: "Sentry", deviconPath: "sentry/sentry-original" },
       {
         name: "Android Studio",
         deviconPath: "androidstudio/androidstudio-original",
       },
       { name: "Git", deviconPath: "git/git-original" },
     ],
-    privacyPolicy: {
-      lastUpdated: "2025-06-01",
-      contactEmail: "debapriyopaul.dp@gmail.com",
-      permissions: [
-        "INTERNET — Required to load educational content and check for updates.",
-        "ACCESS_NETWORK_STATE — Used to verify connectivity before fetching content.",
-      ],
-      thirdPartyServices: [
-        {
-          name: "Google Firebase (Analytics & Crashlytics)",
-          privacyUrl: "https://firebase.google.com/support/privacy",
-        },
-        {
-          name: "Google Play Services",
-          privacyUrl: "https://policies.google.com/privacy",
-        },
-      ],
-      dataCollected: [
-        "Anonymized usage statistics (content viewed, features used)",
-        "Crash reports and error logs — no personal content is included",
-        "Device information such as OS version and device model, used for compatibility",
-      ],
-      isChildrenApp: false,
-    },
+    landingUrl: "/natural-farming",
   },
   {
     id: "game-1",
@@ -279,8 +233,7 @@ export const apps: AppItem[] = [
     type: "game",
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=kreations.paul.surround_it",
-    downloads: "5+",
-    rating: 4.0,
+    downloads: "10+",
     colorFrom: "#912421",
     colorTo: "#b23c36",
     techStack: [
@@ -300,23 +253,7 @@ export const apps: AppItem[] = [
       // { name: "Stream Chat", localIconPath: "/tech-icons/stream-chat.png" },
       // { name: "Wiredash",    localIconPath: "/tech-icons/wiredash.png"    },
     ],
-    privacyPolicy: {
-      lastUpdated: "2025-06-01",
-      contactEmail: "debapriyopaul.dp@gmail.com",
-      permissions: [],
-      thirdPartyServices: [
-        {
-          name: "Google Play Services",
-          privacyUrl: "https://policies.google.com/privacy",
-        },
-      ],
-      dataCollected: [
-        "Anonymized gameplay statistics (games played — no personal data)",
-        "Crash reports — no personal content is included",
-        "Device information such as OS version and device model, used for compatibility",
-      ],
-      isChildrenApp: false,
-    },
+    landingUrl: "/surround-it",
   },
 ];
 

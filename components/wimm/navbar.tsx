@@ -15,6 +15,7 @@ import { WIMM_IS_LIVE } from "@/lib/data/wimm";
 const NAV_LINKS = [
   { href: "#features", label: "Features" },
   { href: "#how-it-works", label: "How It Works" },
+  { href: "#screens", label: "Screenshots" },
   { href: "#faq", label: "FAQ" },
 ];
 
@@ -111,7 +112,7 @@ export function WimmNavbar() {
       <div
         className={cn(
           "md:hidden overflow-hidden transition-all duration-200 border-b border-[#D8E8E0] bg-white/98 backdrop-blur-md",
-          mobileOpen ? "max-h-72 opacity-100" : "max-h-0 opacity-0",
+          mobileOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0",
         )}
         aria-hidden={!mobileOpen}
       >

@@ -4,6 +4,7 @@ import { WimmTrust } from "@/components/wimm/trust";
 import { WimmYourPrivacy } from "@/components/wimm/your-privacy";
 import { WimmFeatures } from "@/components/wimm/features";
 import { WimmHowItWorks } from "@/components/wimm/how-it-works";
+import { WimmScreens } from "@/components/wimm/screens";
 import { WimmBenefits } from "@/components/wimm/benefits";
 import { WimmWaitlistSection } from "@/components/wimm/waitlist-section";
 import { WimmFaq } from "@/components/wimm/faq";
@@ -28,6 +29,7 @@ export default function WimmPage() {
         <WimmYourPrivacy />
         <WimmFeatures />
         <WimmHowItWorks />
+        <WimmScreens />
         <WimmBenefits />
         <WimmWaitlistSection />
         <WimmFaq />
